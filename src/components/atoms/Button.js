@@ -1,80 +1,95 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 
-const Button = ({ children, ...rest }) => {
+const Button = (props) => {
+  const {
+    text,
+    _onClick,
+    children,
+    margin,
+    width,
+    padding,
+    text_color,
+    disabled,
+    radius,
+    bgColor,
+    opacity,
+    color,
+    className,
+    mainBtn,
+  } = props;
+
+  const styles = {
+    margin: margin,
+    width: width,
+    padding: padding,
+    disabled: disabled,
+    radius: radius,
+    bgColor: bgColor,
+    opacity: opacity,
+    color: color,
+    className: className,
+  };
+  if (mainBtn) {
+    return (
+      <React.Fragment>
+        <MainBtn {...styles} onClick={_onClick}>
+          {text ? text : children}
+        </MainBtn>
+      </React.Fragment>
+    );
+  }
   return (
-    <BtnBx {...rest} onClick={rest._onClick} type={rest.type}>
-      {children}
-    </BtnBx>
+    <React.Fragment>
+      <ElButton {...styles} onClick={_onClick}>
+        {text ? text : children}
+      </ElButton>
+    </React.Fragment>
   );
 };
 
 Button.defaultProps = {
+  text_color: false,
+  text: false,
+  children: null,
+  _onClick: () => {},
+  is_float: false,
+  margin: false,
   width: "100%",
-  height: "20px",
-  backgroundColor: "#111",
-  color: "#fff",
-  margin: "auto",
-  fontSize: "50px",
+  padding: "12px 0px",
+  disabled: false,
+  radius: false,
+  bgColor: false,
+  opacity: 1,
+  color: "#ffffff",
+  className: false,
 };
-
-const BtnBx = styled.button`
-  ${(props) =>
-    props.disabled &&
-    css`
-      background-color: #ddd !important;
-      cursor: not-allowed !important;
-    `}
-  ${(props) =>
-    props.full
-      ? css`
-          width: 100%;
-        `
-      : `width: ${props.width}`};
-
-  ${(props) =>
-    props.large
-      ? css`
-          width: 200px;
-          height: 50px;
-        `
-      : `width: ${props.width}`};
-
-  ${(props) =>
-    props.small
-      ? css`
-          width: 100px;
-        `
-      : `width: ${props.width}`};
-
-  ${(props) =>
-    props.outline &&
-    css`
-      border: 2px solid #ff6b6b !important;
-      background-color: #fff;
-      color: #333;
-      transition: transform ease-in-out 200ms;
-      &:hover {
-        transform: scale(1.05);
-      }
-    `};
-
-  ${(props) =>
-    props.primary &&
-    css`
-      background-color: #ff6b6b;
-      color: #fff;
-      &:hover {
-        opacity: 80%;
-      }
-    `};
+//로그인, 회원가입화면 버튼
+const MainBtn = styled.button`
+  background-color: #0095f6;
+  color: #ffffff;
+  font-size: 14px;
+  margin: 0px 40px 6px;
+  padding: 5px 9px;
+  width: 268px;
+  height: 30px;
   border: none;
-  padding: 20px 20px;
-  border-radius: 8px;
+  border-radius: 5px;
+  font-weight: 600;
   cursor: pointer;
-  font-weight: 700;
-  font-size: ${(props) => props.fs};
-  background-color: ${(props) => props.bg};
-  margin: ${(props) => props.margin};
 `;
+
+//---- 기본 return Button ----
+const ElButton = styled.button`
+  width: ${(props) => props.width};
+  padding: ${(props) => props.padding};
+  box-sizing: border-box;
+  border: none;
+  ${(props) => (props.margin ? `margin: ${props.margin};` : "")};
+  position: ${(props) => (props.position ? `${props.position}` : "")};
+  background-color: ${(props) => (props.bgColor ? `${props.bgColor}` : "")};
+  ${(props) => (props.className ? `className: ${props.className}` : "")};
+  cursor: pointer;
+`;
+
 export default Button;

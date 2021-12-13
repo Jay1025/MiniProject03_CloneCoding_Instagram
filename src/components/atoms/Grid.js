@@ -8,7 +8,6 @@ const Grid = (props) => {
     padding,
     margin,
     bg,
-    center,
     children,
     _onClick,
     position,
@@ -27,7 +26,6 @@ const Grid = (props) => {
     margin: margin,
     padding: padding,
     bg: bg,
-    center: center,
     position: position,
     justify: justify,
     overflow: overflow,
@@ -48,12 +46,11 @@ const Grid = (props) => {
 Grid.defaultProps = {
   children: null,
   is_flex: false,
-  width: "100%",
+  width: false,
   height: false,
   padding: false,
   margin: false,
   bg: false,
-  center: false,
   position: false,
   justify: false,
   overflow: false,
@@ -82,5 +79,6 @@ const GridBox = styled.div`
     //Chrome, Safari, Opera
     display: none;
   }
+  /* border: 1px solid black; */
 `;
 export default Grid;
