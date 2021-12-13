@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import { Input } from "../atoms/index";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoMdPaperPlane } from "react-icons/io";
+import { IoSearch } from "react-icons/io5";
 import { FiPlusSquare } from "react-icons/fi";
 import {
   AiOutlineHome,
@@ -20,7 +20,10 @@ export default function Navi() {
             alt="insta_logo"
           />
         </ImgArea>
-        <Input type="text" width="268px" height="36px" padding="12px" />
+        <InputArea>
+          {/* <IoSearch /> */}
+          <Input style={{ border: "1px solid #999" }} />
+        </InputArea>
         <NavPages>
           <AiOutlineHome size="28" style={{ margin: "0 10px" }} />
           <IoMdPaperPlane size="28" style={{ margin: "0 10px" }} />
@@ -30,7 +33,7 @@ export default function Navi() {
           <img
             src=""
             alt="profile"
-            style={{ margin: "0 10px", width: "30px" }}
+            style={{ margin: "0 10px", width: "30px", borderRadius: "100%" }}
           />
         </NavPages>
       </NavWrap>
@@ -69,6 +72,21 @@ const ImgArea = styled.div`
 `;
 
 const Img = styled.image``;
+
+const InputArea = styled.div`
+  display: flex;
+  position: relative;
+`;
+
+const Input = styled.input`
+  width: 268px;
+  height: 36px;
+  padding: 12px;
+  /* border: 1px solid #eee; */
+  border-radius: 2px;
+  background-color: rgba(var(--b3f, 250, 250, 250), 1);
+  outline: none;
+`;
 
 const NavPages = styled.div`
   width: 36%;

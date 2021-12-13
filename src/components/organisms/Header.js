@@ -1,62 +1,86 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function Header() {
   return (
     <Wrap>
-      <ImgArea>
-        <ImgBox>
-          <Img
-            src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-            alt="wha?"
-          />
-        </ImgBox>
-        <Text>흐으음</Text>
-      </ImgArea>
-      <ImgArea>
-        <ImgBox>
-          <Img
-            src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-            alt="wha?"
-          />
-        </ImgBox>
-        <Text>흐으음</Text>
-      </ImgArea>
-      <ImgArea>
-        <ImgBox>
-          <Img
-            src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-            alt="wha?"
-          />
-        </ImgBox>
-        <Text>흐으음</Text>
-      </ImgArea>
-      <ImgArea>
-        <ImgBox>
-          <Img
-            src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-            alt="wha?"
-          />
-        </ImgBox>
-        <Text>흐으음</Text>
-      </ImgArea>
-      <ImgArea>
-        <ImgBox>
-          <Img
-            src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-            alt="wha?"
-          />
-        </ImgBox>
-        <Text>흐으음</Text>
-      </ImgArea>
-      <ImgArea>
-        <ImgBox>
-          <Img
-            src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-            alt="wha?"
-          />
-        </ImgBox>
-        <Text>흐으음</Text>
-      </ImgArea>
+      <Link to="/">
+        <ImgArea>
+          <ImgBox>
+            <Img
+              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              alt="wha?"
+            />
+          </ImgBox>
+          <Text>흐으음</Text>
+        </ImgArea>
+      </Link>
+      <Link to="/">
+        <ImgArea>
+          <ImgBox>
+            <Img
+              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              alt="wha?"
+            />
+          </ImgBox>
+          <Text>흐으음</Text>
+        </ImgArea>
+      </Link>
+      <Link to="/">
+        <ImgArea>
+          <ImgBox>
+            <Img
+              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              alt="wha?"
+            />
+          </ImgBox>
+          <Text>흐으음</Text>
+        </ImgArea>
+      </Link>
+      <Link to="/">
+        <ImgArea>
+          <ImgBox>
+            <Img
+              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              alt="wha?"
+            />
+          </ImgBox>
+          <Text>흐으음</Text>
+        </ImgArea>
+      </Link>
+      <Link to="/">
+        <ImgArea>
+          <ImgBox>
+            <Img
+              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              alt="wha?"
+            />
+          </ImgBox>
+          <Text>흐으음</Text>
+        </ImgArea>
+      </Link>
+      <Link to="/">
+        <ImgArea>
+          <ImgBox>
+            <Img
+              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              alt="wha?"
+            />
+          </ImgBox>
+          <Text>흐으음</Text>
+        </ImgArea>
+      </Link>
+      <Link to="/">
+        <ImgArea>
+          <ImgBox>
+            <Img
+              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              alt="wha?"
+            />
+          </ImgBox>
+          <Text>흐으음</Text>
+        </ImgArea>
+      </Link>
     </Wrap>
   );
 }
@@ -68,15 +92,16 @@ const Wrap = styled.div`
   margin-bottom: 24px;
   background-color: #fff;
   display: flex;
-  justify-content: space-between;
+  /* justify-content: center; */
   border: 1px solid #ddd;
   border-radius: 3px;
+  overflow: none;
 `;
 
 const ImgArea = styled.div`
   width: 60px;
   height: 84px;
-  margin: 0 20px;
+  margin: 0 10px;
   text-align: center;
 `;
 

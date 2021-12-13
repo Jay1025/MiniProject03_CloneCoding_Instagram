@@ -2,6 +2,7 @@ import Navigation from "../organisms/Navigation";
 import styled from "styled-components";
 import Header from "../organisms/Header";
 import Post from "../organisms/Post";
+import RightPosition from "../organisms/RightPosition";
 
 export default function Main() {
   return (
@@ -13,6 +14,7 @@ export default function Main() {
           <Post />
         </Center>
       </Wrap>
+      <RightPosition />
     </>
   );
 }
