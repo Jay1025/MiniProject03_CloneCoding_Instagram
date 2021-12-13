@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import Grid from "./Grid";
 import Text from "./Text";
 
 const Input = (props) => {
@@ -14,11 +13,19 @@ const Input = (props) => {
     width,
     padding,
     _value,
+    main_input,
   } = props;
+
+  if (main_input) {
+    return (
+      <React.Fragment>
+        <MainInput placeholder={placeholder}></MainInput>
+      </React.Fragment>
+    );
+  }
 
   return (
     <React.Fragment>
-      {/* <Grid> {label} </Grid> */}
       <Text>{label}</Text>
       <ElInput
         placeholder={placeholder}
@@ -34,13 +41,6 @@ const Input = (props) => {
     </React.Fragment>
   );
 };
-
-// const Eltextarea = styled.textarea`
-//   border: 1px solid #87cefa;
-//   width: 100%;
-//   padding: 12px 4px;
-//   box-sizing: border-box;
-// `;
 
 Input.defaultProps = {
   width: "100%",
@@ -59,4 +59,15 @@ const ElInput = styled.input`
   margin: ${(props) => props.margin};
 `;
 
+const MainInput = styled.input`
+  margin: 0px 40px 6px;
+  padding: 9px 0 7px 8px;
+  width: 268px;
+  height: 36px;
+  border-radius: 4px;
+  background: #fafafa;
+  text-overflow: ellipsis;
+  /* border: 0; */
+  border: 1px solid #dbdbdb;
+`;
 export default Input;
