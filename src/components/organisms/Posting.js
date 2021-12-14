@@ -2,12 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 
-export default function Posting({ className, visible, children, width }) {
+export default function Posting({
+  className,
+  visible,
+  children,
+  width,
+  outline,
+}) {
   return (
     <>
       <ModalOverlay visible={visible} />
       <ModalWrapper className={className} tabIndex="-1" visible={visible}>
-        <ModalInner tabIndex="0" className="modal-inner" width={width}>
+        <ModalInner
+          tabIndex="0"
+          className="modal-inner"
+          width={width}
+          style={{ outline: "none" }}
+        >
           {children}
         </ModalInner>
       </ModalWrapper>
@@ -55,4 +66,5 @@ const ModalInner = styled.div`
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;
+  outline: $((props) => props.outline);
 `;

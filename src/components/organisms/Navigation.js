@@ -1,37 +1,85 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+
+// react-icons
+import { NavLink, withRouter, useHistory } from "react-router-dom";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoMdPaperPlane } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { FiPlusSquare } from "react-icons/fi";
 import {
   AiOutlineHome,
-  AiFillCompass,
   AiOutlineCompass,
   AiOutlineHeart,
+  AiFillHome,
 } from "react-icons/ai";
 import { AiOutlinePicture, AiOutlineClose } from "react-icons/ai";
 import { BsPlayBtn } from "react-icons/bs";
 import Posting from "./Posting";
-import { RiSendBackward } from "react-icons/ri";
 
-export default function Navi() {
+// swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.min.css";
+import SwiperCore, { Navigation } from "swiper";
+
+function Navi({ location }) {
+  const history = useHistory();
+
+  SwiperCore.use([Navigation]);
+
   const [PostModal, setPostModal] = useState(false);
+  const [upload, setUpload] = useState([]);
+
+  const addUpload = (e) => {
+    e.preventDefault();
+
+    const selectedImgList = e.target.files;
+    console.log(selectedImgList);
+    const ImgUrlList = [...upload];
+
+    for (let i = 0; i < selectedImgList.length; i++) {
+      const ImgUrl = URL.createObjectURL(selectedImgList[i]);
+
+      ImgUrlList.push(ImgUrl);
+    }
+    setUpload(ImgUrlList);
+  };
+
+  const closeUpload = (e) => {
+    e.preventDefault();
+
+    setUpload([]);
+    setPostModal(false);
+  };
+
+  console.log(upload);
+
   return (
     <Wrap>
       <NavWrap>
-        <ImgArea>
+        <ImgArea onClick={() => history.push("/")}>
           <img
             src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
             alt="insta_logo"
           />
         </ImgArea>
         <InputArea>
-          {/* <IoSearch /> */}
+          <IoSearch
+            style={{ position: "absolute", right: "5px", top: "2px" }}
+            size="30"
+            color="#999"
+          />
           <Input style={{ border: "1px solid #999" }} />
         </InputArea>
         <NavPages>
-          <AiOutlineHome size="28" style={{ margin: "0 10px" }} />
+          <NavLink to="/">
+            {location.pathname === "/" ? (
+              <AiFillHome size="28" style={{ margin: "0 10px" }} />
+            ) : (
+              <AiOutlineHome size="28" style={{ margin: "0 10px" }} />
+            )}
+          </NavLink>
           <IoMdPaperPlane size="28" style={{ margin: "0 10px" }} />
           <FiPlusSquare
             size="28"
@@ -44,29 +92,60 @@ export default function Navi() {
             src=""
             alt="profile"
             style={{ margin: "0 10px", width: "30px", borderRadius: "100%" }}
-          />
+          />{" "}
         </NavPages>
       </NavWrap>
-      <Posting visible={PostModal} width="465px">
+      <Posting visible={PostModal} width="500px" outline="none">
         <PostingTitleArea>
           <PostingTitle>새 게시물 만들기</PostingTitle>
         </PostingTitleArea>
-        <PostingImgArea>
-          <PostingImg>
-            <div style={{ position: "relative", padding: "15px" }}>
-              <AiOutlinePicture size="75" />
-              <Skew>
-                <BsPlayBtn size="75" style={{ backgroundColor: "#fff" }} />
-              </Skew>
-            </div>
-            <ImgContent>사진과 동영상을 여기에 끌어다 놓으세요.</ImgContent>
-            <Label for="file">컴퓨터에서 선택</Label>
-            <input type="file" id="file" style={{ display: "none" }} multiple />
-          </PostingImg>
-          <ClosePosting>
-            <AiOutlineClose />
-          </ClosePosting>
-        </PostingImgArea>
+
+        {(upload.length !== 0 &&
+          upload.map((file, key) => {
+            return (
+              <>
+                <div
+                  key={key}
+                  style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    textAlign: "center",
+                  }}
+                >
+                  <img
+                    src={file}
+                    alt="userUploadImg"
+                    style={{ width: "400px" }}
+                  />
+                </div>
+              </>
+            );
+          })) || (
+          <PostingImgArea>
+            <PostingImg>
+              <ImgIconArea>
+                <AiOutlinePicture size="75" />
+                <Skew>
+                  <BsPlayBtn size="75" style={{ backgroundColor: "#fff" }} />
+                </Skew>
+              </ImgIconArea>
+              <ImgContent>사진과 동영상을 여기에 끌어다 놓으세요.</ImgContent>
+              <Label htmlFor="file">컴퓨터에서 선택</Label>
+              <input
+                type="file"
+                id="file"
+                style={{ display: "none" }}
+                multiple
+                accept="image/*, video/*"
+                onChange={addUpload}
+              />
+            </PostingImg>
+          </PostingImgArea>
+        )}
+
+        <ClosePosting onClick={closeUpload}>
+          <AiOutlineClose size="35" color="#fff" />
+        </ClosePosting>
       </Posting>
     </Wrap>
   );
@@ -100,6 +179,7 @@ const NavWrap = styled.div`
 
 const ImgArea = styled.div`
   width: 36%;
+  cursor: pointer;
 `;
 
 const Img = styled.image``;
@@ -141,6 +221,12 @@ const PostingImgArea = styled.div`
   height: 465px;
 `;
 
+const ImgIconArea = styled.div`
+  position: absolute;
+  top: 175px;
+  left: 190px;
+`;
+
 const PostingImg = styled.div`
   text-align: center;
 `;
@@ -148,14 +234,16 @@ const PostingImg = styled.div`
 const Skew = styled.div`
   transform: rotate(20deg);
   position: absolute;
-  top: 0;
-  right: 0;
-  left: 90px;
+  top: -20px;
+  left: 40px;
   /* background-color: #fff; */
   box-sizing: border-box;
   outline: none;
 `;
-const PostingTitle = styled.div``;
+const PostingTitle = styled.div`
+  font-weight: bold;
+  font-size: 16px;
+`;
 
 const ImgContent = styled.div`
   font-size: 22px;
@@ -176,6 +264,9 @@ const Label = styled.label`
 
 const ClosePosting = styled.div`
   position: fixed;
-  top: -100px;
-  right: -100px;
+  top: -60px;
+  right: -60px;
+  cursor: pointer;
 `;
+
+export default withRouter(Navi);
