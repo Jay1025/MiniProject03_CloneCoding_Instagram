@@ -17,6 +17,7 @@ const Button = (props) => {
     color,
     className,
     mainBtn,
+    profileBtn,
   } = props;
 
   const styles = {
@@ -36,6 +37,15 @@ const Button = (props) => {
         <MainBtn {...styles} onClick={_onClick}>
           {text ? text : children}
         </MainBtn>
+      </React.Fragment>
+    );
+  }
+  if (profileBtn) {
+    return (
+      <React.Fragment>
+        <ProfileBtn {...styles} onClick={_onClick}>
+          {text ? text : children}
+        </ProfileBtn>
       </React.Fragment>
     );
   }
@@ -64,6 +74,7 @@ Button.defaultProps = {
   color: "#ffffff",
   className: false,
 };
+
 //로그인, 회원가입화면 버튼
 const MainBtn = styled.div`
   background-color: #0095f6;
@@ -79,6 +90,18 @@ const MainBtn = styled.div`
   justify-content: center;
   display: flex;
   line-height: 1.5;
+  cursor: pointer;
+`;
+
+//프로필 편집 버튼
+const ProfileBtn = styled.button`
+  border: 1px solid #dbdbdb;
+  border-radius: 4px;
+  margin: 0 20px;
+  padding: 5px 9px;
+  font-weight: 600;
+  text-align: center;
+  background: none;
   cursor: pointer;
 `;
 

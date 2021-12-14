@@ -19,6 +19,7 @@ const Grid = (props) => {
     radius,
     className,
     align,
+    borderB,
   } = props;
 
   const styles = {
@@ -36,6 +37,7 @@ const Grid = (props) => {
     radius: radius,
     className: className,
     align: align,
+    borderB: borderB,
   };
 
   return (
@@ -48,21 +50,6 @@ const Grid = (props) => {
 };
 
 Grid.defaultProps = {
-  children: null,
-  is_flex: false,
-  width: false,
-  height: false,
-  padding: false,
-  margin: false,
-  bg: false,
-  color: false,
-  position: false,
-  justify: false,
-  overflow: false,
-  border: false,
-  className: false,
-  align: false,
-  // radius: false,
   _onClick: () => {},
 };
 
@@ -79,6 +66,7 @@ const GridBox = styled.div`
   ${(props) => (props.is_flex ? "display: flex; align-items: center;" : "")}
   ${(props) => (props.position ? `position: ${props.position};` : "")}
   ${(props) => (props.border ? `border: ${props.border};` : "")}
+  ${(props) => (props.borderB ? `border-bottom: ${props.borderB};` : "")}
   ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
   ${(props) => (props.overflow ? `overflow: ${props.overflow};` : "")}
   ${(props) => (props.className ? `className: ${props.className};` : "")}
