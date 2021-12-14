@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import styled from "styled-components";
 import { GrHomeRounded } from "react-icons/gr";
 import { IoMdPaperPlane } from "react-icons/io";
@@ -9,8 +10,13 @@ import {
   AiOutlineCompass,
   AiOutlineHeart,
 } from "react-icons/ai";
+import { AiOutlinePicture, AiOutlineClose } from "react-icons/ai";
+import { BsPlayBtn } from "react-icons/bs";
+import Posting from "./Posting";
+import { RiSendBackward } from "react-icons/ri";
 
 export default function Navi() {
+  const [PostModal, setPostModal] = useState(false);
   return (
     <Wrap>
       <NavWrap>
@@ -27,7 +33,11 @@ export default function Navi() {
         <NavPages>
           <AiOutlineHome size="28" style={{ margin: "0 10px" }} />
           <IoMdPaperPlane size="28" style={{ margin: "0 10px" }} />
-          <FiPlusSquare size="28" style={{ margin: "0 10px" }} />
+          <FiPlusSquare
+            size="28"
+            style={{ margin: "0 10px" }}
+            onClick={() => setPostModal(true)}
+          />
           <AiOutlineCompass size="28" style={{ margin: "0 10px" }} />
           <AiOutlineHeart size="28" style={{ margin: "0 10px" }} />
           <img
@@ -37,6 +47,27 @@ export default function Navi() {
           />
         </NavPages>
       </NavWrap>
+      <Posting visible={PostModal} width="465px">
+        <PostingTitleArea>
+          <PostingTitle>새 게시물 만들기</PostingTitle>
+        </PostingTitleArea>
+        <PostingImgArea>
+          <PostingImg>
+            <div style={{ position: "relative", padding: "15px" }}>
+              <AiOutlinePicture size="75" />
+              <Skew>
+                <BsPlayBtn size="75" style={{ backgroundColor: "#fff" }} />
+              </Skew>
+            </div>
+            <ImgContent>사진과 동영상을 여기에 끌어다 놓으세요.</ImgContent>
+            <Label for="file">컴퓨터에서 선택</Label>
+            <input type="file" id="file" style={{ display: "none" }} multiple />
+          </PostingImg>
+          <ClosePosting>
+            <AiOutlineClose />
+          </ClosePosting>
+        </PostingImgArea>
+      </Posting>
     </Wrap>
   );
 }
@@ -92,4 +123,59 @@ const NavPages = styled.div`
   width: 36%;
   display: flex;
   justify-content: flex-end;
+`;
+
+const PostingTitleArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
+  border-bottom: 1px solid #ccc;
+  padding: 18px;
+`;
+
+const PostingImgArea = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 465px;
+`;
+
+const PostingImg = styled.div`
+  text-align: center;
+`;
+
+const Skew = styled.div`
+  transform: rotate(20deg);
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 90px;
+  /* background-color: #fff; */
+  box-sizing: border-box;
+  outline: none;
+`;
+const PostingTitle = styled.div``;
+
+const ImgContent = styled.div`
+  font-size: 22px;
+  color: #262626;
+  padding-bottom: 30px;
+`;
+
+const Label = styled.label`
+  width: 88px;
+  height: 18px;
+  background-color: #0095f6;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 3px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+const ClosePosting = styled.div`
+  position: fixed;
+  top: -100px;
+  right: -100px;
 `;

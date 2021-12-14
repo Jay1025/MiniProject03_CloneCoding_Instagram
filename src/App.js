@@ -7,6 +7,7 @@ import { Switch, Route } from "react-router-dom";
 import Main from "./components/pages/Main";
 import Navigation from "./components/organisms/Navigation";
 import Login from "./components/pages/Login";
+import Modal from "react-modal";
 
 function App() {
   return (
@@ -21,4 +22,5 @@ function App() {
   );
 }
 
+Modal.setAppElement("#root");
 export default App;
