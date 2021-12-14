@@ -1,7 +1,7 @@
 .App {
   text-align: center;
 }
-
+/* 로그인, 회원가입 화면 CSS */
 .layout {
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
@@ -36,4 +36,9 @@
     margin: 0 40px 10px;
     text-align: center;
     margin: 0px 40px 6px;
+}
+
+.footerLayout {
+  margin: 0 auto 10px;
+  text-align: center;
 }

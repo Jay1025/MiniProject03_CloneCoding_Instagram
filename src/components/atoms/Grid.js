@@ -8,6 +8,7 @@ const Grid = (props) => {
     padding,
     margin,
     bg,
+    color,
     children,
     _onClick,
     position,
@@ -17,6 +18,7 @@ const Grid = (props) => {
     border,
     radius,
     className,
+    align,
   } = props;
 
   const styles = {
@@ -26,12 +28,14 @@ const Grid = (props) => {
     margin: margin,
     padding: padding,
     bg: bg,
+    color: color,
     position: position,
     justify: justify,
     overflow: overflow,
     border: border,
     radius: radius,
     className: className,
+    align: align,
   };
 
   return (
@@ -51,19 +55,22 @@ Grid.defaultProps = {
   padding: false,
   margin: false,
   bg: false,
+  color: false,
   position: false,
   justify: false,
   overflow: false,
   border: false,
   className: false,
+  align: false,
   // radius: false,
   _onClick: () => {},
 };
 
 const GridBox = styled.div`
-  max-width: 500px;
+  /* max-width: 500px; */
   width: ${(props) => props.width};
   box-sizing: border-box;
+  ${(props) => (props.color ? `color: ${props.color};` : "")}
   ${(props) => (props.height ? `height: ${props.height};` : "")}
   ${(props) => (props.justify ? `justify-content: ${props.justify};` : "")}
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
@@ -75,6 +82,7 @@ const GridBox = styled.div`
   ${(props) => (props.radius ? `border-radius: ${props.radius};` : "")}
   ${(props) => (props.overflow ? `overflow: ${props.overflow};` : "")}
   ${(props) => (props.className ? `className: ${props.className};` : "")}
+  ${(props) => (props.align ? `text-align: ${props.align};` : "")}
   &::-webkit-scrollbar {
     //Chrome, Safari, Opera
     display: none;

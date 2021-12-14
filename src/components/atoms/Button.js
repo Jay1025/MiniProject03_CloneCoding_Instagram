@@ -65,17 +65,20 @@ Button.defaultProps = {
   className: false,
 };
 //로그인, 회원가입화면 버튼
-const MainBtn = styled.button`
+const MainBtn = styled.div`
   background-color: #0095f6;
   color: #ffffff;
   font-size: 14px;
-  margin: 0px 40px 6px;
+  margin: 15px 40px;
   padding: 5px 9px;
   width: 268px;
   height: 30px;
   border: none;
   border-radius: 5px;
   font-weight: 600;
+  justify-content: center;
+  display: flex;
+  line-height: 1.5;
   cursor: pointer;
 `;
 

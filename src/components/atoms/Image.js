@@ -2,7 +2,7 @@ import styled from "styled-components";
 import React from "react";
 
 const Image = (props) => {
-  const { shape, src, size, height, width, margin } = props;
+  const { shape, src, size, height, width, margin, _onClick } = props;
 
   const styles = {
     src: src,
@@ -10,6 +10,7 @@ const Image = (props) => {
     width: width,
     height: height,
     margin: margin,
+    _onClick: _onClick,
   };
 
   if (shape === "circle") {
@@ -24,6 +25,13 @@ const Image = (props) => {
     );
   }
 
+  if (shape === "imgBtn") {
+    return (
+      <AspectOutter>
+        <ImgBtn {...styles} onClick={_onClick} />
+      </AspectOutter>
+    );
+  }
   return <React.Fragment></React.Fragment>;
 };
 
@@ -32,6 +40,7 @@ Image.defaultProps = {
   src: "",
   size: 36,
   margin: false,
+  _onClick: () => {},
 };
 
 const AspectOutter = styled.div`
@@ -58,4 +67,14 @@ const ImageCircle = styled.div`
   background-size: cover;
 `;
 
+const ImgBtn = styled.div`
+  position: relative;
+  overflow: hidden;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  margin: ${(props) => props.margin};
+  ${(props) => (props.src ? `background-image: url(${props.src});` : "")}
+  background-size: cover;
+  cursor: pointer;
+`;
 export default Image;
