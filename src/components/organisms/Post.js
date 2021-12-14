@@ -36,7 +36,7 @@ export default function Post() {
         </PostHeader>
         <PostCenter>
           <PostMainImg
-            src="https://lh3.googleusercontent.com/proxy/dqmEALVjMrft2rsEZuyHXpRTSksTrRZvHsfkU2z_-feJUrfCPQRcg6i4FH--31_9LSs_nsUhz1z-lLg6yQPEaeJN5QKaNz_TcGfwP5xaZpEx46SXdqDxIHoGjNyv-eenI8wmHe_2uSKWpQ"
+            src="https://lh3.googleusercontent.com/proxy/72nHZFdNCuzpwJ6Mwq0ASZWWLyVFxMP6Sq8qeH7v_S8hmgu9chKnTfpPI3zKyc_J4PKFsBjkHkPKClIqEgfFd0QBZYxuD8rFMo2npLRJwpIChZjtI3xzioAwu_uZveaDcSRtPxwEO7_XwQ"
             alt="지구본"
           />
         </PostCenter>
@@ -113,7 +113,7 @@ export default function Post() {
         </PostHeader>
         <PostCenter>
           <PostMainImg
-            src="https://lh3.googleusercontent.com/proxy/dqmEALVjMrft2rsEZuyHXpRTSksTrRZvHsfkU2z_-feJUrfCPQRcg6i4FH--31_9LSs_nsUhz1z-lLg6yQPEaeJN5QKaNz_TcGfwP5xaZpEx46SXdqDxIHoGjNyv-eenI8wmHe_2uSKWpQ"
+            src="https://lh3.googleusercontent.com/proxy/72nHZFdNCuzpwJ6Mwq0ASZWWLyVFxMP6Sq8qeH7v_S8hmgu9chKnTfpPI3zKyc_J4PKFsBjkHkPKClIqEgfFd0QBZYxuD8rFMo2npLRJwpIChZjtI3xzioAwu_uZveaDcSRtPxwEO7_XwQ"
             alt="지구본"
           />
         </PostCenter>

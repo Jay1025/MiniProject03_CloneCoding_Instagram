@@ -8,6 +8,7 @@ import Main from "./components/pages/Main";
 import Navigation from "./components/organisms/Navigation";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
+import Modal from "react-modal";
 
 function App() {
   return (
@@ -23,4 +24,5 @@ function App() {
   );
 }
 
+Modal.setAppElement("#root");
 export default App;
