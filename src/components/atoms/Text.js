@@ -14,6 +14,7 @@ const Text = (props) => {
     span,
     padding,
     _onClick,
+    profileText,
   } = props;
 
   const styles = {
@@ -36,6 +37,10 @@ const Text = (props) => {
   }
   if (span) {
     return <Span>{children}</Span>;
+  }
+
+  if (profileText) {
+    return <Protext>{children}</Protext>;
   }
 
   return <P {...styles}>{children}</P>;
@@ -61,6 +66,13 @@ const Span = styled.span`
   padding: 0 5px;
   color: #8e8e8e;
   size: 12px;
+`;
+
+const Protext = styled.div`
+  color: #262626;
+  font-size: 16px;
+  font-weight: 600;
+  margin-right: 45px;
 `;
 
 const P = styled.p`

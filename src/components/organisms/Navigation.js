@@ -152,7 +152,7 @@ function Navi({ location }) {
 }
 
 const Wrap = styled.div`
-  width: 1440px;
+  width: 100%;
   height: 60px;
   justify-content: center;
   align-items: center;

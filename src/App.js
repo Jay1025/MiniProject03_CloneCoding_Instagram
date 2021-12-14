@@ -8,7 +8,7 @@ import Main from "./components/pages/Main";
 import Navigation from "./components/organisms/Navigation";
 import Login from "./components/pages/Login";
 import Signup from "./components/pages/Signup";
-import Modal from "react-modal";
+import Mypage from "./components/pages/Mypage";
 
 function App() {
   return (
@@ -18,11 +18,11 @@ function App() {
         <Route path="/" exact component={Main} />
         <Route path="/login" exact component={Login} />
         <Route path="/signup" exact component={Signup} />
+        <Route path="/mypage" exact component={Mypage} />
       </Switch>
       {/* <Navigation /> */}
     </>
   );
 }
 
-Modal.setAppElement("#root");
 export default App;

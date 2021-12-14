@@ -2,7 +2,17 @@ import styled from "styled-components";
 import React from "react";
 
 const Image = (props) => {
-  const { shape, src, size, height, width, margin, _onClick } = props;
+  const {
+    shape,
+    src,
+    size,
+    height,
+    width,
+    margin,
+    _onClick,
+    radius,
+    className,
+  } = props;
 
   const styles = {
     src: src,
@@ -11,10 +21,12 @@ const Image = (props) => {
     height: height,
     margin: margin,
     _onClick: _onClick,
+    radius: radius,
+    className: className,
   };
 
-  if (shape === "circle") {
-    return <ImageCircle {...styles} />;
+  if (shape === "myIcon") {
+    return <MyProfile {...styles} />;
   }
 
   if (shape === "rectangle") {
@@ -36,10 +48,12 @@ const Image = (props) => {
 };
 
 Image.defaultProps = {
-  shape: "circle",
-  src: "",
+  shape: "",
+  src: "https://fdn.gsmarena.com/imgroot/news/18/03/instagram-timeline-changes/-728/gsmarena_001.jpg",
   size: 36,
   margin: false,
+  radius: false,
+  className: false,
   _onClick: () => {},
 };
 
@@ -58,13 +72,13 @@ const AspectInner = styled.div`
   background-size: cover;
 `;
 
-const ImageCircle = styled.div`
-  --size: ${(props) => props.size}px;
-  width: var(--size);
-  height: var(--size);
-  border-radius: var(--size);
-  ${(props) => (props.src ? `background-image: url(${props.src});` : "")}
+const MyProfile = styled.div`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
   background-size: cover;
+  background-position: center;
+  ${(props) => (props.src ? `background-image: url(${props.src});` : "")}
 `;
 
 const ImgBtn = styled.div`
