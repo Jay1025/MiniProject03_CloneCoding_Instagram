@@ -40,10 +40,7 @@ export default function Post() {
           </PostMenu>
         </PostHeader>
         <PostCenter>
-          <PostMainImg
-            src="https://lh3.googleusercontent.com/proxy/72nHZFdNCuzpwJ6Mwq0ASZWWLyVFxMP6Sq8qeH7v_S8hmgu9chKnTfpPI3zKyc_J4PKFsBjkHkPKClIqEgfFd0QBZYxuD8rFMo2npLRJwpIChZjtI3xzioAwu_uZveaDcSRtPxwEO7_XwQ"
-            alt="지구본"
-          />
+          <PostMainImg src="" alt="지구본" />
         </PostCenter>
         <PostFooter>
           <FooterMenu>
@@ -132,8 +129,13 @@ export default function Post() {
           {commentModal && (
             <>
               <CommentDetail visible={commentModal} />
-              <ClosePosting onClick={() => setCommentModal(false)}>
-                <AiOutlineClose size="35" color="#fff" />
+              <ClosePosting
+                onClick={() => {
+                  setCommentModal(false);
+                  setCommentShow(false);
+                }}
+              >
+                <AiOutlineClose size="30" color="#fff" />
               </ClosePosting>
             </>
           )}
@@ -319,7 +321,8 @@ const Commenting = styled.div`
 
 const ClosePosting = styled.div`
   position: fixed;
-  top: 60px;
-  right: 60px;
+  top: 15px;
+  right: 15px;
   cursor: pointer;
+  z-index: 9999;
 `;

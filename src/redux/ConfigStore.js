@@ -18,8 +18,8 @@ export const history = createBrowserHistory();
 //---- rootReducer ----
 const rootReducer = combineReducers({
   // user: User,
-  post: Post,
-  user: User,
+  // post: Post,
+  // user: User,
   // post: Post,
 
   // image: Image,

@@ -9,6 +9,8 @@ export default function Posting({
   width,
   outline,
   maxWidth,
+  borderRadius,
+  padding,
 }) {
   return (
     <>
@@ -20,6 +22,8 @@ export default function Posting({
           width={width}
           maxWidth={maxWidth}
           style={{ outline: "none" }}
+          borderRadius={borderRadius}
+          padding={padding}
         >
           {children}
         </ModalInner>
@@ -62,11 +66,12 @@ const ModalInner = styled.div`
   position: relative;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: ${(props) => props.borderRadius};
   width: ${(props) => props.width};
   max-width: ${(props) => props.maxWidth};
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;
-  outline: $((props) => props.outline);
+  padding: ${(props) => props.padding};
+  outline: ${(props) => props.outline};
 `;
