@@ -19,7 +19,7 @@ const Input = (props) => {
   if (main_input) {
     return (
       <React.Fragment>
-        <MainInput placeholder={placeholder}></MainInput>
+        <MainInput placeholder={placeholder} onChange={_onChange}></MainInput>
       </React.Fragment>
     );
   }
@@ -60,7 +60,7 @@ const ElInput = styled.input`
 `;
 
 const MainInput = styled.input`
-  margin: 0px 40px 6px;
+  margin: 0px -30px 6px 40px;
   padding: 9px 0 7px 8px;
   width: 268px;
   height: 36px;
