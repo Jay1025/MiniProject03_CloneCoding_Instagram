@@ -8,6 +8,7 @@ export default function Posting({
   children,
   width,
   outline,
+  maxWidth,
 }) {
   return (
     <>
@@ -17,6 +18,7 @@ export default function Posting({
           tabIndex="0"
           className="modal-inner"
           width={width}
+          maxWidth={maxWidth}
           style={{ outline: "none" }}
         >
           {children}
@@ -62,7 +64,7 @@ const ModalInner = styled.div`
   background-color: #fff;
   border-radius: 10px;
   width: ${(props) => props.width};
-  /* max-width: 480px; */
+  max-width: ${(props) => props.maxWidth};
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;

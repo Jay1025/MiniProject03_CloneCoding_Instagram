@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
 
 // react-icons
 import { NavLink, withRouter, useHistory } from "react-router-dom";
 import { GrHomeRounded } from "react-icons/gr";
-import { IoMdPaperPlane } from "react-icons/io";
+import { IoMdPaperPlane, IoIosArrowRoundBack } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { FiPlusSquare } from "react-icons/fi";
 import {
@@ -15,45 +16,82 @@ import {
 } from "react-icons/ai";
 import { AiOutlinePicture, AiOutlineClose } from "react-icons/ai";
 import { BsPlayBtn } from "react-icons/bs";
-import Posting from "./Posting";
+import { CgSmile } from "react-icons/cg";
+import Modal from "./Posting";
 
 // swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
-import SwiperCore, { Navigation } from "swiper";
+import SwiperCore, { Navigation, Pagination } from "swiper";
+
+import { addPostDB } from "../../redux/post";
 
 function Navi({ location }) {
   const history = useHistory();
-
-  SwiperCore.use([Navigation]);
-
+  const dispatch = useDispatch();
+  const [swiper, setSwiper] = useState(null);
   const [PostModal, setPostModal] = useState(false);
-  const [upload, setUpload] = useState([]);
+  const [uploadFiles, setUploadFiles] = useState(null);
+  const [uploadURL, setUploadURL] = useState([]);
+  const [content, setContent] = useState("");
 
-  const addUpload = (e) => {
+  const username = localStorage.getItem("username");
+
+  SwiperCore.use([Navigation, Pagination]);
+
+  const swiperParams = {
+    navigation: true,
+    pagination: true,
+    onSwiper: setSwiper,
+  };
+
+  const handleContent = (e) => {
+    setContent(e.target.value);
+  };
+
+  const addUploadURL = (e) => {
     e.preventDefault();
 
     const selectedImgList = e.target.files;
-    console.log(selectedImgList);
-    const ImgUrlList = [...upload];
+    setUploadFiles(uploadFiles);
+    const ImgUrlList = [...uploadURL];
 
     for (let i = 0; i < selectedImgList.length; i++) {
       const ImgUrl = URL.createObjectURL(selectedImgList[i]);
 
       ImgUrlList.push(ImgUrl);
     }
-    setUpload(ImgUrlList);
+    setUploadURL(ImgUrlList);
   };
 
   const closeUpload = (e) => {
     e.preventDefault();
 
-    setUpload([]);
+    setUploadURL([]);
     setPostModal(false);
   };
 
-  console.log(upload);
+  const goBack = () => {
+    setUploadURL([]);
+  };
+
+  const addPost = () => {
+    const formdata = new FormData();
+    const data = {
+      username: username,
+      content: content,
+    };
+    formdata.append("files", uploadFiles);
+    formdata.append(
+      "data",
+      new Blob([JSON.stringify(data)], { type: "application/json" })
+    );
+
+    dispatch(addPostDB(formdata));
+  };
+
+  console.log(uploadURL);
 
   return (
     <Wrap>
@@ -95,32 +133,12 @@ function Navi({ location }) {
           />{" "}
         </NavPages>
       </NavWrap>
-      <Posting visible={PostModal} width="500px" outline="none">
-        <PostingTitleArea>
-          <PostingTitle>새 게시물 만들기</PostingTitle>
-        </PostingTitleArea>
+      {uploadURL.length === 0 && (
+        <Modal visible={PostModal} width="500px" outline="none">
+          <PostingTitleArea>
+            <PostingTitle>새 게시물 만들기</PostingTitle>
+          </PostingTitleArea>
 
-        {(upload.length !== 0 &&
-          upload.map((file, key) => {
-            return (
-              <>
-                <div
-                  key={key}
-                  style={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    textAlign: "center",
-                  }}
-                >
-                  <img
-                    src={file}
-                    alt="userUploadImg"
-                    style={{ width: "400px" }}
-                  />
-                </div>
-              </>
-            );
-          })) || (
           <PostingImgArea>
             <PostingImg>
               <ImgIconArea>
@@ -137,16 +155,111 @@ function Navi({ location }) {
                 style={{ display: "none" }}
                 multiple
                 accept="image/*, video/*"
-                onChange={addUpload}
+                onChange={addUploadURL}
               />
             </PostingImg>
           </PostingImgArea>
-        )}
 
-        <ClosePosting onClick={closeUpload}>
-          <AiOutlineClose size="35" color="#fff" />
-        </ClosePosting>
-      </Posting>
+          <ClosePosting onClick={closeUpload}>
+            <AiOutlineClose size="35" color="#fff" />
+          </ClosePosting>
+        </Modal>
+      )}
+      {uploadURL.length !== 0 && (
+        <Modal visible={PostModal} width="90%" maxWidth="853px" outline="none">
+          <PostingTitleArea>
+            <IoIosArrowRoundBack
+              style={{
+                fontSize: "50px",
+                position: "absolute",
+                left: "10px",
+                cursor: "pointer",
+              }}
+              onClick={goBack}
+            />
+            <PostingTitle>새 게시물 만들기</PostingTitle>
+            <UploadPost onClick={addPost}>등록하기</UploadPost>
+          </PostingTitleArea>
+
+          <MainSector>
+            <div
+              style={{
+                width: "60%",
+                borderRight: "1px solid #ccc",
+              }}
+            >
+              <Swiper {...swiperParams} ref={setSwiper}>
+                {uploadURL.length !== 0 &&
+                  uploadURL.map((file, key) => {
+                    return (
+                      <>
+                        <SwiperSlide
+                          style={{ margin: "auto", position: "relative" }}
+                        >
+                          <div
+                            style={{
+                              width: "100%",
+                              height: "480px",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                          >
+                            <img
+                              src={file}
+                              alt="userUploadImg"
+                              style={{
+                                maxWidth: "440px",
+                                maxHeight: "480px",
+                                display: "block",
+                              }}
+                            />
+                          </div>
+                        </SwiperSlide>
+                      </>
+                    );
+                  })}
+              </Swiper>
+            </div>
+            <MainRight>
+              <RightTop>
+                <UserInfo>
+                  <img
+                    src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                    alt="alts"
+                    style={{
+                      width: "28px",
+                      height: "28px",
+                      borderRadius: "100%",
+                      marginRight: "10px",
+                    }}
+                  />
+                  <div style={{ fontWeight: "bold" }}>username</div>
+                </UserInfo>
+                <Textarea
+                  placeholder="문구 입력..."
+                  autoComplete="off"
+                  autoCorrect="off"
+                  onChange={handleContent}
+                />
+                <TopOfBottom>
+                  <CgSmile
+                    size="23"
+                    style={{
+                      margin: "0 16px",
+                      cursor: "pointer",
+                    }}
+                  />
+                  <NumLetter>0/2,200</NumLetter>
+                </TopOfBottom>
+              </RightTop>
+            </MainRight>
+          </MainSector>
+          <ClosePosting onClick={closeUpload}>
+            <AiOutlineClose size="35" color="#fff" />
+          </ClosePosting>
+        </Modal>
+      )}
     </Wrap>
   );
 }
@@ -154,8 +267,6 @@ function Navi({ location }) {
 const Wrap = styled.div`
   width: 100%;
   height: 60px;
-  justify-content: center;
-  align-items: center;
   margin: 0 auto;
   background-color: #fff;
   position: fixed;
@@ -245,6 +356,14 @@ const PostingTitle = styled.div`
   font-size: 16px;
 `;
 
+const UploadPost = styled.div`
+  color: #0095f6;
+  position: absolute;
+  right: 10px;
+  font-size: 14px;
+  cursor: pointer;
+`;
+
 const ImgContent = styled.div`
   font-size: 22px;
   color: #262626;
@@ -267,6 +386,49 @@ const ClosePosting = styled.div`
   top: -60px;
   right: -60px;
   cursor: pointer;
+`;
+
+const MainSector = styled.div`
+  display: flex;
+`;
+
+const MainRight = styled.div`
+  width: 40%;
+`;
+
+const RightTop = styled.div`
+  border-bottom: 1px solid #ccc;
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 10px;
+`;
+
+const Textarea = styled.textarea`
+  resize: none;
+  display: block;
+  width: 100%;
+  height: 168px;
+  border: none;
+  padding: 10px;
+  outline: none;
+  font-size: 16px;
+`;
+
+const TopOfBottom = styled.div`
+  height: 36px;
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const NumLetter = styled.div`
+  padding: 10px;
+  font-size: 12px;
+  color: #999;
 `;
 
 export default withRouter(Navi);

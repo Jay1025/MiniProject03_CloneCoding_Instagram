@@ -157,13 +157,13 @@ const Wrap = styled.div`
   height: 415px;
   position: fixed;
   top: 130px;
-  right: 250px;
+  right: 15%;
+  left: 70%;
+  @media;
 `;
-// top: calc(34px + var(--desktop-nav-height));
 
 const MyProfile = styled.div`
   display: flex;
-  /* justify-content: center; */
   align-items: center;
 `;
 
@@ -191,6 +191,7 @@ const Transfer = styled.div`
   font-weight: 700;
   position: absolute;
   right: 0;
+  cursor: pointer;
 `;
 
 const OtherProfile = styled.div`
