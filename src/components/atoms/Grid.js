@@ -20,6 +20,8 @@ const Grid = (props) => {
     className,
     align,
     borderB,
+    wrap,
+    cursor,
   } = props;
 
   const styles = {
@@ -38,6 +40,8 @@ const Grid = (props) => {
     className: className,
     align: align,
     borderB: borderB,
+    wrap: wrap,
+    cursor: cursor,
   };
 
   return (
@@ -71,6 +75,8 @@ const GridBox = styled.div`
   ${(props) => (props.overflow ? `overflow: ${props.overflow};` : "")}
   ${(props) => (props.className ? `className: ${props.className};` : "")}
   ${(props) => (props.align ? `text-align: ${props.align};` : "")}
+  ${(props) => (props.wrap ? `flex-wrap: ${props.wrap};` : "")}
+  ${(props) => (props.cursor ? `cursor: ${props.cursor};` : "")}
   &::-webkit-scrollbar {
     //Chrome, Safari, Opera
     display: none;

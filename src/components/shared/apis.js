@@ -30,8 +30,14 @@ apiMultipart.interceptors.request.use(function (config) {
 
 export const apis = {
   //로그인, 회원가입
-  signUp: api.post("", {}),
-  signIn: api.post("", {}),
+  signUp: (id, fullname, username, pwd) =>
+    api.post("/auth/signup", {
+      email: id,
+      fullname: fullname,
+      username: username,
+      password: pwd,
+    }),
+  signIn: (id, pwd) => api.post("/auth/login", { email: id, password: pwd }),
 
   //포스팅
   getPost: api.get("", {}),

@@ -61,7 +61,7 @@ const Mypage = () => {
             <Text margin="0 0 0 6px">태그됨</Text>
           </Grid>
         </Grid>
-        <Grid is_flex margin="0 0 2em 0">
+        <Grid is_flex margin="0 0 2em 0" justify="space-between" wrap="wrap">
           <Image
             shape="imgBtn"
             src="https://play-lh.googleusercontent.com/h9jWMwqb-h9hjP4THqrJ50eIwPekjv7QPmTpA85gFQ10PjV02CoGAcYLLptqd19Sa1iJ=s180-rw"
