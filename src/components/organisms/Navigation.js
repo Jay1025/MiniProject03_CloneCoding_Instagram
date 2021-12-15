@@ -133,7 +133,12 @@ function Navi({ location }) {
         </NavPages>
       </NavWrap>
       {uploadURL.length === 0 && (
-        <Modal visible={PostModal} width="500px" outline="none">
+        <Modal
+          visible={PostModal}
+          width="500px"
+          borderRadius="10px"
+          outline="none"
+        >
           <PostingTitleArea>
             <PostingTitle>새 게시물 만들기</PostingTitle>
           </PostingTitleArea>
@@ -165,7 +170,13 @@ function Navi({ location }) {
         </Modal>
       )}
       {uploadURL.length !== 0 && (
-        <Modal visible={PostModal} width="90%" maxWidth="853px" outline="none">
+        <Modal
+          visible={PostModal}
+          width="90%"
+          maxWidth="853px"
+          borderRadius="10px"
+          outline="none"
+        >
           <PostingTitleArea>
             <IoIosArrowRoundBack
               style={{
