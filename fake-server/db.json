@@ -1,0 +1,22 @@
+{
+  "memo": [
+    {
+      "id": 1,
+      "email": "wodn1199@gmail.com",
+      "fullname": "김철수",
+      "username": "철수123"
+    },
+    {
+      "id": 2,
+      "email": "hanghae99@naver.com",
+      "fullname": "김항해",
+      "username": "hanghae123"
+    },
+    {
+      "email": "테스팅",
+      "fullname": "테스팅",
+      "username": "테스팅",
+      "id": 3
+    }
+  ]
+}
