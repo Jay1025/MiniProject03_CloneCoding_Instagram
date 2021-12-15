@@ -1,7 +1,8 @@
 import "./App.css";
 import GlobalStyles from "./components/shared/globalStyles";
-import Grid from "./components/atoms/Grid";
-
+import React from "react";
+import { useDispatch } from "react-redux";
+import { userCreators as userActions } from "./redux/user";
 import { Switch, Route } from "react-router-dom";
 
 import Main from "./components/pages/Main";
@@ -11,6 +12,15 @@ import Signup from "./components/pages/Signup";
 import Mypage from "./components/pages/Mypage";
 
 function App() {
+  const dispatch = useDispatch();
+  const is_local = localStorage.getItem("username") ? true : false;
+
+  React.useEffect(() => {
+    if (is_local) {
+      dispatch(userActions.loginCheckDB());
+    }
+  }, []);
+
   return (
     <>
       <GlobalStyles />

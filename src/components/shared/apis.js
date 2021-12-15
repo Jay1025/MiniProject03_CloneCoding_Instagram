@@ -52,7 +52,8 @@ export const apis = {
   // deleteComment: api.del("", {}),
 
   //마이페이지
-  mypage: api.get("", {}),
+  mypageInfo: api.get("/mypage/info", {}),
+  mypagePosts: api.get("/mypage/posts", {}),
 };
 
 export const apisMultipart = {

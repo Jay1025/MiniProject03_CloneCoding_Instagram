@@ -67,7 +67,6 @@ const MainInput = styled.input`
   border-radius: 4px;
   background: #fafafa;
   text-overflow: ellipsis;
-  /* border: 0; */
   border: 1px solid #dbdbdb;
 `;
 export default Input;

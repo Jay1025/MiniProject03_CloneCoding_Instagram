@@ -78,7 +78,6 @@ const GridBox = styled.div`
   ${(props) => (props.wrap ? `flex-wrap: ${props.wrap};` : "")}
   ${(props) => (props.cursor ? `cursor: ${props.cursor};` : "")}
   &::-webkit-scrollbar {
-    //Chrome, Safari, Opera
     display: none;
   }
   /* border: 1px solid black; */
