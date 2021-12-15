@@ -1,5 +1,8 @@
 import React from "react";
 import { history } from "../../redux/ConfigStore";
+import { useDispatch } from "react-redux";
+import { userCreators as userActions } from "../../redux/user";
+import styled from "styled-components";
 
 import { Grid, Image, Text, Input, Button } from "../atoms/index";
 import { AiFillFacebook } from "react-icons/ai";
@@ -7,6 +10,42 @@ import { AiFillFacebook } from "react-icons/ai";
 import Footer from "../organisms/Footer";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
+  //---- 아이디 비밀번호 ----
+  const [email, setEmail] = React.useState("");
+  const [pwd, setPwd] = React.useState("");
+
+  //---- 오류메시지 상태저장 ----
+  const [Message, setMessage] = React.useState("");
+
+  //---- 유효성 검사 ----
+  const [isState, setIsState] = React.useState(false);
+
+  const emailRegex =
+    /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
+
+  //---- email값 가져오기 ----
+  const emailCheck = (e) => {
+    const emailCurrent = e.target.value;
+    setEmail(emailCurrent);
+  };
+
+  //---- pwd값 가져오기 -----
+  const pwdCheck = (e) => {
+    setPwd(e.target.value);
+  };
+
+  const loginClick = (e) => {
+    if (!emailRegex.test(email) || pwd.length < 3 || pwd.length > 10) {
+      setMessage(`이메일 혹은 비밀번호를 다시 확인해 주십시오.`);
+      setIsState(false);
+    } else {
+      setIsState(true);
+      dispatch(userActions.loginDB(email, pwd));
+    }
+  };
+
   return (
     <React.Fragment>
       <Grid is_flex className="layout" width="935px" height="787px">
@@ -23,7 +62,7 @@ const Login = () => {
             margin="0 0 10px"
             padding="10px 0"
             border="1px solid #dbdbdb"
-            height="380px"
+            // height="380px"
           >
             <Image
               shape="rectangle"
@@ -33,20 +72,53 @@ const Login = () => {
               margin="22px auto 12px"
             />
             <Grid padding="20px 0">
-              <Input main_input placeholder="이메일"></Input>
-              <Input main_input placeholder="비밀번호"></Input>
-              <Button mainBtn text="로그인" />
+              {/* 이메일(ID)입력 */}
+              <Input
+                main_input
+                placeholder="이메일"
+                _onChange={emailCheck}
+              ></Input>
+              {/* Password 입력 */}
+              <Input
+                main_input
+                placeholder="비밀번호"
+                _onChange={pwdCheck}
+              ></Input>
+              {(!emailRegex.test(email) ||
+                pwd.length < 3 ||
+                pwd.length > 10) && <Span>{Message}</Span>}
 
+              {/* Login버튼 */}
+              <Button mainBtn text="로그인" _onClick={loginClick} />
+              {/* 아래는 뷰만 구현 */}
               <Text align="center" margin="10px 40px 18px" color="#8e8e8e">
                 ------------------ 또는 -----------------
               </Text>
-              <Grid is_flex color="#00376b" justify="center" margin="20px 0">
+              <Grid
+                is_flex
+                color="#00376b"
+                justify="center"
+                margin="20px 0"
+                cursor="pointer"
+                _onClick={() => {
+                  window.alert("준비 중 입니다.");
+                }}
+              >
                 <Grid margin="0 5px 0 0">
                   <AiFillFacebook size="20" />
                 </Grid>
                 Facebook으로 로그인하기
               </Grid>
-              <Grid size="12px" color="#00376b" align="center" margin="10px 0">
+              <Grid
+                size="12px"
+                color="#00376b"
+                align="center"
+                margin="10px 0"
+                cursor="pointer"
+                _onClick={() => {
+                  window.alert("준비 중 입니다.");
+                }}
+              >
                 비밀번호를 잊으셨나요?
               </Grid>
             </Grid>
@@ -82,6 +154,10 @@ const Login = () => {
                 width="136px"
                 height="40px"
                 margin="0 0 0 40px"
+                _onClick={() => {
+                  window.location.href =
+                    "https://apps.apple.com/app/instagram/id389801252?vt=lo";
+                }}
               />
               <Image
                 shape="imgBtn"
@@ -89,6 +165,10 @@ const Login = () => {
                 width="136px"
                 height="40px"
                 margin="0 0 0 -70px"
+                _onClick={() => {
+                  window.location.href =
+                    "https://play.google.com/store/apps/details?id=com.instagram.android&referrer=utm_source%3Dinstagramweb&utm_campaign=loginPage&ig_mid=D1ACAFFB-6F51-4798-AE32-792EC2AC38EA&utm_content=lo&utm_medium=badge";
+                }}
               />
             </Grid>
           </Grid>
@@ -98,5 +178,11 @@ const Login = () => {
     </React.Fragment>
   );
 };
+
+const Span = styled.div`
+  margin-top: 10px;
+  text-align: center;
+  color: red;
+`;
 
 export default Login;
