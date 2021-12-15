@@ -4,8 +4,6 @@ import Modal from "./Posting";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import { AiOutlineClose } from "react-icons/ai";
-
 export default function Comment(props) {
   const [visible, setVisible] = useState(props.visible);
 

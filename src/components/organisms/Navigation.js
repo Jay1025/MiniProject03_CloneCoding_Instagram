@@ -4,7 +4,6 @@ import { useDispatch } from "react-redux";
 
 // react-icons
 import { NavLink, withRouter, useHistory } from "react-router-dom";
-import { GrHomeRounded } from "react-icons/gr";
 import { IoMdPaperPlane, IoIosArrowRoundBack } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
 import { FiPlusSquare } from "react-icons/fi";

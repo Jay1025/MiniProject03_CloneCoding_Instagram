@@ -67,13 +67,13 @@ const loginCheckDB = () => {
 };
 
 // ---- 로그아웃 DB ----
-// const logoutDB = () => {
-//   return function (dispatch, getState, { history }) {
-//     dispatch(logout());
-//     history.replace("/");
-//     localStorage.removeItem("username");
-//   };
-// };
+const logoutDB = () => {
+  return function (dispatch, getState, { history }) {
+    dispatch(logout());
+    history.replace("/");
+    localStorage.removeItem("username");
+  };
+};
 
 // ---- reducer ----
 export default handleActions(
@@ -96,8 +96,8 @@ export default handleActions(
 const userCreators = {
   loginDB,
   signUpDB,
-  // logoutDB,
   loginCheckDB,
+  logoutDB,
 };
 
 export { userCreators };

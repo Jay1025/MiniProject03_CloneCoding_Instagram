@@ -9,7 +9,6 @@ const Button = (props) => {
     margin,
     width,
     padding,
-    text_color,
     disabled,
     radius,
     bgColor,
