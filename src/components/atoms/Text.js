@@ -15,6 +15,9 @@ const Text = (props) => {
     padding,
     _onClick,
     profileText,
+    profileModal,
+    modalChoices,
+    cursor,
   } = props;
 
   const styles = {
@@ -27,6 +30,7 @@ const Text = (props) => {
     link: link,
     span: span,
     padding: padding,
+    cursor: cursor,
   };
   if (link) {
     return (
@@ -36,14 +40,30 @@ const Text = (props) => {
     );
   }
   if (span) {
-    return <Span>{children}</Span>;
+    return <Span {...styles}>{children}</Span>;
   }
 
   if (profileText) {
-    return <Protext>{children}</Protext>;
+    return <Protext {...styles}>{children}</Protext>;
   }
 
-  return <P {...styles}>{children}</P>;
+  if (profileModal) {
+    return <ModalTitle {...styles}>{children}</ModalTitle>;
+  }
+
+  if (modalChoices) {
+    return (
+      <ModalDetail {...styles} onClick={_onClick}>
+        {children}
+      </ModalDetail>
+    );
+  }
+
+  return (
+    <P {...styles} onClick={_onClick}>
+      {children}
+    </P>
+  );
 };
 
 Text.defaultProps = {
@@ -78,5 +98,22 @@ const P = styled.p`
   ${(props) => (props.className ? `className: ${props.className};` : "")}
   ${(props) => (props.align ? `text-align: ${props.align};` : "")}
   ${(props) => (props.padding ? `padding: ${props.padding};` : "")}
+  ${(props) => (props.cursor ? `cursor: ${props.cursor};` : "")}
+`;
+
+const ModalTitle = styled.div`
+  font-weight: 600;
+  font-size: 18px;
+  padding: 30px 0;
+  border-bottom: 1px solid #dbdbdb;
+`;
+
+const ModalDetail = styled.div`
+  font-weight: 800;
+  font-size: 14px;
+  padding: 17px 0;
+  border-bottom: 1px solid #dbdbdb;
+  cursor: pointer;
+  color: ${(props) => props.color};
 `;
 export default Text;
