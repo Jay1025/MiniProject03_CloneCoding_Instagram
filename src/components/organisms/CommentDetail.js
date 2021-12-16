@@ -6,6 +6,9 @@ import { Link } from "react-router-dom";
 
 import { AiOutlineClose, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
+import {IoMdPaperPlane} from 'react-icons/io'
+import { IoChatbubbleOutline } from "react-icons/io5";
+import { RiBookmarkLine } from "react-icons/ri";
 
 export default function Comment(props) {
   const [visible, setVisible] = useState(props.visible);
@@ -217,6 +220,37 @@ export default function Comment(props) {
                 </Contents>
               </Scroll>
             </ContentArea>
+            <RightFooter>
+              <FooterMenu>
+                {(like && (
+                  <AiFillHeart
+                    size="28"
+                    style={{ margin: "8px" }}
+                    onClick={() => setLike(false)}
+                    color="red"
+                  />
+                )) || (
+                  <AiOutlineHeart
+                    size="28"
+                    style={{ margin: "8px" }}
+                    onClick={() => setLike(true)}
+                  />
+                )}
+
+                <Link to="/">
+                  <IoChatbubbleOutline size="28" style={{ margin: "8px" }} />
+                </Link>
+                <Link to="/direct">
+                  <IoMdPaperPlane size="28" style={{ margin: "8px" }} />
+                </Link>
+                <Link to="/">
+                  <RiBookmarkLine
+                    size="28"
+                    style={{ position: "absolute", top: "10px", right: "8px" }}
+                  />
+                </Link>
+              </FooterMenu>
+            </RightFooter>
           </RightArea>
         </ModalArea>
       </Modal>
@@ -355,4 +389,11 @@ const Scroll = styled.div`
     display: none;
     width: 0 !important;
   }
+`;
+
+const RightFooter = styled.div``;
+
+const FooterMenu = styled.div`
+  padding: 8px;
+  position: relative;
 `;

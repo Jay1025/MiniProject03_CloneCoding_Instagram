@@ -189,7 +189,7 @@ const Login = () => {
             <Text
               link
               _onClick={() => {
-                history.push("/login");
+                history.push("/");
               }}
             >
               로그인

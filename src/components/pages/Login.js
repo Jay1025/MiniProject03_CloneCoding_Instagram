@@ -12,6 +12,21 @@ import Footer from "../organisms/Footer";
 const Login = () => {
   const dispatch = useDispatch();
 
+  // const imgArray = [
+  //   "https://www.instagram.com/static/images/homepage/screenshot2.jpg/6f03eb85463c.jpg",
+  //   "https://www.instagram.com/static/images/homepage/screenshot3.jpg/f0c687aa6ec2.jpg",
+  //   "https://www.instagram.com/static/images/homepage/screenshot4.jpg/842fe5699220.jpg",
+  //   "https://www.instagram.com/static/images/homepage/screenshot5.jpg/0a2d3016f375.jpg",
+  //   "https://www.instagram.com/static/images/homepage/screenshot1.jpg/d6bf0c928b5a.jpg",
+  // ];
+
+  // function showImage() {
+  //   const imgNum = Math.round(Math.random() * 4);
+  //    const RandomPic = imgArray[imgNum];
+  //   setTimeout(showImage, 5000);
+  // }
+  // window.onload = showImage();
+
   //---- 아이디 비밀번호 ----
   const [email, setEmail] = React.useState("");
   const [pwd, setPwd] = React.useState("");
@@ -55,6 +70,13 @@ const Login = () => {
             src="https://www.instagram.com/static/images/homepage/home-phones@2x.png/9364675fb26a.png"
             width="454px"
             height="618px"
+          />
+          <Image
+            shape="rectangle"
+            src="https://www.instagram.com/static/images/homepage/screenshot2.jpg/6f03eb85463c.jpg"
+            width="242px"
+            height="430px"
+            margin="-520px 0 0 150px"
           />
         </Grid>
         <Grid width="350px" margin="12px 0 0" padding="50px 0">

@@ -44,10 +44,6 @@ const Input = (props) => {
 
 Input.defaultProps = {
   width: "100%",
-  label: false,
-  placeholder: false,
-  _onChange: false,
-  margin: false,
 };
 
 const ElInput = styled.input`

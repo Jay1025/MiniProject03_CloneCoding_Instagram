@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
+import axios from "axios";
+import alert from "sweetalert";
 
 // react-icons
 import { NavLink, withRouter, useHistory } from "react-router-dom";
@@ -11,7 +13,6 @@ import {
   IoIosPaperPlane,
 } from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
-
 import {
   AiOutlineHome,
   AiOutlineCompass,
@@ -31,7 +32,7 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 
-import { addPostDB } from "../../redux/post";
+import { addPostDB, addPost } from "../../redux/post";
 
 function Navi({ location }) {
   const history = useHistory();
@@ -43,6 +44,7 @@ function Navi({ location }) {
   const [content, setContent] = useState("");
   const [heart, setHeart] = useState(false);
   const [postBtnColor, setPostBtnColor] = useState(false);
+  const [profileClick, setProfileClick] = useState(false);
 
   const username = localStorage.getItem("username");
 
@@ -56,17 +58,16 @@ function Navi({ location }) {
 
   const handleContent = (e) => {
     setContent(e.target.value);
+    console.log(e.target.value);
   };
 
-  const addUploadURL = (e) => {
+  const addUploadURL = async (e) => {
     e.preventDefault();
-
-    const selectedImgList = e.target.files;
-    setUploadFiles(uploadFiles);
+    setUploadFiles(e.target.files);
+    console.log(e.target.files);
     const ImgUrlList = [...uploadURL];
-
-    for (let i = 0; i < selectedImgList.length; i++) {
-      const ImgUrl = URL.createObjectURL(selectedImgList[i]);
+    for (let i = 0; i < e.target.files.length; i++) {
+      const ImgUrl = URL.createObjectURL(e.target.files[i]);
 
       ImgUrlList.push(ImgUrl);
     }
@@ -84,22 +85,32 @@ function Navi({ location }) {
     setUploadURL([]);
   };
 
-  const addPost = () => {
-    const formdata = new FormData();
-    const data = {
-      username: username,
-      content: content,
+  const addPost = async () => {
+    const accessToken = document.cookie.split("=")[1];
+    const config = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${accessToken}`,
+      },
     };
-    formdata.append("files", uploadFiles);
-    formdata.append(
-      "data",
-      new Blob([JSON.stringify(data)], { type: "application/json" })
-    );
+    let fd = new FormData();
+    // fd.append("imgUrl", uploadFiles);
 
-    dispatch(addPostDB(formdata));
+    for (let i = 0; i < uploadFiles.length; i++) {
+      fd.append("imgUrl", uploadFiles[i]);
+    }
+    fd.append("content", content);
+
+    return axios
+      .post("http://13.125.132.120/posts/", fd, config)
+      .then((res) => {
+        console.log(res);
+        alert("등록 성공");
+        setPostModal(false);
+        setPostBtnColor(false);
+        // dispatch(addPost());
+      });
   };
-
-  console.log(uploadURL);
 
   return (
     <Wrap>
@@ -190,11 +201,21 @@ function Navi({ location }) {
               onClick={() => setHeart(true)}
             />
           )}
+          {/* 로그아웃 모달창 */}
           <img
-            src=""
+            src="https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png"
             alt="profile"
-            style={{ margin: "0 10px", width: "30px", borderRadius: "100%" }}
-          />{" "}
+            style={{
+              margin: "0 10px",
+              width: "30px",
+              borderRadius: "100%",
+              cursor: "pointer",
+            }}
+            onClick={() => setProfileClick(true)}
+          />
+          {/* {profileClick && (
+            <SideBarModal showModal={showModal} closeModal={closeModal}></SideBarModal>
+          )} */}
         </NavPages>
       </NavWrap>
       {uploadURL.length === 0 && (
@@ -275,6 +296,7 @@ function Navi({ location }) {
                       <>
                         <SwiperSlide
                           style={{ margin: "auto", position: "relative" }}
+                          key={key}
                         >
                           <div
                             style={{
@@ -314,7 +336,9 @@ function Navi({ location }) {
                       marginRight: "10px",
                     }}
                   />
-                  <div style={{ fontWeight: "bold" }}>username</div>
+                  <div style={{ fontWeight: "bold" }}>
+                    {localStorage.getItem("username")}
+                  </div>
                 </UserInfo>
                 <Textarea
                   placeholder="문구 입력..."

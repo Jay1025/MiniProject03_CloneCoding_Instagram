@@ -48,10 +48,6 @@ const Text = (props) => {
 
 Text.defaultProps = {
   children: null,
-  className: false,
-  align: false,
-  span: false,
-  padding: false,
   _onClick: () => {},
 };
 

@@ -58,20 +58,12 @@ const Button = (props) => {
 };
 
 Button.defaultProps = {
-  text_color: false,
-  text: false,
   children: null,
   _onClick: () => {},
-  is_float: false,
-  margin: false,
   width: "100%",
   padding: "12px 0px",
-  disabled: false,
-  radius: false,
-  bgColor: false,
   opacity: 1,
   color: "#ffffff",
-  className: false,
 };
 
 //로그인, 회원가입화면 버튼

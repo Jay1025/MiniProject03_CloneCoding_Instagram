@@ -51,9 +51,6 @@ Image.defaultProps = {
   shape: "",
   src: "https://fdn.gsmarena.com/imgroot/news/18/03/instagram-timeline-changes/-728/gsmarena_001.jpg",
   size: 36,
-  margin: false,
-  radius: false,
-  className: false,
   _onClick: () => {},
 };
 
