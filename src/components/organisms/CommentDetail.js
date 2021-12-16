@@ -66,12 +66,12 @@ export default function Comment(props) {
                     >
                       <PostTitleImg
                         src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                        alt="누군가의이미지"
+                        alt="누군가의이미지123"
                       />
                     </PostTitleImgArea>
                   </div>
                   <Comments>
-                    <PostTitle>누군가의타이틀</PostTitle>
+                    <PostTitle>누군가의타이틀12</PostTitle>
                     <Commentna>
                       12123123121231231212312312123123121231231212312312123123
                       1212312312123123121231231212312312123123
