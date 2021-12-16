@@ -15,16 +15,8 @@ export const history = createBrowserHistory();
 
 //---- rootReducer ----
 const rootReducer = combineReducers({
-  // user: User,
-<<<<<<< HEAD
   post: Post,
   user: User,
-=======
-  // post: Post,
-  // user: User,
-  // post: Post,
-
->>>>>>> 5ffefb27dcdd220a5f9f94893c5c3d37cf332c2e
   // image: Image,
   router: connectRouter(history),
 });

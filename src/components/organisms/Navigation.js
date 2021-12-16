@@ -4,17 +4,24 @@ import { useDispatch } from "react-redux";
 
 // react-icons
 import { NavLink, withRouter, useHistory } from "react-router-dom";
-import { IoMdPaperPlane, IoIosArrowRoundBack } from "react-icons/io";
+import { GrHomeRounded } from "react-icons/gr";
+import {
+  IoMdPaperPlane,
+  IoIosArrowRoundBack,
+  IoIosPaperPlane,
+} from "react-icons/io";
 import { IoSearch } from "react-icons/io5";
-import { FiPlusSquare } from "react-icons/fi";
+
 import {
   AiOutlineHome,
   AiOutlineCompass,
   AiOutlineHeart,
   AiFillHome,
+  AiFillCompass,
+  AiFillHeart,
 } from "react-icons/ai";
 import { AiOutlinePicture, AiOutlineClose } from "react-icons/ai";
-import { BsPlayBtn } from "react-icons/bs";
+import { BsPlayBtn, BsPlusSquare, BsPlusSquareFill } from "react-icons/bs";
 import { CgSmile } from "react-icons/cg";
 import Modal from "./Posting";
 
@@ -34,6 +41,8 @@ function Navi({ location }) {
   const [uploadFiles, setUploadFiles] = useState(null);
   const [uploadURL, setUploadURL] = useState([]);
   const [content, setContent] = useState("");
+  const [heart, setHeart] = useState(false);
+  const [postBtnColor, setPostBtnColor] = useState(false);
 
   const username = localStorage.getItem("username");
 
@@ -107,24 +116,80 @@ function Navi({ location }) {
             size="30"
             color="#999"
           />
-          <Input style={{ border: "1px solid #999" }} />
+          <Input />
         </InputArea>
         <NavPages>
           <NavLink to="/">
             {location.pathname === "/" ? (
-              <AiFillHome size="28" style={{ margin: "0 10px" }} />
+              <AiFillHome
+                size="28"
+                style={{ margin: "0 10px", cursor: "pointer" }}
+              />
             ) : (
-              <AiOutlineHome size="28" style={{ margin: "0 10px" }} />
+              <AiOutlineHome
+                size="28"
+                style={{ margin: "0 10px", cursor: "pointer" }}
+              />
             )}
           </NavLink>
-          <IoMdPaperPlane size="28" style={{ margin: "0 10px" }} />
-          <FiPlusSquare
-            size="28"
-            style={{ margin: "0 10px" }}
-            onClick={() => setPostModal(true)}
-          />
-          <AiOutlineCompass size="28" style={{ margin: "0 10px" }} />
-          <AiOutlineHeart size="28" style={{ margin: "0 10px" }} />
+          <NavLink to="/direct">
+            {location.pathname === "/direct" ? (
+              <IoIosPaperPlane
+                size="28"
+                style={{ margin: "0 10px", cursor: "pointer" }}
+              />
+            ) : (
+              <IoMdPaperPlane
+                size="28"
+                style={{ margin: "0 10px", cursor: "pointer" }}
+              />
+            )}
+          </NavLink>
+          {postBtnColor ? (
+            <BsPlusSquareFill
+              size="28"
+              style={{ margin: "0 10px", cursor: "pointer" }}
+              onClick={() => {
+                setPostModal(false);
+                setPostBtnColor(false);
+              }}
+            />
+          ) : (
+            <BsPlusSquare
+              size="28"
+              style={{ margin: "0 10px", cursor: "pointer" }}
+              onClick={() => {
+                setPostModal(true);
+                setPostBtnColor(true);
+              }}
+            />
+          )}
+          <NavLink to="/explore">
+            {location.pathname === "/explore" ? (
+              <AiFillCompass
+                size="28"
+                style={{ margin: "0 10px", cursor: "pointer" }}
+              />
+            ) : (
+              <AiOutlineCompass
+                size="28"
+                style={{ margin: "0 10px", cursor: "pointer" }}
+              />
+            )}
+          </NavLink>
+          {heart ? (
+            <AiFillHeart
+              size="28"
+              style={{ margin: "0 10px", cursor: "pointer" }}
+              onClick={() => setHeart(false)}
+            />
+          ) : (
+            <AiOutlineHeart
+              size="28"
+              style={{ margin: "0 10px", cursor: "pointer" }}
+              onClick={() => setHeart(true)}
+            />
+          )}
           <img
             src=""
             alt="profile"
@@ -164,7 +229,12 @@ function Navi({ location }) {
             </PostingImg>
           </PostingImgArea>
 
-          <ClosePosting onClick={closeUpload}>
+          <ClosePosting
+            onClick={(e) => {
+              closeUpload(e);
+              setPostBtnColor(false);
+            }}
+          >
             <AiOutlineClose size="35" color="#fff" />
           </ClosePosting>
         </Modal>
@@ -265,7 +335,12 @@ function Navi({ location }) {
               </RightTop>
             </MainRight>
           </MainSector>
-          <ClosePosting onClick={closeUpload}>
+          <ClosePosting
+            onClick={(e) => {
+              closeUpload(e);
+              setPostBtnColor(false);
+            }}
+          >
             <AiOutlineClose size="35" color="#fff" />
           </ClosePosting>
         </Modal>
@@ -286,44 +361,53 @@ const Wrap = styled.div`
 
 const NavWrap = styled.div`
   max-width: 975px;
-  width: 975px;
+  /* width: 975px; */
   padding: 0 20px;
   display: flex;
   height: 60px;
   background-color: #fff;
   margin: auto;
   align-items: center;
-  justify-content: center;
-  /* position: fixed; */
+  /* justify-content: center; */
+  position: relative;
   border-bottom: 1px solid #ddd;
 `;
 
 const ImgArea = styled.div`
-  width: 36%;
+  width: 25%;
+  min-width: 250px;
   cursor: pointer;
+  display: block;
 `;
 
 const Img = styled.image``;
 
 const InputArea = styled.div`
   display: flex;
-  position: relative;
+  position: absolute;
+  right: 300px;
+
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const Input = styled.input`
   width: 268px;
   height: 36px;
   padding: 12px;
-  /* border: 1px solid #eee; */
-  border-radius: 2px;
-  background-color: rgba(var(--b3f, 250, 250, 250), 1);
+  border: none;
+  border-radius: 10px;
+  background-color: #eee;
   outline: none;
 `;
 
 const NavPages = styled.div`
-  width: 36%;
+  /* width: 36%; */
   display: flex;
   justify-content: flex-end;
+  position: absolute;
+  right: 0;
 `;
 
 const PostingTitleArea = styled.div`
