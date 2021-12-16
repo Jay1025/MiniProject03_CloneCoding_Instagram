@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "",
+  baseURL: "http://13.125.132.120",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -30,14 +30,14 @@ apiMultipart.interceptors.request.use(function (config) {
 
 export const apis = {
   //로그인, 회원가입
-  signUp: (id, fullname, username, pwd) =>
+  signup: (id, fullname, username, pwd) =>
     api.post("/auth/signup", {
       email: id,
       fullname: fullname,
       username: username,
       password: pwd,
     }),
-  signIn: (id, pwd) => api.post("/auth/login", { email: id, password: pwd }),
+  login: (id, pwd) => api.post("/auth/login", { email: id, password: pwd }),
 
   //포스팅
   getPost: api.get("", {}),

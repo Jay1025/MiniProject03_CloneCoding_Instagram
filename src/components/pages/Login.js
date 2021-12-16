@@ -12,22 +12,6 @@ import Footer from "../organisms/Footer";
 const Login = () => {
   const dispatch = useDispatch();
 
-  //----- 랜덤으로 사진 변경 ------
-  const imgArray = [
-    "https://www.instagram.com/static/images/homepage/screenshot2.jpg/6f03eb85463c.jpg",
-    "https://www.instagram.com/static/images/homepage/screenshot3.jpg/f0c687aa6ec2.jpg",
-    "https://www.instagram.com/static/images/homepage/screenshot4.jpg/842fe5699220.jpg",
-    "https://www.instagram.com/static/images/homepage/screenshot5.jpg/0a2d3016f375.jpg",
-    "https://www.instagram.com/static/images/homepage/screenshot1.jpg/d6bf0c928b5a.jpg",
-  ];
-
-  // function showImage() {
-  //   const imgNum = Math.round(Math.random() * 4);
-  //    const RandomPic = imgArray[imgNum];
-  //   setTimeout(showImage, 5000);
-  // }
-  // window.onload = showImage();
-
   //---- 아이디 비밀번호 ----
   const [email, setEmail] = React.useState("");
   const [pwd, setPwd] = React.useState("");
@@ -52,7 +36,7 @@ const Login = () => {
     setPwd(e.target.value);
   };
 
-  const loginClick = () => {
+  const loginClick = (e) => {
     if (!emailRegex.test(email) || pwd.length < 3 || pwd.length > 10) {
       setMessage(`이메일 혹은 비밀번호를 다시 확인해 주십시오.`);
       setIsState(false);
@@ -72,16 +56,14 @@ const Login = () => {
             width="454px"
             height="618px"
           />
-          <Image
-            shape="rectangle"
-            src="https://www.instagram.com/static/images/homepage/screenshot2.jpg/6f03eb85463c.jpg"
-            width="242px"
-            height="430px"
-            margin="-520px 0 0 150px"
-          />
         </Grid>
         <Grid width="350px" margin="12px 0 0" padding="50px 0">
-          <Grid margin="0 0 10px" padding="10px 0" border="1px solid #dbdbdb">
+          <Grid
+            margin="0 0 10px"
+            padding="10px 0"
+            border="1px solid #dbdbdb"
+            // height="380px"
+          >
             <Image
               shape="rectangle"
               src="https://www.instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
@@ -108,7 +90,6 @@ const Login = () => {
 
               {/* Login버튼 */}
               <Button mainBtn text="로그인" _onClick={loginClick} />
-
               {/* 아래는 뷰만 구현 */}
               <Text align="center" margin="10px 40px 18px" color="#8e8e8e">
                 ------------------ 또는 -----------------

@@ -96,6 +96,13 @@ const Wrap = styled.div`
   border: 1px solid #ddd;
   border-radius: 3px;
   overflow: none;
+
+  @media screen and (max-width: 920px) {
+    margin: auto;
+    margin-bottom: 24px;
+    width: 95%;
+    overflow: scroll;
+  }
 `;
 
 const ImgArea = styled.div`

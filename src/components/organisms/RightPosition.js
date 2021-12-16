@@ -8,21 +8,21 @@ export default function RightPosition() {
       <MyProfile>
         <Link to="/">
           <MyImg
-            src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-            alt="myProfile"
+            src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F9JGex%2Fbtq7CTVARWp%2Ff1pZigSCKq5nCkCh9QYD70%2Fimg.png"
+            alt="항해99"
           />
         </Link>
         <Name>
           <Link to="/">
-            <MyNickName>user nickname</MyNickName>
+            <MyNickName>팀스파르타</MyNickName>
           </Link>
-          <MyRealName>user realname</MyRealName>
+          <MyRealName>항해99</MyRealName>
         </Name>
-        <Transfer>전환</Transfer>
+        <Transfer>문의</Transfer>
       </MyProfile>
       <OtherProfile>
         <ForYou>
-          <div style={{ width: "248px" }}>회원님을 위한 추천</div>
+          <div style={{ width: "248px" }}>개발자 추천</div>
           <Link to="/">
             <div style={{ fontSize: "12px", color: "#000" }}>모두 보기</div>
           </Link>
@@ -30,77 +30,70 @@ export default function RightPosition() {
         <OtherPeople>
           <Link to="/">
             <OtherImg
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://avatars.githubusercontent.com/u/89363456?v=4"
               alt="myProfile"
             />
           </Link>
           <Name>
-            <Link to="/">
-              <MyNickName>user nickname</MyNickName>
+            <Link to="https://github.com/liamjeon">
+              <MyNickName>전익현</MyNickName>
             </Link>
-            <MyRealName>user status</MyRealName>
+            <MyRealName>Back-End Developer, Leader</MyRealName>
           </Name>
-          <Transfer>팔로우</Transfer>
+          <Link to="https://github.com/liamjeon">
+            <Transfer>깃허브</Transfer>
+          </Link>
         </OtherPeople>
         <OtherPeople>
           <Link to="/">
             <OtherImg
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://avatars.githubusercontent.com/u/87404676?v=4"
               alt="myProfile"
             />
           </Link>
           <Name>
-            <Link to="/">
-              <MyNickName>user nickname</MyNickName>
+            <Link to="https://github.com/Seungjun0906">
+              <MyNickName>김승준</MyNickName>
             </Link>
-            <MyRealName>user status</MyRealName>
+            <MyRealName>Back-End Developer</MyRealName>
           </Name>
-          <Transfer>팔로우</Transfer>
+          <Link to="https://github.com/Seungjun0906">
+            <Transfer>깃허브</Transfer>
+          </Link>
         </OtherPeople>
         <OtherPeople>
           <Link to="/">
             <OtherImg
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://avatars.githubusercontent.com/u/91178712?v=4"
               alt="myProfile"
             />
           </Link>
           <Name>
-            <Link to="/">
-              <MyNickName>user nickname</MyNickName>
+            <Link to="https://github.com/Jay1025">
+              <MyNickName>박재우</MyNickName>
             </Link>
-            <MyRealName>user status</MyRealName>
+            <MyRealName>Front-End Developer</MyRealName>
           </Name>
-          <Transfer>팔로우</Transfer>
+          <Link to="https://github.com/Jay1025">
+            <Transfer>깃허브</Transfer>
+          </Link>
         </OtherPeople>
         <OtherPeople>
           <Link to="/">
             <OtherImg
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://avatars.githubusercontent.com/u/92702096?v=4"
               alt="myProfile"
             />
           </Link>
           <Name>
-            <Link to="/">
-              <MyNickName>user nickname</MyNickName>
+            <Link to="https://github.com/O-h-y-o">
+              <MyNickName>김형래</MyNickName>
             </Link>
-            <MyRealName>user status</MyRealName>
+            <MyRealName>Front-End Developer</MyRealName>
           </Name>
-          <Transfer>팔로우</Transfer>
-        </OtherPeople>
-        <OtherPeople>
-          <Link to="/">
-            <OtherImg
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-              alt="myProfile"
-            />
+          <Link to="https://github.com/O-h-y-o">
+            <Transfer>깃허브</Transfer>
           </Link>
-          <Name>
-            <Link to="/">
-              <MyNickName>user nickname</MyNickName>
-            </Link>
-            <MyRealName>user status</MyRealName>
-          </Name>
-          <Transfer>팔로우</Transfer>
         </OtherPeople>
       </OtherProfile>
       <Footers>
@@ -146,7 +139,7 @@ export default function RightPosition() {
             <Link to="/">언어-</Link>
           </li>
         </ul>
-        <div>© 2021 INSTAGRAM FROM META</div>
+        <div>© 2021 DEC - TEAM9</div>
       </Footers>
     </Wrap>
   );
@@ -159,7 +152,9 @@ const Wrap = styled.div`
   top: 130px;
   right: 15%;
   left: 70%;
-  @media;
+  @media screen and (max-width: 920px) {
+    display: none;
+  }
 `;
 
 const MyProfile = styled.div`

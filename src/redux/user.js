@@ -27,7 +27,7 @@ export const signUpDB =
     try {
       await apis.signup(id, fullname, username, pwd);
       window.alert("회원가입이 완료되었습니다. 로그인 해주세요");
-      history.replace("/login");
+      history.push("/login");
     } catch (err) {
       console.log(`오류 발생!${err}`);
     }
@@ -40,8 +40,10 @@ export const loginDB =
     try {
       const response = await apis.login(id, pwd);
       console.log(response);
-      let username = response.data[0].username;
-      setCookie("token", response.data[1].token, 7);
+      let username = response.data.username;
+      console.log(username);
+      setCookie("token", response.data.token, 7);
+      console.log(setCookie("token", response.data.token, 7));
       localStorage.setItem("username", response.data[0].username);
       dispatch(setLogin(username));
       window.alert(`${username}님 환영합니다`);

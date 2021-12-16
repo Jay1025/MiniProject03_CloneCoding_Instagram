@@ -4,8 +4,12 @@ import Modal from "./Posting";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { AiOutlineClose, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { BsThreeDots } from "react-icons/bs";
+
 export default function Comment(props) {
   const [visible, setVisible] = useState(props.visible);
+  const [like, setLike] = useState(false);
 
   return (
     <>
@@ -30,19 +34,188 @@ export default function Comment(props) {
               <Link to="/">
                 <PostTitle>누군가의타이틀</PostTitle>
               </Link>
-              •<Follow>asd</Follow>
+              •<Follow>팔로우</Follow>
+              <MenuArea>
+                <BsThreeDots size="20" />
+              </MenuArea>
             </WriterInfo>
 
             <ContentArea>
-              <PostTitleImgArea>
-                <PostTitleImg
-                  src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                  alt="누군가의이미지"
-                />
-              </PostTitleImgArea>
-              <Link to="/">
-                <PostTitle>누군가의타이틀</PostTitle>
-              </Link>
+              <Scroll>
+                <Contents>
+                  <div
+                    style={{
+                      position: "relative",
+                      paddingLeft: "50px",
+                      paddingTop: "20px",
+                    }}
+                  >
+                    <Link to="/">
+                      <PostTitle style={{ marginBottom: "10px" }}>
+                        누군가의타이틀1
+                      </PostTitle>
+                    </Link>
+                    123123123123123123121231231231231233123123123123
+                    <ModifiedAt>X시간 전</ModifiedAt>
+                    <PostTitleImgArea
+                      style={{
+                        position: "absolute",
+                        top: "-10px",
+                        left: "-10px",
+                      }}
+                    >
+                      <PostTitleImg
+                        src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                        alt="누군가의이미지"
+                      />
+                    </PostTitleImgArea>
+                  </div>
+                  <Comments>
+                    <PostTitle>누군가의타이틀</PostTitle>
+                    <Commentna>
+                      12123123121231231212312312123123121231231212312312123123
+                      1212312312123123121231231212312312123123
+                    </Commentna>
+                    <CommentFooter>
+                      <Link to="/">
+                        <ModifiedAt>X시간 전</ModifiedAt>
+                      </Link>
+                      <Like>좋아요 X개</Like>
+                      <ReComment>답글 달기</ReComment>
+                    </CommentFooter>
+                    <PostTitleImgArea
+                      style={{
+                        position: "absolute",
+                        top: "-10px",
+                        left: "-10px",
+                      }}
+                    >
+                      <PostTitleImg
+                        src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                        alt="누군가의이미지"
+                      />
+                    </PostTitleImgArea>
+                    {(like && (
+                      <AiFillHeart
+                        size="13"
+                        style={{
+                          position: "absolute",
+                          top: "0",
+                          right: "10px",
+                        }}
+                        onClick={() => setLike(false)}
+                        color="red"
+                      />
+                    )) || (
+                      <AiOutlineHeart
+                        size="13"
+                        style={{
+                          position: "absolute",
+                          top: "0",
+                          right: "10px",
+                        }}
+                        onClick={() => setLike(true)}
+                      />
+                    )}
+                  </Comments>
+                  <Comments>
+                    <PostTitle>누군가의타이틀</PostTitle>
+                    <Commentna>
+                      12123123121231231212312312123123121231231212312312123123
+                      1212312312123123121231231212312312123123
+                    </Commentna>
+                    <CommentFooter>
+                      <Link to="/">
+                        <ModifiedAt>X시간 전</ModifiedAt>
+                      </Link>
+                      <Like>좋아요 X개</Like>
+                      <ReComment>답글 달기</ReComment>
+                    </CommentFooter>
+                    <PostTitleImgArea
+                      style={{
+                        position: "absolute",
+                        top: "-10px",
+                        left: "-10px",
+                      }}
+                    >
+                      <PostTitleImg
+                        src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                        alt="누군가의이미지"
+                      />
+                    </PostTitleImgArea>
+                    {(like && (
+                      <AiFillHeart
+                        size="13"
+                        style={{
+                          position: "absolute",
+                          top: "0",
+                          right: "10px",
+                        }}
+                        onClick={() => setLike(false)}
+                        color="red"
+                      />
+                    )) || (
+                      <AiOutlineHeart
+                        size="13"
+                        style={{
+                          position: "absolute",
+                          top: "0",
+                          right: "10px",
+                        }}
+                        onClick={() => setLike(true)}
+                      />
+                    )}
+                  </Comments>
+                  <Comments>
+                    <PostTitle>누군가의타이틀</PostTitle>
+                    <Commentna>
+                      12123123121231231212312312123123121231231212312312123123
+                      1212312312123123121231231212312312123123
+                    </Commentna>
+                    <CommentFooter>
+                      <Link to="/">
+                        <ModifiedAt>X시간 전</ModifiedAt>
+                      </Link>
+                      <Like>좋아요 X개</Like>
+                      <ReComment>답글 달기</ReComment>
+                    </CommentFooter>
+                    <PostTitleImgArea
+                      style={{
+                        position: "absolute",
+                        top: "-10px",
+                        left: "-10px",
+                      }}
+                    >
+                      <PostTitleImg
+                        src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                        alt="누군가의이미지"
+                      />
+                    </PostTitleImgArea>
+                    {(like && (
+                      <AiFillHeart
+                        size="13"
+                        style={{
+                          position: "absolute",
+                          top: "0",
+                          right: "10px",
+                        }}
+                        onClick={() => setLike(false)}
+                        color="red"
+                      />
+                    )) || (
+                      <AiOutlineHeart
+                        size="13"
+                        style={{
+                          position: "absolute",
+                          top: "0",
+                          right: "10px",
+                        }}
+                        onClick={() => setLike(true)}
+                      />
+                    )}
+                  </Comments>
+                </Contents>
+              </Scroll>
             </ContentArea>
           </RightArea>
         </ModalArea>
@@ -80,6 +253,7 @@ const WriterInfo = styled.div`
   display: flex;
   align-items: center;
   border-bottom: 1px solid #999;
+  position: relative;
 `;
 
 const PostTitleImgArea = styled.div`
@@ -96,6 +270,7 @@ const PostTitleImgArea = styled.div`
   justify-content: center;
   align-items: center;
   margin: 16px;
+
   cursor: pointer;
 `;
 
@@ -117,9 +292,67 @@ const PostTitle = styled.div`
 
 const Follow = styled.div`
   margin-left: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+`;
+
+const MenuArea = styled.div`
+  position: absolute;
+  right: 10px;
+  cursor: pointer;
 `;
 
 const ContentArea = styled.div`
   display: flex;
-  align-items: center;
+`;
+
+const Contents = styled.div`
+  word-break: break-all;
+`;
+
+const ModifiedAt = styled.div`
+  font-size: 10px;
+  color: #999;
+  padding: 20px 0 40px;
+`;
+
+const Comments = styled.div`
+  position: relative !important;
+  padding-left: 50px;
+`;
+
+const Commentna = styled.div`
+  margin-top: 5px;
+`;
+
+const CommentFooter = styled.div`
+  display: flex;
+`;
+
+const Like = styled.div`
+  font-size: 10px;
+  color: #777;
+  padding: 20px 0 40px 10px;
+`;
+
+const ReComment = styled.div`
+  font-size: 10px;
+  color: #777;
+  padding: 20px 0 40px 10px;
+`;
+
+const Scroll = styled.div`
+  width: 330px;
+  margin-top: 25px;
+  max-height: 400px;
+  overflow: scroll;
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+  }
 `;

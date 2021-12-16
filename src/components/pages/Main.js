@@ -25,9 +25,13 @@ const Wrap = styled.div`
   height: 1000px;
   position: relative;
   top: 80px;
+
+  @media screen and (max-width: 920px) {
+    width: 80%;
+  }
 `;
 
 const Center = styled.div`
-  max-width: 935px;
-  padding: 20px;
+  /* max-width: 935px; */
+  /* padding: 20px; */
 `;
