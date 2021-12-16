@@ -9,13 +9,12 @@ const api = axios.create({
 });
 
 const apiMultipart = axios.create({
-  baseURL: "",
+  baseURL: "http://13.125.132.120",
   headers: {
-    "content-type":
-      "multipart/form-data; boundary=----WebKitFormBoundaryfApYSlK1ODwmeKW3",
+    "content-type": "multipart/form-data; boundary=----WebKitFormBoundaryfApYSlK1ODwmeKW3",
   },
 });
-
+// 
 api.interceptors.request.use(function (config) {
   const accessToken = document.cookie.split("=")[1];
   config.headers.common["Authorization"] = `Bearer ${accessToken}`;
@@ -40,22 +39,23 @@ export const apis = {
   login: (id, pwd) => api.post("/auth/login", { email: id, password: pwd }),
 
   //포스팅
-  getPost: api.get("", {}),
-  writePost: api.post("", {}),
-  updatePost: api.put("", {}),
-  // deletePost: api.del("", {}),
+  getPost: () => api.get('/posts'),
+  // writePost: api.post("", {}),
+  // updatePost: api.put("", {}),
+  // // deletePost: api.del("", {}),
 
-  //댓글
-  getComment: api.get("", {}),
-  writeComment: api.post("", {}),
-  updateComment: api.put("", {}),
-  // deleteComment: api.del("", {}),
+  // //댓글
+  // getComment: api.get("", {}),
+  // writeComment: api.post("", {}),
+  // updateComment: api.put("", {}),
+  // // deleteComment: api.del("", {}),
 
-  //마이페이지
-  mypageInfo: api.get("/mypage/info", {}),
-  mypagePosts: api.get("/mypage/posts", {}),
+  // //마이페이지
+  // mypageInfo: api.get("/mypage/info", {}),
+  // mypagePosts: api.get("/mypage/posts", {}),
 };
 
 export const apisMultipart = {
-  addPost: (formdata) => api.post("/posts", { formdata }),
+  addPost: (formdata) =>
+    apiMultipart.post("/posts", { formdata }),
 };

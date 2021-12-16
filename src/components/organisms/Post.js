@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import {useSelector} from 'react-redux';
+
 import { BsThreeDots } from "react-icons/bs";
 import { AiOutlineHeart, AiFillHeart, AiOutlineClose } from "react-icons/ai";
 import { IoMdPaperPlane } from "react-icons/io";
@@ -16,322 +18,177 @@ export default function Post() {
   const [commentShow, setCommentShow] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
 
+  const data = useSelector((state) => state.post.list)
+  console.log(data)
+
   return (
     <>
-      <Wrap>
-        <PostHeader>
-          <HeaderLeft>
-            <Link to="/">
-              <PostTitleImgArea>
-                <PostTitleImg
-                  src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                  alt="누군가의이미지"
-                />
-              </PostTitleImgArea>
-            </Link>
-            <Link to="/">
-              <PostTitle>누군가의타이틀</PostTitle>
-            </Link>
-          </HeaderLeft>
-          <PostMenu>
-            <MenuArea>
-              <BsThreeDots size="20" />
-            </MenuArea>
-          </PostMenu>
-        </PostHeader>
-        <PostCenter>
-          <PostMainImg
-            src="http://www.volvogroup.com/content/dam/volvo-group/markets/master/careers/opportunities-for-students/1000x1000-instagram-logo.png"
-            alt="지구본"
-          />
-        </PostCenter>
-        <PostFooter>
-          <FooterMenu>
-            {(like && (
-              <AiFillHeart
-                size="28"
-                style={{ margin: "8px" }}
-                onClick={() => setLike(false)}
-                color="red"
+    {data && data.map((post, key) => {
+      return(
+        <Wrap key={key}>
+      <PostHeader>
+        <HeaderLeft>
+          <Link to="/">
+            <PostTitleImgArea>
+              <PostTitleImg
+                src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                alt="누군가의이미지"
               />
-            )) || (
-              <AiOutlineHeart
-                size="28"
-                style={{ margin: "8px" }}
-                onClick={() => setLike(true)}
-              />
-            )}
+            </PostTitleImgArea>
+          </Link>
+          <Link to="/">
+            <PostTitle>{post.username}</PostTitle>
+          </Link>
+        </HeaderLeft>
+        <PostMenu>
+          <MenuArea>
+            <BsThreeDots size="20" />
+          </MenuArea>
+        </PostMenu>
+      </PostHeader>
+      <PostCenter>
+        <PostMainImg
+          src="http://www.volvogroup.com/content/dam/volvo-group/markets/master/careers/opportunities-for-students/1000x1000-instagram-logo.png"
+          alt="지구본"
+        />
+      </PostCenter>
+      <PostFooter>
+        <FooterMenu>
+          {(like && (
+            <AiFillHeart
+              size="28"
+              style={{ margin: "8px" }}
+              onClick={() => setLike(false)}
+              color="red"
+            />
+          )) || (
+            <AiOutlineHeart
+              size="28"
+              style={{ margin: "8px" }}
+              onClick={() => setLike(true)}
+            />
+          )}
 
-            <Link to="/">
-              <IoChatbubbleOutline size="28" style={{ margin: "8px" }} />
-            </Link>
-            <Link to="/direct">
-              <IoMdPaperPlane size="28" style={{ margin: "8px" }} />
-            </Link>
-            <Link to="/">
-              <RiBookmarkLine size="28" style={{ margin: "8px" }} />
-            </Link>
-          </FooterMenu>
-          <LikeArea>
-            <Like>좋아요 X개</Like>
-          </LikeArea>
-          <PostContent>
-            <Link to="/">
-              <Username>username</Username>
-            </Link>
-            <ContentTitle>contentTitle</ContentTitle>
-            {contentMore && (
-              <ContentMore onClick={() => setContentMore(false)}>
-                <span
-                  style={{
-                    color: "#999",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    paddingLeft: "10px",
-                  }}
-                >
-                  내용 접기
-                </span>
-              </ContentMore>
-            )}
-            {contentMore || (
-              <ContentMore onClick={() => setContentMore(true)}>
-                <span>... </span>
-                <span
-                  style={{
-                    color: "#999",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                  }}
-                >
-                  더 보기
-                </span>
-              </ContentMore>
-            )}
-          </PostContent>
+          <Link to="/">
+            <IoChatbubbleOutline size="28" style={{ margin: "8px" }} />
+          </Link>
+          <Link to="/direct">
+            <IoMdPaperPlane size="28" style={{ margin: "8px" }} />
+          </Link>
+          <Link to="/">
+            <RiBookmarkLine
+              size="28"
+              style={{ position: "absolute", top: "10px", right: "8px" }}
+            />
+          </Link>
+        </FooterMenu>
+        <LikeArea>
+          <Like>좋아요 X개</Like>
+        </LikeArea>
+        <PostContent>
+          <Link to="/">
+            <Username>{post.username}</Username>
+          </Link>
+          <ContentTitle>{post.content}</ContentTitle>
           {contentMore && (
-            <>
-              <Content>
-                컨텐츠 내용입니다. <br /> 컨텐츠 내용입니다.
-              </Content>
-            </>
-          )}
-          {commentShow || (
-            <CommentsShow
-              onClick={() => {
-                setCommentShow(true);
-                setCommentModal(true);
-              }}
-            >
-              댓글 X개 모두 보기
-            </CommentsShow>
-          )}
-          {commentModal && (
-            <>
-              <CommentDetail visible={commentModal} />
-              <ClosePosting
-                onClick={() => {
-                  setCommentModal(false);
-                  setCommentShow(false);
+            <ContentMore onClick={() => setContentMore(false)}>
+              <span
+                style={{
+                  color: "#999",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                  paddingLeft: "10px",
                 }}
               >
-                <AiOutlineClose size="30" color="#fff" />
-              </ClosePosting>
-            </>
+                내용 접기
+              </span>
+            </ContentMore>
           )}
-
-          {commentShow && (
-            <>
-              <CommentsShow onClick={() => setCommentShow(false)}>
-                댓글 접기
-              </CommentsShow>
-              <div style={{ display: "flex" }}>
-                <Username style={{ padding: "0 6px 0 16px" }}>
-                  username
-                </Username>
-                <Comments>댓글입니다!!</Comments>
-              </div>
-            </>
-          )}
-          <Link to="/">
-            <ModifiedAt>X시간 전</ModifiedAt>
-          </Link>
-          <WriteComment>
-            <CgSmile
-              size="28"
-              style={{ margin: "0 16px", cursor: "pointer" }}
-            />
-            <Message
-              placeholder="댓글 달기..."
-              onChange={(e) => setHasComment(e.target.value)}
-            />
-            {hasComment !== "" ? (
-              <Commenting>게시</Commenting>
-            ) : (
-              <Commenting style={{ opacity: "0.3", pointerEvents: "none" }}>
-                게시
-              </Commenting>
-            )}
-          </WriteComment>
-        </PostFooter>
-      </Wrap>
-      <Wrap>
-        <PostHeader>
-          <HeaderLeft>
-            <Link to="/">
-              <PostTitleImgArea>
-                <PostTitleImg
-                  src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                  alt="누군가의이미지"
-                />
-              </PostTitleImgArea>
-            </Link>
-            <Link to="/">
-              <PostTitle>누군가의타이틀</PostTitle>
-            </Link>
-          </HeaderLeft>
-          <PostMenu>
-            <MenuArea>
-              <BsThreeDots size="20" />
-            </MenuArea>
-          </PostMenu>
-        </PostHeader>
-        <PostCenter>
-          <PostMainImg
-            src="http://www.volvogroup.com/content/dam/volvo-group/markets/master/careers/opportunities-for-students/1000x1000-instagram-logo.png"
-            alt="지구본"
-          />
-        </PostCenter>
-        <PostFooter>
-          <FooterMenu>
-            {(like && (
-              <AiFillHeart
-                size="28"
-                style={{ margin: "8px" }}
-                onClick={() => setLike(false)}
-                color="red"
-              />
-            )) || (
-              <AiOutlineHeart
-                size="28"
-                style={{ margin: "8px" }}
-                onClick={() => setLike(true)}
-              />
-            )}
-
-            <Link to="/">
-              <IoChatbubbleOutline size="28" style={{ margin: "8px" }} />
-            </Link>
-            <Link to="/direct">
-              <IoMdPaperPlane size="28" style={{ margin: "8px" }} />
-            </Link>
-            <Link to="/">
-              <RiBookmarkLine size="28" style={{ margin: "8px" }} />
-            </Link>
-          </FooterMenu>
-          <LikeArea>
-            <Like>좋아요 X개</Like>
-          </LikeArea>
-          <PostContent>
-            <Link to="/">
-              <Username>username</Username>
-            </Link>
-            <ContentTitle>contentTitle</ContentTitle>
-            {contentMore && (
-              <ContentMore onClick={() => setContentMore(false)}>
-                <span
-                  style={{
-                    color: "#999",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                    paddingLeft: "10px",
-                  }}
-                >
-                  내용 접기
-                </span>
-              </ContentMore>
-            )}
-            {contentMore || (
-              <ContentMore onClick={() => setContentMore(true)}>
-                <span>... </span>
-                <span
-                  style={{
-                    color: "#999",
-                    fontWeight: "600",
-                    cursor: "pointer",
-                  }}
-                >
-                  더 보기
-                </span>
-              </ContentMore>
-            )}
-          </PostContent>
-          {contentMore && (
-            <>
-              <Content>
-                컨텐츠 내용입니다. <br /> 컨텐츠 내용입니다.
-              </Content>
-            </>
-          )}
-          {commentShow || (
-            <CommentsShow
-              onClick={() => {
-                setCommentShow(true);
-                setCommentModal(true);
-              }}
-            >
-              댓글 X개 모두 보기
-            </CommentsShow>
-          )}
-          {commentModal && (
-            <>
-              <CommentDetail visible={commentModal} />
-              <ClosePosting
-                onClick={() => {
-                  setCommentModal(false);
-                  setCommentShow(false);
+          {contentMore || (
+            <ContentMore onClick={() => setContentMore(true)}>
+              <span>... </span>
+              <span
+                style={{
+                  color: "#999",
+                  fontWeight: "600",
+                  cursor: "pointer",
                 }}
               >
-                <AiOutlineClose size="30" color="#fff" />
-              </ClosePosting>
-            </>
+                더 보기
+              </span>
+            </ContentMore>
           )}
+        </PostContent>
+        {contentMore && (
+          <>
+            <Content>
+              컨텐츠 내용입니다. <br /> 컨텐츠 내용입니다.
+            </Content>
+          </>
+        )}
+        {commentShow || (
+          <CommentsShow
+            onClick={() => {
+              setCommentShow(true);
+              setCommentModal(true);
+            }}
+          >
+            댓글 X개 모두 보기
+          </CommentsShow>
+        )}
+        {commentModal && (
+          <>
+            <CommentDetail visible={commentModal} />
+            <ClosePosting
+              onClick={() => {
+                setCommentModal(false);
+                setCommentShow(false);
+              }}
+            >
+              <AiOutlineClose size="30" color="#fff" />
+            </ClosePosting>
+          </>
+        )}
 
-          {commentShow && (
-            <>
-              <CommentsShow onClick={() => setCommentShow(false)}>
-                댓글 접기
-              </CommentsShow>
-              <div style={{ display: "flex" }}>
-                <Username style={{ padding: "0 6px 0 16px" }}>
-                  username
-                </Username>
-                <Comments>댓글입니다!!</Comments>
-              </div>
-            </>
+        {commentShow && (
+          <>
+            <CommentsShow onClick={() => setCommentShow(false)}>
+              댓글 접기
+            </CommentsShow>
+            <div style={{ display: "flex" }}>
+              <Username style={{ padding: "0 6px 0 16px" }}>
+                username
+              </Username>
+              <Comments>댓글입니다!!</Comments>
+            </div>
+          </>
+        )}
+        <Link to="/">
+          <ModifiedAt>X시간 전</ModifiedAt>
+        </Link>
+        <WriteComment>
+          <CgSmile
+            size="28"
+            style={{ margin: "0 16px", cursor: "pointer" }}
+          />
+          <Message
+            placeholder="댓글 달기..."
+            onChange={(e) => setHasComment(e.target.value)}
+          />
+          {hasComment !== "" ? (
+            <Commenting>게시</Commenting>
+          ) : (
+            <Commenting style={{ opacity: "0.3", pointerEvents: "none" }}>
+              게시
+            </Commenting>
           )}
-          <Link to="/">
-            <ModifiedAt>X시간 전</ModifiedAt>
-          </Link>
-          <WriteComment>
-            <CgSmile
-              size="28"
-              style={{ margin: "0 16px", cursor: "pointer" }}
-            />
-            <Message
-              placeholder="댓글 달기..."
-              onChange={(e) => setHasComment(e.target.value)}
-            />
-            {hasComment !== "" ? (
-              <Commenting>게시</Commenting>
-            ) : (
-              <Commenting style={{ opacity: "0.3", pointerEvents: "none" }}>
-                게시
-              </Commenting>
-            )}
-          </WriteComment>
-        </PostFooter>
-      </Wrap>
+        </WriteComment>
+      </PostFooter>
+    </Wrap>
+      )
+      
+    })}
+      
     </>
   );
 }
@@ -420,6 +277,7 @@ const PostFooter = styled.div``;
 
 const FooterMenu = styled.div`
   padding: 8px;
+  position: relative;
 `;
 
 const LikeArea = styled.div`
@@ -499,8 +357,8 @@ const Commenting = styled.div`
 
 const ClosePosting = styled.div`
   position: fixed;
-  top: 15px;
-  right: 15px;
+  top: 30px;
+  right: 30px;
   cursor: pointer;
   z-index: 9999;
 `;

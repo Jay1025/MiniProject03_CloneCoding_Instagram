@@ -2,6 +2,7 @@ import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import { deleteCookie, setCookie } from "../components/shared/cookie";
 import { apis } from "../components/shared/apis";
+import alert from "sweetalert";
 
 // ---- action type----
 const LOG_IN = "LOG_IN";
@@ -26,8 +27,9 @@ export const signUpDB =
   async ({ history }) => {
     try {
       await apis.signup(id, fullname, username, pwd);
-      window.alert("회원가입이 완료되었습니다. 로그인 해주세요");
-      history.push("/login");
+      window.alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+
+      history.replace("/");
     } catch (err) {
       console.log(`오류 발생!${err}`);
     }
@@ -39,14 +41,11 @@ export const loginDB =
   async (dispatch, getState, { history }) => {
     try {
       const response = await apis.login(id, pwd);
-      console.log(response);
       let username = response.data.username;
-      console.log(username);
       setCookie("token", response.data.token, 7);
-      console.log(setCookie("token", response.data.token, 7));
-      localStorage.setItem("username", response.data[0].username);
+      localStorage.setItem("username", response.data.username);
       dispatch(setLogin(username));
-      window.alert(`${username}님 환영합니다`);
+      alert(`${username}님 환영합니다`);
 
       history.replace("/");
     } catch (err) {

@@ -4,17 +4,25 @@ import Header from "../organisms/Header";
 import Post from "../organisms/Post";
 import RightPosition from "../organisms/RightPosition";
 
+import Login from "./Login";
+
 export default function Main() {
+  const username = localStorage.getItem("username");
+
   return (
     <>
-      <Navigation />
-      <Wrap>
-        <Center>
-          <Header />
-          <Post />
-        </Center>
-      </Wrap>
-      <RightPosition />
+      {(username && (
+        <>
+          <Navigation />
+          <Wrap>
+            <Center>
+              <Header />
+              <Post />
+            </Center>
+          </Wrap>
+          <RightPosition />
+        </>
+      )) || <Login />}
     </>
   );
 }
