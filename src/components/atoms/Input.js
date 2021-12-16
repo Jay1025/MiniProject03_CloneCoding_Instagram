@@ -14,6 +14,7 @@ const Input = (props) => {
     padding,
     _value,
     main_input,
+    file,
   } = props;
 
   if (main_input) {
@@ -46,15 +47,6 @@ Input.defaultProps = {
   width: "100%",
 };
 
-const ElInput = styled.input`
-  border: 1px solid #87cefa;
-  width: ${(props) => props.width};
-  height: ${(props) => props.height};
-  padding: ${(props) => props.padding};
-  box-sizing: border-box;
-  margin: ${(props) => props.margin};
-`;
-
 const MainInput = styled.input`
   margin: 0px -30px 6px 40px;
   padding: 9px 0 7px 8px;
@@ -65,4 +57,14 @@ const MainInput = styled.input`
   text-overflow: ellipsis;
   border: 1px solid #dbdbdb;
 `;
+
+const ElInput = styled.input`
+  border: 1px solid #87cefa;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  padding: ${(props) => props.padding};
+  box-sizing: border-box;
+  margin: ${(props) => props.margin};
+`;
+
 export default Input;

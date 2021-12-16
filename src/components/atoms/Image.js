@@ -26,7 +26,7 @@ const Image = (props) => {
   };
 
   if (shape === "myIcon") {
-    return <MyProfile {...styles} />;
+    return <MyProfile {...styles} onClick={_onClick} />;
   }
 
   if (shape === "rectangle") {
@@ -75,6 +75,7 @@ const MyProfile = styled.div`
   border-radius: 50%;
   background-size: cover;
   background-position: center;
+  cursor: pointer;
   ${(props) => (props.src ? `background-image: url(${props.src});` : "")}
 `;
 
