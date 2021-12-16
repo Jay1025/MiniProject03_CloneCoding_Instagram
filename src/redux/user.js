@@ -27,7 +27,7 @@ export const signUpDB =
   async ({ history }) => {
     try {
       await apis.signup(id, fullname, username, pwd);
-      window.alert("회원가입이 완료되었습니다. 로그인 해주세요.");
+      alert("회원가입이 완료되었습니다. 로그인 해주세요.");
 
       history.replace("/");
     } catch (err) {
@@ -70,9 +70,10 @@ const loginCheckDB = () => {
 // ---- 로그아웃 DB ----
 const logoutDB = () => {
   return function (dispatch, getState, { history }) {
+    deleteCookie("token");
+    localStorage.removeItem("username");
     dispatch(logout());
     history.replace("/");
-    localStorage.removeItem("username");
   };
 };
 

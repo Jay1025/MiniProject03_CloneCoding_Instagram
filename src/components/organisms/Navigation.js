@@ -6,7 +6,7 @@ import alert from "sweetalert";
 
 // react-icons
 import { NavLink, withRouter, useHistory } from "react-router-dom";
-import { GrHomeRounded } from "react-icons/gr";
+import { GrHomeRounded, GrSettingsOption } from "react-icons/gr";
 import {
   IoMdPaperPlane,
   IoIosArrowRoundBack,
@@ -23,7 +23,9 @@ import {
 } from "react-icons/ai";
 import { AiOutlinePicture, AiOutlineClose } from "react-icons/ai";
 import { BsPlayBtn, BsPlusSquare, BsPlusSquareFill } from "react-icons/bs";
-import { CgSmile } from "react-icons/cg";
+import { CgSmile, CgProfile } from "react-icons/cg";
+import { RiBookmarkLine } from "react-icons/ri";
+import { TiArrowRepeat } from "react-icons/ti";
 import Modal from "./Posting";
 
 // swiper
@@ -33,6 +35,7 @@ import "swiper/components/navigation/navigation.min.css";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 
 import { addPostDB, addPost } from "../../redux/post";
+import { userCreators as userActions } from "../../redux/user";
 
 function Navi({ location }) {
   const history = useHistory();
@@ -110,6 +113,10 @@ function Navi({ location }) {
         setPostBtnColor(false);
         // dispatch(addPost());
       });
+  };
+
+  const logOut = () => {
+    dispatch(userActions.logoutDB());
   };
 
   return (
@@ -201,21 +208,73 @@ function Navi({ location }) {
               onClick={() => setHeart(true)}
             />
           )}
-          {/* 로그아웃 모달창 */}
-          <img
-            src="https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png"
-            alt="profile"
-            style={{
-              margin: "0 10px",
-              width: "30px",
-              borderRadius: "100%",
-              cursor: "pointer",
-            }}
-            onClick={() => setProfileClick(true)}
-          />
-          {/* {profileClick && (
-            <SideBarModal showModal={showModal} closeModal={closeModal}></SideBarModal>
-          )} */}
+          {/* 프로필 모달창 */}
+          {profileClick ? (
+            <div style={{ position: "relative" }}>
+              <img
+                src="https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png"
+                alt="profile"
+                style={{
+                  margin: "2px 10px",
+                  width: "25px",
+                  borderRadius: "100%",
+                  cursor: "pointer",
+                  zIndex: "9999",
+                }}
+                onClick={() => setProfileClick(false)}
+              />
+              <Teduri onClick={() => setProfileClick(false)}></Teduri>
+              <Triangle></Triangle>
+              <SideBarModal>
+                <NavLink to="/mypage">
+                  <SideGoProfile>
+                    <CgProfile size="18" />
+                    <SideBarText>프로필</SideBarText>
+                  </SideGoProfile>
+                </NavLink>
+                <NavLink to="/">
+                  <SideGoProfile>
+                    <RiBookmarkLine size="18" />
+                    <SideBarText>저장됨</SideBarText>
+                  </SideGoProfile>
+                </NavLink>
+                <NavLink to="/">
+                  <SideGoProfile>
+                    <GrSettingsOption size="18" />
+                    <SideBarText>설정</SideBarText>
+                  </SideGoProfile>
+                </NavLink>
+                <NavLink to="/">
+                  <SideGoProfile>
+                    <TiArrowRepeat size="18" />
+                    <SideBarText>계정 전환</SideBarText>
+                  </SideGoProfile>
+                </NavLink>
+                <SideGoProfile
+                  style={{ borderTop: "1px solid #ddd", cursor: "pointer" }}
+                  onClick={logOut}
+                >
+                  <SideBarText style={{ margin: "0" }}>로그아웃</SideBarText>
+                </SideGoProfile>
+              </SideBarModal>
+            </div>
+          ) : (
+            <>
+              <div style={{ position: "relative" }}>
+                <img
+                  src="https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png"
+                  alt="profile"
+                  style={{
+                    margin: "2px 10px",
+                    width: "25px",
+                    borderRadius: "100%",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => setProfileClick(true)}
+                />
+              </div>
+            </>
+          )}
         </NavPages>
       </NavWrap>
       {uploadURL.length === 0 && (
@@ -547,6 +606,65 @@ const NumLetter = styled.div`
   padding: 10px;
   font-size: 12px;
   color: #999;
+`;
+
+// 프로필 모달창
+const SideBarModal = styled.div`
+  position: absolute;
+  background-color: #fff;
+  top: 43px;
+  right: -10px;
+  border-radius: 5px;
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.5);
+  z-index: 9998;
+`;
+
+const SideGoProfile = styled.div`
+  display: flex;
+  align-items: center;
+  width: 230px;
+  height: 37px;
+  padding: 15px;
+
+  &:hover {
+    background-color: #f7f7f7;
+  }
+`;
+
+const Teduri = styled.div`
+position: absolute;
+top: 0;
+left: 8px;
+width:29px;
+height: 29px;
+  border: 1px solid #000;
+  border-radius: 100%;
+  background-image: linear-gradient(#000, #000)
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index:1;
+  cursor: pointer;
+`;
+
+const Triangle = styled.div`
+  width: 0px;
+  height: 0px;
+  border-top: 10px solid none;
+  border-bottom: 10px solid #eee;
+  border-right: 10px solid transparent;
+  border-left: 10px solid transparent;
+  position: absolute;
+  bottom: -12px;
+  left: 14px;
+  z-index: 9997;
+  background-color: #fff;
+`;
+
+const SideBarText = styled.div`
+  margin-left: 10px;
 `;
 
 export default withRouter(Navi);
