@@ -34,7 +34,7 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 
-import { addPostDB, addPost } from "../../redux/post";
+import { addPostDB, addPost, pushPost } from "../../redux/post";
 import { userCreators as userActions } from "../../redux/user";
 
 function Navi({ location }) {
@@ -108,10 +108,11 @@ function Navi({ location }) {
       .post("http://13.125.132.120/posts/", fd, config)
       .then((res) => {
         console.log(res);
+        const data = res.data;
         alert("등록 성공");
         setPostModal(false);
         setPostBtnColor(false);
-        // dispatch(addPost());
+        dispatch(addPostDB(data));
       });
   };
 

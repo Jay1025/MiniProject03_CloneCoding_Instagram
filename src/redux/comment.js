@@ -32,9 +32,11 @@ export const addCommentDB =
 export const loadCommentDB =
   () =>
   (dispatch, getState, { history }) => {
-    apis.getComment();
-
-    dispatch(loadComment());
+    console.log("댓글로딩중");
+    apis.getComment().then((res) => {
+      console.log(res);
+      //   dispatch(loadComment());
+    });
   };
 
 // reducer

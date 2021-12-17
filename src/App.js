@@ -12,19 +12,21 @@ import Direct from "./components/pages/Direct";
 
 import { userCreators as userActions } from "./redux/user";
 import { loadPostDB } from "./redux/post";
+import { loadCommentDB } from "./redux/comment";
 
 function App() {
   const dispatch = useDispatch();
   const is_local = localStorage.getItem("username");
 
-  React.useEffect( () => {
+  React.useEffect(() => {
     if (is_local) {
       dispatch(userActions.loginCheckDB());
-      dispatch(loadPostDB()).then(console.log('로딩완료'));
+      dispatch(loadPostDB()).then(console.log("포스트로딩완료"));
+      // dispatch(loadCommentDB()).then(console.log("댓글로딩완료"));
     }
   }, [dispatch]);
 
-  const data = useSelector((state) => state);
+  const data = useSelector((store) => store);
   console.log(data);
 
   return (

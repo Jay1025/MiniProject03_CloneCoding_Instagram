@@ -9,8 +9,10 @@ import { IoMdPaperPlane } from "react-icons/io";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiBookmarkLine } from "react-icons/ri";
 import { CgSmile } from "react-icons/cg";
+
 import CommentDetail from "./CommentDetail";
 import { addCommentDB } from "../../redux/comment";
+import { addLikeDB } from "../../redux/like";
 
 //swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -22,11 +24,13 @@ export default function Post() {
   const dispatch = useDispatch();
   const [hasComment, setHasComment] = useState("");
   const [like, setLike] = useState(false);
+
   const [contentMore, setContentMore] = useState(false);
   const [commentShow, setCommentShow] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
 
   const data = useSelector((state) => state.post.list);
+  console.log(data);
 
   const changeComment = (e) => {
     setHasComment(e.target.value);
@@ -36,6 +40,18 @@ export default function Post() {
   const addComment = (postId) => {
     console.log(postId, hasComment);
     dispatch(addCommentDB(postId, hasComment));
+  };
+
+  const addLike = (postId) => {
+    console.log(postId);
+    // setLike(true);
+    alert("좋아요");
+    // dispatch(addLikeDB(postId));
+  };
+
+  const delLike = () => {
+    setLike(false);
+    alert("취소");
   };
 
   SwiperCore.use([Navigation, Pagination]);
@@ -52,6 +68,7 @@ export default function Post() {
           const createAt = post.createdAt.split("T")[1].split(":")[0];
           const postId = post.id;
           const imgUrl = post.imgUrl.split(",");
+
           return (
             <Wrap key={key}>
               <PostHeader>
@@ -104,14 +121,14 @@ export default function Post() {
                     <AiFillHeart
                       size="28"
                       style={{ margin: "8px" }}
-                      // onClick={() => setLike(false)}
+                      onClick={() => delLike(postId)}
                       color="red"
                     />
                   )) || (
                     <AiOutlineHeart
                       size="28"
                       style={{ margin: "8px" }}
-                      // onClick={() => setLike(true)}
+                      onClick={() => addLike(postId)}
                     />
                   )}
 
@@ -188,7 +205,7 @@ export default function Post() {
                 )}
                 {commentModal && (
                   <>
-                    <CommentDetail visible={commentModal} />
+                    <CommentDetail visible={commentModal} postId={postId} />
                     <ClosePosting
                       onClick={() => {
                         setCommentModal(false);

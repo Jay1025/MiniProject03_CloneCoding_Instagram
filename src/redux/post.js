@@ -1,5 +1,6 @@
 import { handleActions, createAction } from "redux-actions";
 import { apisMultipart, apis } from "../components/shared/apis";
+import produce from "immer";
 
 // initialState
 const initialState = {
@@ -12,7 +13,7 @@ const POST = "post/POST";
 
 // action creater
 export const loadPost = createAction(LOAD, (postList) => ({ postList }));
-export const addPost = createAction(POST, (postData) => ({ postData }));
+export const pushPost = createAction(POST, (postData) => ({ postData }));
 
 // thunk
 
@@ -22,17 +23,10 @@ export const addPost = createAction(POST, (postData) => ({ postData }));
 //   }
 // }
 
-export const addPostDB = (formdata, formdata2) => {
+export const addPostDB = (data) => {
   return function (dispatch, getState, { history }) {
-    console.log(formdata);
-    apisMultipart
-      .addPost(formdata)
-      .then((res) => {
-        history.replace("/");
-      })
-      .catch((e) => alert(e));
-
-    // dispatch(addPost(data));
+    console.log(data);
+    dispatch(pushPost(data));
   };
 };
 
@@ -53,7 +47,10 @@ export default handleActions(
         list: action.payload.postList,
       };
     },
-    // [POST]
+    [POST]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.unshift(action.payload.postData);
+      }),
   },
   initialState
 );

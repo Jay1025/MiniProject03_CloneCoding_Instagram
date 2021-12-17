@@ -8,12 +8,14 @@ import { connectRouter } from "connected-react-router";
 import Post from "./post";
 import User from "./user";
 import Comment from "./comment";
+import Like from "./like";
 
 //---- history----
 export const history = createBrowserHistory();
 
 //---- rootReducer ----
 const rootReducer = combineReducers({
+  like: Like,
   comment: Comment,
   post: Post,
   user: User,

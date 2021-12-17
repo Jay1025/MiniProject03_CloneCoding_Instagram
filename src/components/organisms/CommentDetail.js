@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Modal from "./Posting";
 
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { loadCommentDB } from "../../redux/comment";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -14,8 +15,15 @@ import { RiBookmarkLine } from "react-icons/ri";
 export default function Comment(props) {
   const [visible, setVisible] = useState(props.visible);
   const [like, setLike] = useState(false);
+  const [postId, setpostId] = useState(props.postId);
 
-  // const
+  const dispatch = useDispatch();
+
+  console.log(postId);
+
+  useEffect(() => {
+    dispatch(loadCommentDB(postId));
+  });
 
   return (
     <>
@@ -76,102 +84,7 @@ export default function Comment(props) {
                       />
                     </PostTitleImgArea>
                   </div>
-                  <Comments>
-                    <PostTitle>누군가의타이틀12</PostTitle>
-                    <Commentna>
-                      12123123121231231212312312123123121231231212312312123123
-                      1212312312123123121231231212312312123123
-                    </Commentna>
-                    <CommentFooter>
-                      <Link to="/">
-                        <ModifiedAt>X시간 전</ModifiedAt>
-                      </Link>
-                      <Like>좋아요 X개</Like>
-                      <ReComment>답글 달기</ReComment>
-                    </CommentFooter>
-                    <PostTitleImgArea
-                      style={{
-                        position: "absolute",
-                        top: "-10px",
-                        left: "-10px",
-                      }}
-                    >
-                      <PostTitleImg
-                        src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                        alt="누군가의이미지"
-                      />
-                    </PostTitleImgArea>
-                    {(like && (
-                      <AiFillHeart
-                        size="13"
-                        style={{
-                          position: "absolute",
-                          top: "0",
-                          right: "10px",
-                        }}
-                        onClick={() => setLike(false)}
-                        color="red"
-                      />
-                    )) || (
-                      <AiOutlineHeart
-                        size="13"
-                        style={{
-                          position: "absolute",
-                          top: "0",
-                          right: "10px",
-                        }}
-                        onClick={() => setLike(true)}
-                      />
-                    )}
-                  </Comments>
-                  <Comments>
-                    <PostTitle>누군가의타이틀</PostTitle>
-                    <Commentna>
-                      12123123121231231212312312123123121231231212312312123123
-                      1212312312123123121231231212312312123123
-                    </Commentna>
-                    <CommentFooter>
-                      <Link to="/">
-                        <ModifiedAt>X시간 전</ModifiedAt>
-                      </Link>
-                      <Like>좋아요 X개</Like>
-                      <ReComment>답글 달기</ReComment>
-                    </CommentFooter>
-                    <PostTitleImgArea
-                      style={{
-                        position: "absolute",
-                        top: "-10px",
-                        left: "-10px",
-                      }}
-                    >
-                      <PostTitleImg
-                        src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                        alt="누군가의이미지"
-                      />
-                    </PostTitleImgArea>
-                    {(like && (
-                      <AiFillHeart
-                        size="13"
-                        style={{
-                          position: "absolute",
-                          top: "0",
-                          right: "10px",
-                        }}
-                        onClick={() => setLike(false)}
-                        color="red"
-                      />
-                    )) || (
-                      <AiOutlineHeart
-                        size="13"
-                        style={{
-                          position: "absolute",
-                          top: "0",
-                          right: "10px",
-                        }}
-                        onClick={() => setLike(true)}
-                      />
-                    )}
-                  </Comments>
+
                   <Comments>
                     <PostTitle>누군가의타이틀</PostTitle>
                     <Commentna>
