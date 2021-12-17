@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import { BsThreeDots } from "react-icons/bs";
 import { AiOutlineHeart, AiFillHeart, AiOutlineClose } from "react-icons/ai";
@@ -10,8 +10,16 @@ import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiBookmarkLine } from "react-icons/ri";
 import { CgSmile } from "react-icons/cg";
 import CommentDetail from "./CommentDetail";
+import { addCommentDB } from "../../redux/comment";
+
+//swiper
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.min.css";
+import SwiperCore, { Navigation, Pagination } from "swiper";
 
 export default function Post() {
+  const dispatch = useDispatch();
   const [hasComment, setHasComment] = useState("");
   const [like, setLike] = useState(false);
   const [contentMore, setContentMore] = useState(false);
@@ -19,23 +27,31 @@ export default function Post() {
   const [commentModal, setCommentModal] = useState(false);
 
   const data = useSelector((state) => state.post.list);
-  console.log(data);
 
-  function shuffle(array) {
-    for (let index = array.length - 1; index > 0; index--) {
-      // 무작위 index 값을 만든다. (0 이상의 배열 길이 값)
-      const randomPosition = Math.floor(Math.random() * (index + 1));
-      // 임시로 원본 값을 저장하고, randomPosition을 사용해 배열 요소를 섞는다.
-      const temporary = array[index];
-      array[index] = array[randomPosition];
-      array[randomPosition] = temporary;
-    }
-  }
+  const changeComment = (e) => {
+    setHasComment(e.target.value);
+    console.log(hasComment);
+  };
+
+  const addComment = (postId) => {
+    console.log(postId, hasComment);
+    dispatch(addCommentDB(postId, hasComment));
+  };
+
+  SwiperCore.use([Navigation, Pagination]);
+
+  const swiperParams = {
+    navigation: true,
+    pagination: true,
+  };
 
   return (
     <>
       {data &&
         data.map((post, key) => {
+          const createAt = post.createdAt.split("T")[1].split(":")[0];
+          const postId = post.id;
+          const imgUrl = post.imgUrl.split(",");
           return (
             <Wrap key={key}>
               <PostHeader>
@@ -58,23 +74,44 @@ export default function Post() {
                   </MenuArea>
                 </PostMenu>
               </PostHeader>
-              <PostCenter>
-                <PostMainImg src={post.imgUrl} alt="지구본" />
-              </PostCenter>
+              {imgUrl.length > 1 ? (
+                <Swiper {...swiperParams}>
+                  {imgUrl.map((img, key) => {
+                    return (
+                      <SwiperSlide key={key}>
+                        <PostCenter>
+                          <PostMainImg src={img} alt="img" />
+                        </PostCenter>
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              ) : (
+                <>
+                  {imgUrl.map((img, key) => {
+                    return (
+                      <PostCenter key={key}>
+                        <PostMainImg src={img} alt="img" />
+                      </PostCenter>
+                    );
+                  })}
+                </>
+              )}
+
               <PostFooter>
                 <FooterMenu>
-                  {(like && (
+                  {(post.numofLikes && (
                     <AiFillHeart
                       size="28"
                       style={{ margin: "8px" }}
-                      onClick={() => setLike(false)}
+                      // onClick={() => setLike(false)}
                       color="red"
                     />
                   )) || (
                     <AiOutlineHeart
                       size="28"
                       style={{ margin: "8px" }}
-                      onClick={() => setLike(true)}
+                      // onClick={() => setLike(true)}
                     />
                   )}
 
@@ -96,7 +133,7 @@ export default function Post() {
                   </Link>
                 </FooterMenu>
                 <LikeArea>
-                  <Like>좋아요 X개</Like>
+                  <Like>좋아요 {post.numOfLikes}개</Like>
                 </LikeArea>
                 <PostContent>
                   <Link to="/">
@@ -146,7 +183,7 @@ export default function Post() {
                       setCommentModal(true);
                     }}
                   >
-                    댓글 X개 모두 보기
+                    댓글 {post.numOfComments}개 모두 보기
                   </CommentsShow>
                 )}
                 {commentModal && (
@@ -177,7 +214,7 @@ export default function Post() {
                   </>
                 )}
                 <Link to="/">
-                  <ModifiedAt>X시간 전</ModifiedAt>
+                  <ModifiedAt>{createAt}시간 전</ModifiedAt>
                 </Link>
                 <WriteComment>
                   <CgSmile
@@ -186,10 +223,12 @@ export default function Post() {
                   />
                   <Message
                     placeholder="댓글 달기..."
-                    onChange={(e) => setHasComment(e.target.value)}
+                    onChange={changeComment}
                   />
                   {hasComment !== "" ? (
-                    <Commenting>게시</Commenting>
+                    <Commenting onClick={() => addComment(postId)}>
+                      게시
+                    </Commenting>
                   ) : (
                     <Commenting
                       style={{ opacity: "0.3", pointerEvents: "none" }}

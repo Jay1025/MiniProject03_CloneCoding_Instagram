@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import Modal from "./Posting";
 
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { AiOutlineClose, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
-import {IoMdPaperPlane} from 'react-icons/io'
+import { IoMdPaperPlane } from "react-icons/io";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiBookmarkLine } from "react-icons/ri";
 
 export default function Comment(props) {
   const [visible, setVisible] = useState(props.visible);
   const [like, setLike] = useState(false);
+
+  // const
 
   return (
     <>
