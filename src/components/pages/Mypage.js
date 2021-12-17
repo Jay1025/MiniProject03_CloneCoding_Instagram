@@ -22,8 +22,8 @@ const Mypage = () => {
   //------useState관리-------
   const [profilechange, setProfilechange] = useState();
   const [profileImg, setProfileImg] = useState();
-  const [myPosts, setMyPosts] = useState();
   const [myProfileId, setMyProfileId] = useState();
+  const [myPosts, setMyPosts] = useState();
 
   //-------Modal-------
   const CloseModal = () => {
@@ -69,14 +69,13 @@ const Mypage = () => {
       token
     );
     setProfileImg(data.data.user.profileUrl);
-    setMyPosts(data.data.user);
     setMyProfileId(data.data.user.id);
+    setMyPosts(data.data.posts);
   };
   //페이지 들어감과 동시에 해당 함수 실행
   React.useEffect(() => {
     window.onload = loadProfile();
   }, []);
-
   return (
     <React.Fragment>
       <Navigation />
@@ -179,37 +178,20 @@ const Mypage = () => {
           </Grid>
         </Grid>
         {/* 마이페이지 이미지 파일 정보 가져오기 */}
-        <Grid is_flex margin="0 0 2em 0" justify="space-between" wrap="wrap">
-          {/* {myPosts.map((post, idx) => {
-            return (
-              <Image
-                shape="imgBtn"
-                key={idx}
-                src={`http://13.125.132.120/${post}`}
-                width="21em"
-                height="21em"
-              />
-            );
-          })} */}
-
-          <Image
-            shape="imgBtn"
-            src="https://play-lh.googleusercontent.com/h9jWMwqb-h9hjP4THqrJ50eIwPekjv7QPmTpA85gFQ10PjV02CoGAcYLLptqd19Sa1iJ=s180-rw"
-            width="21em"
-            height="21em"
-          />
-          <Image
-            shape="imgBtn"
-            src="https://play-lh.googleusercontent.com/h9jWMwqb-h9hjP4THqrJ50eIwPekjv7QPmTpA85gFQ10PjV02CoGAcYLLptqd19Sa1iJ=s180-rw"
-            width="21em"
-            height="21em"
-          />
-          <Image
-            shape="imgBtn"
-            src="https://play-lh.googleusercontent.com/h9jWMwqb-h9hjP4THqrJ50eIwPekjv7QPmTpA85gFQ10PjV02CoGAcYLLptqd19Sa1iJ=s180-rw"
-            width="21em"
-            height="21em"
-          />
+        <Grid is_flex justify="flex-start" wrap="wrap">
+          {myPosts &&
+            myPosts.map((post, idx) => {
+              return (
+                <Image
+                  shape="imgBtn"
+                  key={idx}
+                  src={post.imgUrl}
+                  width="21em"
+                  height="21em"
+                  margin="0 1em 2em"
+                />
+              );
+            })}
         </Grid>
       </Grid>
       <Footer />
