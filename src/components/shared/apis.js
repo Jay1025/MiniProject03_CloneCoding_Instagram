@@ -53,7 +53,7 @@ export const apis = {
   // // deleteComment: api.del("", {}),
 
   // //마이페이지
-  // mypageInfo: api.get("/mypage/info", {}),
+  // mypageProfile:(userId, imgUrl) => api.post(`/users/${userId}`, {imgUrl}),
   // mypagePosts: api.get("/mypage/posts", {}),
 
   //좋아요

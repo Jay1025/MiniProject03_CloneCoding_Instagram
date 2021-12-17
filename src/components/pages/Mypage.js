@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 
 import { BsGearWide } from "react-icons/bs";
 import { AiOutlineTable } from "react-icons/ai";
@@ -13,7 +14,8 @@ import Navigation from "../organisms/Navigation";
 import Footer from "../organisms/Footer";
 
 const Mypage = () => {
-  const user_info = localStorage.getItem("username");
+  const user_name = localStorage.getItem("username");
+  const user_fullname = localStorage.getItem("fullname");
 
   //-------Modal-------
   const [profileChange, setProfileChange] = useState(false);
@@ -26,17 +28,41 @@ const Mypage = () => {
   const [uploadMyFile, setUploadMyFile] = useState(null);
   const [uploadMyURL, setUploadMyURL] = useState();
 
-  // const changeProfile = (e) => {
-  //   setUploadMyFile(e.target.files[0])
-  //   console.log(uploadMyFile)
-  // }
-
   const addUploadFile = async (e) => {
     e.preventDefault();
-    setUploadMyFile(e.target.files);
-    const ImageUrl = URL.createObjectURL(e.target.files);
-    console.log(ImageUrl);
-    setUploadMyURL(ImageUrl);
+    setUploadMyFile(e.target.files[0]);
+    console.log(e.target.files[0]);
+
+    // const ImgUrl = URL.createObjectURL(e.target.files[0]);
+    // console.log(ImgUrl);
+    // setUploadMyURL(ImgUrl);
+    addProfile();
+  };
+
+  const addProfile = async () => {
+    console.log(uploadMyFile);
+    const accessToken = document.cookie.split("=")[1];
+    console.log("1");
+    const token = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+    console.log(token);
+    let formdata = new FormData();
+
+    formdata.append("imgUrl", uploadMyFile);
+    console.log(formdata);
+
+    return axios
+      .post(`http://13.125.132.120/users/1`, formdata, token)
+      .then((response) => {
+        console.log(response);
+        alert("정상적으로 프로필사진이 변경되었습니다.");
+        setProfileChange(false);
+      })
+      .catch((e) => alert(e));
   };
 
   return (
@@ -72,7 +98,7 @@ const Mypage = () => {
                     type="file"
                     id="myFile"
                     style={{ display: "none" }}
-                    accept="image/*, video/*"
+                    accept="image/*"
                     onChange={addUploadFile}
                   />
                   {/* 프로필 이미지 변경 버튼 ----(끝)----*/}
@@ -90,7 +116,7 @@ const Mypage = () => {
 
           <Grid>
             <Grid is_flex margin="0 0 25px 0">
-              <Text size="28px">{user_info}</Text>
+              <Text size="28px">{user_name}</Text>
               <Button
                 profileBtn
                 type="file"
@@ -108,7 +134,7 @@ const Mypage = () => {
               <Text profileText>팔로우 0</Text>
             </Grid>
             <Grid is_flex margin="0 0 20px">
-              <Text profileText>{user_info}</Text>
+              <Text profileText>{user_fullname}</Text>
             </Grid>
           </Grid>
         </Grid>
