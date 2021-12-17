@@ -23,8 +23,8 @@ export const addCommentDB =
     apis
       .addComment(postId, content)
       .then((res) => {
-        console.log(res);
-        dispatch(addComment(content));
+        console.log(res.data);
+        dispatch(addComment(res.data));
         alert("댓글 등록!", "댓글 보기를 눌러보세요!", "success");
       })
       .catch((e) => console.log(e));

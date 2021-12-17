@@ -49,6 +49,7 @@ export default handleActions(
     },
     [POST]: (state, action) =>
       produce(state, (draft) => {
+        console.log(draft);
         draft.list.unshift(action.payload.postData);
       }),
   },

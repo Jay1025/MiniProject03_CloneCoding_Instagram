@@ -23,7 +23,7 @@ function App() {
       dispatch(userActions.loginCheckDB());
       dispatch(loadPostDB()).then(console.log("포스트로딩완료"));
     }
-  }, [dispatch]);
+  }, []);
 
   const data = useSelector((store) => store);
   console.log(data);
