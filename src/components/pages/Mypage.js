@@ -14,29 +14,24 @@ import Navigation from "../organisms/Navigation";
 import Footer from "../organisms/Footer";
 
 const Mypage = () => {
+  //-----local Storage값 가져오기--------
   const user_name = localStorage.getItem("username");
   const user_fullname = localStorage.getItem("fullname");
   const user_id = localStorage.getItem("userId");
 
-  //-------Modal-------
+  //------useState관리-------
   const [profilechange, setProfilechange] = useState();
+  const [profileImg, setProfileImg] = useState();
+  const [myPosts, setMyPosts] = useState();
 
+  //-------Modal-------
   const CloseModal = () => {
     setProfilechange(false);
   };
 
   //프로필 이미지 파일 변경
-  // const [uploadMyFile, setUploadMyFile] = useState();
-
   const addUploadFile = async (e) => {
     e.preventDefault();
-    // setUploadMyFile(e.target.files[0]);
-    // console.log(e.target.files[0]);
-
-    //   addProfile();
-    // };
-
-    // const addProfile = async () => {
     const accessToken = document.cookie.split("=")[1];
     const token = {
       headers: {
@@ -44,22 +39,42 @@ const Mypage = () => {
         Authorization: `Bearer ${accessToken}`,
       },
     };
-    console.log(token);
     let formdata = new FormData();
     formdata.append("profileUrl", e.target.files[0]);
-    // console.log(uploadMyFile);
 
     return axios
       .post(`http://13.125.132.120/users/${user_id}`, formdata, token)
       .then((response) => {
         console.log(response);
+        const data = response.data;
+        console.log(data);
         alert("정상적으로 프로필사진이 변경되었습니다.");
         setProfilechange(false);
+        loadProfile();
       })
-
       .catch((e) => alert(e));
   };
+  //마이 페이지 이미지정보 불러오기
+  const loadProfile = async () => {
+    const accessToken = document.cookie.split("=")[1];
+    const token = {
+      headers: {
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
 
+    const data = await axios.get(
+      `http://13.125.132.120/users/${user_id}`,
+      token
+    );
+    setProfileImg(data.data.user.profileUrl);
+    setMyPosts(data.data.user);
+  };
+  //페이지 들어감과 동시에 해당 함수 실행
+  React.useEffect(() => {
+    window.onload = loadProfile();
+  }, []);
   return (
     <React.Fragment>
       <Navigation />
@@ -73,7 +88,7 @@ const Mypage = () => {
           <Grid width="260px" height="150px">
             <Image
               shape="myIcon"
-              src="https://fdn.gsmarena.com/imgroot/news/18/03/instagram-timeline-changes/-728/gsmarena_001.jpg"
+              src={`http://13.125.132.120/${profileImg}`}
               _onClick={() => {
                 setProfilechange(true);
               }}
@@ -151,7 +166,20 @@ const Mypage = () => {
             <Text margin="0 0 0 6px">태그됨</Text>
           </Grid>
         </Grid>
+        {/* 마이페이지 이미지 파일 정보 가져오기 */}
         <Grid is_flex margin="0 0 2em 0" justify="space-between" wrap="wrap">
+          {/* {myPosts.map((post, idx) => {
+            return (
+              <Image
+                shape="imgBtn"
+                key={idx}
+                src={`http://13.125.132.120/${post}`}
+                width="21em"
+                height="21em"
+              />
+            );
+          })} */}
+
           <Image
             shape="imgBtn"
             src="https://play-lh.googleusercontent.com/h9jWMwqb-h9hjP4THqrJ50eIwPekjv7QPmTpA85gFQ10PjV02CoGAcYLLptqd19Sa1iJ=s180-rw"
@@ -200,10 +228,4 @@ const ModalContainer = styled.div`
   text-align: center;
 `;
 
-const ModalTitle = styled.label`
-  font-weight: 600;
-  font-size: 18px;
-  padding: 30px 0;
-  border-bottom: 1px solid #dbdbdb;
-`;
 export default Mypage;

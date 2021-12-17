@@ -108,6 +108,7 @@ function Navi({ location }) {
       .then((res) => {
         console.log(res);
         const data = res.data;
+        console.log(data);
         alert("등록 성공");
         setPostModal(false);
         setPostBtnColor(false);

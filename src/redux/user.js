@@ -28,7 +28,7 @@ export const signUpDB =
     try {
       await apis.signup(id, fullname, username, pwd);
       alert("회원가입이 완료되었습니다. 로그인 해주세요.");
-
+      //이상하게 이동이 안됨...
       history.replace("/");
     } catch (err) {
       console.log(`오류 발생!${err}`);
@@ -52,8 +52,8 @@ export const loginDB =
       localStorage.setItem("userId", response.data.userId);
       //리듀서에 저장
       dispatch(setLogin(username, fullname, userId));
-
       alert(`${username}님 환영합니다`);
+
       history.replace("/");
     } catch (err) {
       window.alert("없는 회원정보 입니다! 회원가입을 해주세요!");

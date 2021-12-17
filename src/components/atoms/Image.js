@@ -48,7 +48,7 @@ const Image = (props) => {
 };
 
 Image.defaultProps = {
-  shape: "",
+  shape: "myIcon",
   src: "https://fdn.gsmarena.com/imgroot/news/18/03/instagram-timeline-changes/-728/gsmarena_001.jpg",
   size: 36,
   _onClick: () => {},
@@ -75,8 +75,11 @@ const MyProfile = styled.div`
   border-radius: 50%;
   background-size: cover;
   background-position: center;
-  cursor: pointer;
   ${(props) => (props.src ? `background-image: url(${props.src});` : "")}
+  &:hover {
+    opacity: 0.9;
+    cursor: pointer;
+  }
 `;
 
 const ImgBtn = styled.div`
@@ -87,6 +90,8 @@ const ImgBtn = styled.div`
   margin: ${(props) => props.margin};
   ${(props) => (props.src ? `background-image: url(${props.src});` : "")}
   background-size: cover;
-  cursor: pointer;
+  &:hover {
+    opacity: 0.9;
+  }
 `;
 export default Image;

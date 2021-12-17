@@ -52,10 +52,6 @@ export const apis = {
   // updateComment: api.put("", {}),
   // // deleteComment: api.del("", {}),
 
-  // //마이페이지
-  // mypageProfile:(userId, imgUrl) => api.post(`/users/${userId}`, {imgUrl}),
-  // mypagePosts: api.get("/mypage/posts", {}),
-
   //좋아요
   changeLike: (postId) => api.post("/posts/likes", { postId }),
 };
