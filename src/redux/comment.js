@@ -50,6 +50,7 @@ export default handleActions(
     },
     [COMMENT]: (state, action) =>
       produce(state, (draft) => {
+        console.log(draft);
         draft.list.push(action.payload.comment);
       }),
   },

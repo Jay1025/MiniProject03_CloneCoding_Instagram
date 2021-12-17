@@ -22,8 +22,7 @@ import SwiperCore, { Navigation, Pagination } from "swiper";
 
 export default function PostView(props) {
   const post = props;
-
-  const createAt = post.createdAt.split("T")[1].split(":")[0];
+  const createdAt = post.createdAt.split("T")[1].split(":")[0];
   const postId = post.postId;
   const imgUrl = post.imgUrl.split(",");
 
@@ -40,7 +39,6 @@ export default function PostView(props) {
 
   const changeComment = (e) => {
     setHasComment(e.target.value);
-    console.log(hasComment);
   };
 
   const addComment = (postId) => {
@@ -72,10 +70,7 @@ export default function PostView(props) {
         <HeaderLeft>
           <Link to="/">
             <PostTitleImgArea>
-              <PostTitleImg
-                src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                alt="누군가의이미지"
-              />
+              <PostTitleImg src={post.profileUrl} alt="누군가의이미지" />
             </PostTitleImgArea>
           </Link>
           <Link to="/">
@@ -90,21 +85,28 @@ export default function PostView(props) {
       </PostHeader>
       {imgUrl.length > 1 ? (
         <Swiper {...swiperParams}>
-          {imgUrl.map((img, key) => {
-            return (
-              <SwiperSlide key={key}>
-                <PostCenter>
+          <PostCenter>
+            {imgUrl.map((img, key) => {
+              return (
+                <SwiperSlide
+                  key={key}
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
                   <PostMainImg src={img} alt="img" />
-                </PostCenter>
-              </SwiperSlide>
-            );
-          })}
+                </SwiperSlide>
+              );
+            })}
+          </PostCenter>
         </Swiper>
       ) : (
         <>
           {imgUrl.map((img, key) => {
             return (
-              <PostCenter key={key}>
+              <PostCenter>
                 <PostMainImg src={img} alt="img" />
               </PostCenter>
             );
@@ -153,34 +155,39 @@ export default function PostView(props) {
           <Link to="/">
             <Username>{post.username}</Username>
           </Link>
-          <ContentTitle>{post.content}</ContentTitle>
+
           {contentMore && (
-            <ContentMore onClick={() => setContentMore(false)}>
-              <span
-                style={{
-                  color: "#999",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                  paddingLeft: "10px",
-                }}
-              >
-                내용 접기
-              </span>
-            </ContentMore>
+            <>
+              <ContentMore onClick={() => setContentMore(false)}>
+                <span
+                  style={{
+                    color: "#999",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                    paddingLeft: "10px",
+                  }}
+                >
+                  내용 접기
+                </span>
+              </ContentMore>
+            </>
           )}
           {contentMore || (
-            <ContentMore onClick={() => setContentMore(true)}>
-              <span>... </span>
-              <span
-                style={{
-                  color: "#999",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                }}
-              >
-                더 보기
-              </span>
-            </ContentMore>
+            <>
+              <ContentTitle>{post.content}</ContentTitle>
+              <ContentMore onClick={() => setContentMore(true)}>
+                <span>... </span>
+                <span
+                  style={{
+                    color: "#999",
+                    fontWeight: "600",
+                    cursor: "pointer",
+                  }}
+                >
+                  더 보기
+                </span>
+              </ContentMore>
+            </>
           )}
         </PostContent>
         {contentMore && (
@@ -204,6 +211,10 @@ export default function PostView(props) {
               visible={commentModal}
               postId={postId}
               imgUrl={imgUrl}
+              postUsername={post.username}
+              postUserImg={post.profileUrl}
+              postContent={post.content}
+              postCreatedAt={post.createdAt}
             />
             <ClosePosting
               onClick={() => {
@@ -228,7 +239,7 @@ export default function PostView(props) {
           </>
         )}
         <Link to="/">
-          <ModifiedAt>{createAt}시간 전</ModifiedAt>
+          <ModifiedAt>{createdAt}시간 전</ModifiedAt>
         </Link>
         <WriteComment>
           <CgSmile size="28" style={{ margin: "0 16px", cursor: "pointer" }} />
@@ -245,6 +256,11 @@ export default function PostView(props) {
     </Wrap>
   );
 }
+
+PostView.defaultProps = {
+  profileUrl:
+    "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png",
+};
 
 const Wrap = styled.div`
   border: 1px solid #ddd;
@@ -316,10 +332,14 @@ const MenuArea = styled.div`
   padding: 8px;
 `;
 
-const PostCenter = styled.div``;
+const PostCenter = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 const PostMainImg = styled.img`
-  width: 614px;
+  width: 100%;
 
   @media screen and (max-width: 920px) {
     width: 100%;
@@ -390,7 +410,6 @@ const WriteComment = styled.div`
 
 const Message = styled.textarea`
   width: 500px;
-  height: 18px;
   max-height: 80px;
   outline: none;
   border: 0;

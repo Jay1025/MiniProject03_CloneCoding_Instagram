@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Modal from "./Posting";
 
 import { useSelector, useDispatch } from "react-redux";
-import { loadCommentDB } from "../../redux/comment";
+import { loadCommentDB, addCommentDB } from "../../redux/comment";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
@@ -11,48 +11,83 @@ import { BsThreeDots } from "react-icons/bs";
 import { IoMdPaperPlane } from "react-icons/io";
 import { IoChatbubbleOutline } from "react-icons/io5";
 import { RiBookmarkLine } from "react-icons/ri";
+import { CgSmile } from "react-icons/cg";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/swiper.min.css";
+import "swiper/components/navigation/navigation.min.css";
+import SwiperCore, { Navigation, Pagination } from "swiper";
 
 export default function Comment(props) {
-  const [visible, setVisible] = useState(props.visible);
-  const [like, setLike] = useState(false);
-
-  const postId = props.postId;
-  const imgUrl = props.imgUrl;
-
   const dispatch = useDispatch();
-
-  console.log(postId);
-  console.log(imgUrl);
-
   useEffect(() => {
     dispatch(loadCommentDB(postId));
   }, [dispatch]);
 
+  const [visible, setVisible] = useState(props.visible);
+  const [like, setLike] = useState(false);
+  const [hasComment, setHasComment] = useState("");
+
+  const postId = props.postId;
+  const imgUrl = props.imgUrl;
+  // const img = imgUrl.split(",");
+  const postUsername = props.postUsername;
+  const postProfileUrl = props.postProfileUrl;
+  const postContent = props.postContent;
+  const postCreatedAt = props.postCreatedAt;
+
+  console.log(postId);
+
   const comments = useSelector((store) => store.comment.list);
   console.log(comments);
+  console.log(postUsername);
+
+  const changeComment = (e) => {
+    setHasComment(e.target.value);
+  };
+
+  const addComment = (postId) => {
+    console.log(postId, hasComment);
+    dispatch(addCommentDB(postId, hasComment));
+  };
+
+  SwiperCore.use([Navigation, Pagination]);
+
+  const swiperParams = {
+    navigation: true,
+    pagination: true,
+  };
 
   return (
     <>
       <Modal visible={visible} maxWidth="900px" outline="none">
         <ModalArea>
-          <LeftArea>
-            <Img
-              src="https://www.pinclipart.com/picdir/big/194-1948210_open-jpg-100x100-pixels-clipart.png"
-              alt="detailImg"
-            />
-          </LeftArea>
+          <Swiper {...swiperParams}>
+            <LeftArea>
+              {imgUrl.map((img, key) => {
+                return (
+                  <SwiperSlide
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Img src={img} alt="detailImg" />
+                  </SwiperSlide>
+                );
+              })}
+            </LeftArea>
+          </Swiper>
           <RightArea>
             <WriterInfo>
               <Link to="/">
                 <PostTitleImgArea>
-                  <PostTitleImg
-                    src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                    alt="누군가의이미지"
-                  />
+                  <PostTitleImg src={postProfileUrl} alt="누군가의이미지" />
                 </PostTitleImgArea>
               </Link>
               <Link to="/">
-                <PostTitle>누군가의타이틀</PostTitle>
+                <PostTitle>{postUsername}</PostTitle>
               </Link>
               •<Follow>팔로우</Follow>
               <MenuArea>
@@ -72,11 +107,11 @@ export default function Comment(props) {
                   >
                     <Link to="/">
                       <PostTitle style={{ marginBottom: "10px" }}>
-                        누군가의타이틀1
+                        {postUsername}
                       </PostTitle>
                     </Link>
-                    123123123123123123121231231231231233123123123123
-                    <ModifiedAt>X시간 전</ModifiedAt>
+                    {postContent}
+                    <ModifiedAt>{postCreatedAt}</ModifiedAt>
                     <PostTitleImgArea
                       style={{
                         position: "absolute",
@@ -85,60 +120,61 @@ export default function Comment(props) {
                       }}
                     >
                       <PostTitleImg
-                        src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                        src={postProfileUrl}
                         alt="누군가의이미지123"
                       />
                     </PostTitleImgArea>
                   </div>
-
-                  <Comments>
-                    <PostTitle>누군가의타이틀</PostTitle>
-                    <Commentna>
-                      12123123121231231212312312123123121231231212312312123123
-                      1212312312123123121231231212312312123123
-                    </Commentna>
-                    <CommentFooter>
-                      <Link to="/">
-                        <ModifiedAt>X시간 전</ModifiedAt>
-                      </Link>
-                      <Like>좋아요 X개</Like>
-                      <ReComment>답글 달기</ReComment>
-                    </CommentFooter>
-                    <PostTitleImgArea
-                      style={{
-                        position: "absolute",
-                        top: "-10px",
-                        left: "-10px",
-                      }}
-                    >
-                      <PostTitleImg
-                        src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                        alt="누군가의이미지"
-                      />
-                    </PostTitleImgArea>
-                    {(like && (
-                      <AiFillHeart
-                        size="13"
-                        style={{
-                          position: "absolute",
-                          top: "0",
-                          right: "10px",
-                        }}
-                        onClick={() => setLike(false)}
-                        color="red"
-                      />
-                    )) || (
-                      <AiOutlineHeart
-                        size="13"
-                        style={{
-                          position: "absolute",
-                          top: "0",
-                          right: "10px",
-                        }}
-                        onClick={() => setLike(true)}
-                      />
-                    )}
-                  </Comments>
+                  {comments.map((comment, key) => {
+                    console.log(comment);
+                    return (
+                      <Comments>
+                        <PostTitle>{comment.username}</PostTitle>
+                        <Commentna>{comment.content}</Commentna>
+                        <CommentFooter>
+                          <Link to="/">
+                            <ModifiedAt>{comment.createdAt}</ModifiedAt>
+                          </Link>
+                          <Like>좋아요 {comment.userId}개</Like>
+                          <ReComment>답글 달기</ReComment>
+                        </CommentFooter>
+                        <PostTitleImgArea
+                          style={{
+                            position: "absolute",
+                            top: "-10px",
+                            left: "-10px",
+                          }}
+                        >
+                          <PostTitleImg
+                            src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                            alt="누군가의이미지"
+                          />
+                        </PostTitleImgArea>
+                        {(like && (
+                          <AiFillHeart
+                            size="13"
+                            style={{
+                              position: "absolute",
+                              top: "0",
+                              right: "10px",
+                            }}
+                            onClick={() => setLike(false)}
+                            color="red"
+                          />
+                        )) || (
+                          <AiOutlineHeart
+                            size="13"
+                            style={{
+                              position: "absolute",
+                              top: "0",
+                              right: "10px",
+                            }}
+                            onClick={() => setLike(true)}
+                          />
+                        )}
+                      </Comments>
+                    );
+                  })}
                 </Contents>
               </Scroll>
             </ContentArea>
@@ -171,6 +207,27 @@ export default function Comment(props) {
                     style={{ position: "absolute", top: "10px", right: "8px" }}
                   />
                 </Link>
+                <WriteComment>
+                  <CgSmile
+                    size="28"
+                    style={{ margin: "0 16px", cursor: "pointer" }}
+                  />
+                  <Message
+                    placeholder="댓글 달기..."
+                    onChange={changeComment}
+                  />
+                  {hasComment !== "" ? (
+                    <Commenting onClick={() => addComment(postId)}>
+                      게시
+                    </Commenting>
+                  ) : (
+                    <Commenting
+                      style={{ opacity: "0.3", pointerEvents: "none" }}
+                    >
+                      게시
+                    </Commenting>
+                  )}
+                </WriteComment>
               </FooterMenu>
             </RightFooter>
           </RightArea>
@@ -179,6 +236,11 @@ export default function Comment(props) {
     </>
   );
 }
+
+Comment.defaultProps = {
+  postProfileUrl:
+    "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png",
+};
 
 const ModalArea = styled.div`
   @media (min-width: 600px) {
@@ -197,7 +259,6 @@ const LeftArea = styled.div`
 
 const Img = styled.img`
   width: 100%;
-  max-width: 600px;
 `;
 
 const RightArea = styled.div`
@@ -318,4 +379,31 @@ const RightFooter = styled.div``;
 const FooterMenu = styled.div`
   padding: 8px;
   position: relative;
+  bottom: 0;
+`;
+
+const WriteComment = styled.div`
+  height: 53px;
+  display: flex;
+  align-items: center;
+`;
+
+const Message = styled.textarea`
+  width: 100%;
+  height: 100%;
+  max-height: 80px;
+  outline: none;
+  border: 0;
+  font-size: 14px;
+  resize: none;
+  flex-grow: 1;
+  flex-direction: column;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+`;
+
+const Commenting = styled.div`
+  width: 40px;
+  color: rgba(var(--d69, 0, 149, 246), 1);
+  cursor: pointer;
 `;

@@ -61,13 +61,11 @@ function Navi({ location }) {
 
   const handleContent = (e) => {
     setContent(e.target.value);
-    console.log(e.target.value);
   };
 
   const addUploadURL = async (e) => {
     e.preventDefault();
     setUploadFiles(e.target.files);
-    console.log(e.target.files);
     const ImgUrlList = [...uploadURL];
     for (let i = 0; i < e.target.files.length; i++) {
       const ImgUrl = URL.createObjectURL(e.target.files[i]);
@@ -367,6 +365,7 @@ function Navi({ location }) {
                               justifyContent: "center",
                               alignItems: "center",
                             }}
+                            key={key}
                           >
                             <img
                               src={file}
@@ -376,6 +375,7 @@ function Navi({ location }) {
                                 maxHeight: "480px",
                                 display: "block",
                               }}
+                              key={key}
                             />
                           </div>
                         </SwiperSlide>
