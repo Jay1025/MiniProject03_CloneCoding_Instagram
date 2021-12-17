@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { history } from "../../redux/ConfigStore";
 import { useDispatch } from "react-redux";
 import { userCreators as userActions } from "../../redux/user";
@@ -11,6 +11,7 @@ import Footer from "../organisms/Footer";
 
 const Login = () => {
   const dispatch = useDispatch();
+  // const [RandomPic, setRadomPic] = useState();
 
   // const imgArray = [
   //   "https://www.instagram.com/static/images/homepage/screenshot2.jpg/6f03eb85463c.jpg",
@@ -22,7 +23,7 @@ const Login = () => {
 
   // function showImage() {
   //   const imgNum = Math.round(Math.random() * 4);
-  //    const RandomPic = imgArray[imgNum];
+  //   setRadomPic(imgArray[imgNum]);
   //   setTimeout(showImage, 5000);
   // }
   // window.onload = showImage();
@@ -73,6 +74,7 @@ const Login = () => {
           />
           <Image
             shape="rectangle"
+            // src={RandomPic}
             src="https://www.instagram.com/static/images/homepage/screenshot2.jpg/6f03eb85463c.jpg"
             width="242px"
             height="430px"
