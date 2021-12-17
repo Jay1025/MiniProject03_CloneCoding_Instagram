@@ -23,6 +23,7 @@ const Mypage = () => {
   const [profilechange, setProfilechange] = useState();
   const [profileImg, setProfileImg] = useState();
   const [myPosts, setMyPosts] = useState();
+  const [myProfileId, setMyProfileId] = useState();
 
   //-------Modal-------
   const CloseModal = () => {
@@ -45,7 +46,6 @@ const Mypage = () => {
     return axios
       .post(`http://13.125.132.120/users/${user_id}`, formdata, token)
       .then((response) => {
-        console.log(response);
         const data = response.data;
         console.log(data);
         alert("정상적으로 프로필사진이 변경되었습니다.");
@@ -70,11 +70,13 @@ const Mypage = () => {
     );
     setProfileImg(data.data.user.profileUrl);
     setMyPosts(data.data.user);
+    setMyProfileId(data.data.user.id);
   };
   //페이지 들어감과 동시에 해당 함수 실행
   React.useEffect(() => {
     window.onload = loadProfile();
   }, []);
+
   return (
     <React.Fragment>
       <Navigation />
@@ -86,13 +88,21 @@ const Mypage = () => {
         >
           {/* 프로필 사진 변경 모달창 띄우기 */}
           <Grid width="260px" height="150px">
-            <Image
-              shape="myIcon"
-              src={`http://13.125.132.120/${profileImg}`}
-              _onClick={() => {
-                setProfilechange(true);
-              }}
-            />
+            {myProfileId === parseInt(user_id) ? (
+              <Image
+                shape="myIcon"
+                src={`http://13.125.132.120/${profileImg}`}
+                _onClick={() => {
+                  setProfilechange(true);
+                }}
+              />
+            ) : (
+              <Image
+                _onClick={() => {
+                  setProfilechange(true);
+                }}
+              />
+            )}
             <div profilechange={profilechange} closeModal={CloseModal}></div>
             {profilechange ? (
               <Background onClick={CloseModal}>
