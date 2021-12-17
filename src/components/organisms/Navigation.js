@@ -103,6 +103,7 @@ function Navi({ location }) {
       fd.append("imgUrl", uploadFiles[i]);
     }
     fd.append("content", content);
+    console.log(fd);
 
     return axios
       .post("http://13.125.132.120/posts/", fd, config)

@@ -41,10 +41,14 @@ export const loginDB =
   async (dispatch, getState, { history }) => {
     try {
       const response = await apis.login(id, pwd);
+      console.log(response);
+      console.log(response.data);
       let username = response.data.username;
+      let fullname = response.data.fullname;
       setCookie("token", response.data.token, 7);
       localStorage.setItem("username", response.data.username);
-      dispatch(setLogin(username));
+      localStorage.setItem("fullname", response.data.fullname);
+      dispatch(setLogin(username, fullname));
       alert(`${username}님 환영합니다`);
 
       history.replace("/");
@@ -83,6 +87,7 @@ export default handleActions(
     [LOG_IN]: (state, action) =>
       produce(state, (draft) => {
         draft.username = action.payload.user;
+        draft.fullname = action.payload.fullname;
         draft.is_login = true;
       }),
     [LOG_OUT]: (state, action) =>
