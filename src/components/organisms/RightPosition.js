@@ -6,16 +6,16 @@ export default function RightPosition() {
   return (
     <Wrap>
       <MyProfile>
-        <Link to="/">
+        <a href="https://spartacodingclub.kr/" target="blank">
           <MyImg
             src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F9JGex%2Fbtq7CTVARWp%2Ff1pZigSCKq5nCkCh9QYD70%2Fimg.png"
             alt="항해99"
           />
-        </Link>
+        </a>
         <Name>
-          <Link to="/">
+          <a href="https://spartacodingclub.kr/">
             <MyNickName>팀스파르타</MyNickName>
-          </Link>
+          </a>
           <MyRealName>항해99</MyRealName>
         </Name>
         <Transfer>문의</Transfer>
@@ -35,14 +35,14 @@ export default function RightPosition() {
             />
           </Link>
           <Name>
-            <Link to="https://github.com/liamjeon">
+            <a href="https://github.com/liamjeon">
               <MyNickName>전익현</MyNickName>
-            </Link>
+            </a>
             <MyRealName>Back-End Developer, Leader</MyRealName>
           </Name>
-          <Link to="https://github.com/liamjeon">
+          <a href="https://github.com/liamjeon">
             <Transfer>깃허브</Transfer>
-          </Link>
+          </a>
         </OtherPeople>
         <OtherPeople>
           <Link to="/">
@@ -52,14 +52,14 @@ export default function RightPosition() {
             />
           </Link>
           <Name>
-            <Link to="https://github.com/Seungjun0906">
+            <a href="https://github.com/Seungjun0906">
               <MyNickName>김승준</MyNickName>
-            </Link>
+            </a>
             <MyRealName>Back-End Developer</MyRealName>
           </Name>
-          <Link to="https://github.com/Seungjun0906">
+          <a href="https://github.com/Seungjun0906">
             <Transfer>깃허브</Transfer>
-          </Link>
+          </a>
         </OtherPeople>
         <OtherPeople>
           <Link to="/">
@@ -69,14 +69,14 @@ export default function RightPosition() {
             />
           </Link>
           <Name>
-            <Link to="https://github.com/Jay1025">
+            <a href="https://github.com/Jay1025">
               <MyNickName>박재우</MyNickName>
-            </Link>
+            </a>
             <MyRealName>Front-End Developer</MyRealName>
           </Name>
-          <Link to="https://github.com/Jay1025">
+          <a href="https://github.com/Jay1025">
             <Transfer>깃허브</Transfer>
-          </Link>
+          </a>
         </OtherPeople>
         <OtherPeople>
           <Link to="/">
@@ -86,14 +86,14 @@ export default function RightPosition() {
             />
           </Link>
           <Name>
-            <Link to="https://github.com/O-h-y-o">
+            <a href="https://github.com/O-h-y-o">
               <MyNickName>김형래</MyNickName>
-            </Link>
+            </a>
             <MyRealName>Front-End Developer</MyRealName>
           </Name>
-          <Link to="https://github.com/O-h-y-o">
+          <a href="https://github.com/O-h-y-o">
             <Transfer>깃허브</Transfer>
-          </Link>
+          </a>
         </OtherPeople>
       </OtherProfile>
       <Footers>

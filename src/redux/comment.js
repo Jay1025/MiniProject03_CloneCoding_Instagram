@@ -24,8 +24,7 @@ export const addCommentDB =
       .addComment(postId, content)
       .then((res) => {
         console.log(res);
-        console.log(111);
-        dispatch(addComment(postId, content));
+        dispatch(addComment(content));
         alert("댓글 등록!", "댓글 보기를 눌러보세요!", "success");
       })
       .catch((e) => console.log(e));
@@ -52,7 +51,7 @@ export default handleActions(
     },
     [COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(draft);
+        console.log(draft.payload);
         draft.list.push(action.payload.comment);
       }),
   },
