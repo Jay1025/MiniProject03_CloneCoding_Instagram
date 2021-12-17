@@ -102,7 +102,7 @@ const Login = () => {
               ></Input>
               {/* Password 입력 */}
               <Input
-                main_input
+                password
                 placeholder="비밀번호"
                 _onChange={pwdCheck}
               ></Input>

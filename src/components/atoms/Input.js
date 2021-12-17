@@ -1,4 +1,5 @@
 import React from "react";
+import { CgPassword } from "react-icons/cg";
 import styled from "styled-components";
 import Text from "./Text";
 
@@ -14,13 +15,24 @@ const Input = (props) => {
     padding,
     _value,
     main_input,
-    file,
+    password,
   } = props;
 
   if (main_input) {
     return (
       <React.Fragment>
         <MainInput placeholder={placeholder} onChange={_onChange}></MainInput>
+      </React.Fragment>
+    );
+  }
+  if (password) {
+    return (
+      <React.Fragment>
+        <MainInput
+          placeholder={placeholder}
+          onChange={_onChange}
+          type="password"
+        ></MainInput>
       </React.Fragment>
     );
   }
