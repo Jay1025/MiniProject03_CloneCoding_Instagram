@@ -23,6 +23,8 @@ export const addCommentDB =
     apis
       .addComment(postId, content)
       .then((res) => {
+        console.log(res);
+        console.log(111);
         dispatch(addComment(postId, content));
         alert("댓글 등록!", "댓글 보기를 눌러보세요!", "success");
       })
@@ -34,7 +36,7 @@ export const loadCommentDB =
   (dispatch, getState, { history }) => {
     console.log("댓글로딩중");
     apis.getComment(postId).then((res) => {
-      console.log(res.data);
+      console.log("댓글로딩완료");
       dispatch(loadComment(res.data));
     });
   };

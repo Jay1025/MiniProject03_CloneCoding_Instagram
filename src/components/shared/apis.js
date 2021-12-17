@@ -53,7 +53,9 @@ export const apis = {
   // // deleteComment: api.del("", {}),
 
   //좋아요
-  changeLike: (postId) => api.post("/posts/likes", { postId }),
+  changeLike: (postId) => api.post(`/posts/${postId}/likes`, { postId }),
+
+  deleteLike: (postId) => api.del("/posts/likes", { postId }),
 };
 
 export const apisMultipart = {

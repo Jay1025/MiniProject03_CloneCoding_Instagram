@@ -22,7 +22,6 @@ function App() {
     if (is_local) {
       dispatch(userActions.loginCheckDB());
       dispatch(loadPostDB()).then(console.log("포스트로딩완료"));
-      // dispatch(loadCommentDB()).then(console.log("댓글로딩완료"));
     }
   }, [dispatch]);
 

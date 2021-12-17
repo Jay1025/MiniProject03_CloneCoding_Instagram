@@ -7,7 +7,6 @@ import PostView from "./PostView";
 export default function Post() {
   const data = useSelector((state) => state.post.list);
   console.log(data);
-
   return (
     <>
       {data &&

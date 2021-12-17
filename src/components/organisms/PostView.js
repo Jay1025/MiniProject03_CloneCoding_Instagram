@@ -46,11 +46,11 @@ export default function PostView(props) {
     dispatch(addCommentDB(postId, hasComment));
   };
 
-  const addLike = (postId) => {
+  const addLike = () => {
     console.log(postId);
     // setLike(true);
     alert("좋아요");
-    // dispatch(addLikeDB(postId));
+    dispatch(addLikeDB(postId));
   };
 
   const delLike = () => {
@@ -127,7 +127,7 @@ export default function PostView(props) {
             <AiOutlineHeart
               size="28"
               style={{ margin: "8px" }}
-              onClick={() => addLike(postId)}
+              onClick={addLike}
             />
           )}
 
@@ -174,7 +174,7 @@ export default function PostView(props) {
           )}
           {contentMore || (
             <>
-              <ContentTitle>{post.content}</ContentTitle>
+              <ContentTitle>{post.content.split("\n")[0]}</ContentTitle>
               <ContentMore onClick={() => setContentMore(true)}>
                 <span>... </span>
                 <span
@@ -192,7 +192,12 @@ export default function PostView(props) {
         </PostContent>
         {contentMore && (
           <>
-            <Content>{post.content}</Content>
+            <Content>
+              {post.content.split("\n").map((content, index) => {
+                console.log(content);
+                return <div key={index}>{content}</div>;
+              })}
+            </Content>
           </>
         )}
         {post.numOfComments > 0 && (

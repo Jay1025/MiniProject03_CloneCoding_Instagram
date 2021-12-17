@@ -22,7 +22,7 @@ export default function Comment(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadCommentDB(postId));
-  }, [dispatch]);
+  }, []);
 
   const [visible, setVisible] = useState(props.visible);
   const [like, setLike] = useState(false);
@@ -110,7 +110,10 @@ export default function Comment(props) {
                         {postUsername}
                       </PostTitle>
                     </Link>
-                    {postContent}
+                    {postContent &&
+                      postContent.split("\n").map((content, index) => {
+                        return <div key={index}>{content}</div>;
+                      })}
                     <ModifiedAt>{postCreatedAt}</ModifiedAt>
                     <PostTitleImgArea
                       style={{
@@ -125,56 +128,71 @@ export default function Comment(props) {
                       />
                     </PostTitleImgArea>
                   </div>
-                  {comments.map((comment, key) => {
-                    console.log(comment);
-                    return (
-                      <Comments>
-                        <PostTitle>{comment.username}</PostTitle>
-                        <Commentna>{comment.content}</Commentna>
-                        <CommentFooter>
-                          <Link to="/">
-                            <ModifiedAt>{comment.createdAt}</ModifiedAt>
-                          </Link>
-                          <Like>좋아요 {comment.userId}개</Like>
-                          <ReComment>답글 달기</ReComment>
-                        </CommentFooter>
-                        <PostTitleImgArea
-                          style={{
-                            position: "absolute",
-                            top: "-10px",
-                            left: "-10px",
-                          }}
-                        >
-                          <PostTitleImg
-                            src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
-                            alt="누군가의이미지"
-                          />
-                        </PostTitleImgArea>
-                        {(like && (
-                          <AiFillHeart
-                            size="13"
+                  {comments &&
+                    comments.map((comment, key) => {
+                      console.log(comment);
+                      return (
+                        <Comments>
+                          <PostTitle>{comment.username}</PostTitle>
+                          <Commentna>
+                            {comment.content &&
+                              comment.content
+                                .split("\n")
+                                .map((content, index) => {
+                                  return <div key={index}>{content}</div>;
+                                })}
+                          </Commentna>
+                          <CommentFooter>
+                            <Link to="/">
+                              <ModifiedAt>{comment.createdAt}</ModifiedAt>
+                            </Link>
+                            <Like>좋아요 {comment.userId}개</Like>
+                            <ReComment>답글 달기</ReComment>
+                          </CommentFooter>
+                          <PostTitleImgArea
                             style={{
                               position: "absolute",
-                              top: "0",
-                              right: "10px",
+                              top: "-10px",
+                              left: "-10px",
                             }}
-                            onClick={() => setLike(false)}
-                            color="red"
-                          />
-                        )) || (
-                          <AiOutlineHeart
-                            size="13"
-                            style={{
-                              position: "absolute",
-                              top: "0",
-                              right: "10px",
-                            }}
-                            onClick={() => setLike(true)}
-                          />
-                        )}
-                      </Comments>
-                    );
-                  })}
+                          >
+                            {(comment.profileUrl && (
+                              <PostTitleImg
+                                src={`http://13.125.132.120/${comment.profileUrl}`}
+                                alt="누군가의이미지"
+                              />
+                            )) || (
+                              <PostTitleImg
+                                src="https://image.similarpng.com/very-thumbnail/2020/06/Instagram-logo-transparent-PNG.png"
+                                alt="프로필사진X"
+                              />
+                            )}
+                          </PostTitleImgArea>
+                          {(like && (
+                            <AiFillHeart
+                              size="13"
+                              style={{
+                                position: "absolute",
+                                top: "0",
+                                right: "10px",
+                              }}
+                              onClick={() => setLike(false)}
+                              color="red"
+                            />
+                          )) || (
+                            <AiOutlineHeart
+                              size="13"
+                              style={{
+                                position: "absolute",
+                                top: "0",
+                                right: "10px",
+                              }}
+                              onClick={() => setLike(true)}
+                            />
+                          )}
+                        </Comments>
+                      );
+                    })}
                 </Contents>
               </Scroll>
             </ContentArea>
