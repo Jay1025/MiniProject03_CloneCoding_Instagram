@@ -1,5 +1,6 @@
 import { apis } from "../components/shared/apis";
 import { createAction, handleActions } from "redux-actions";
+import produce from "immer";
 import alert from "sweetalert";
 
 // initialState
@@ -22,38 +23,35 @@ export const addCommentDB =
     apis
       .addComment(postId, content)
       .then((res) => {
-        dispatch(addComment(postId, content)).then(
-          alert("댓글 등록!", "success")
-        );
+        dispatch(addComment(postId, content));
+        alert("댓글 등록!", "댓글 보기를 눌러보세요!", "success");
       })
       .catch((e) => console.log(e));
   };
 
 export const loadCommentDB =
-  () =>
+  (postId) =>
   (dispatch, getState, { history }) => {
     console.log("댓글로딩중");
-    apis.getComment().then((res) => {
-      console.log(res);
-      //   dispatch(loadComment());
+    apis.getComment(postId).then((res) => {
+      console.log(res.data);
+      dispatch(loadComment(res.data));
     });
   };
 
 // reducer
 export default handleActions(
   {
-    [COMMENT]: (state, action) => {
-      return {
-        ...state,
-        list: action.payload.comment,
-      };
-    },
     [LOAD]: (state, action) => {
       return {
         ...state,
         list: action.payload.comment,
       };
     },
+    [COMMENT]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.push(action.payload.comment);
+      }),
   },
   initialState
 );

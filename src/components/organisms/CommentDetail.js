@@ -15,7 +15,8 @@ import { RiBookmarkLine } from "react-icons/ri";
 export default function Comment(props) {
   const [visible, setVisible] = useState(props.visible);
   const [like, setLike] = useState(false);
-  const [postId, setpostId] = useState(props.postId);
+
+  const postId = props.postId;
 
   const dispatch = useDispatch();
 
@@ -23,7 +24,10 @@ export default function Comment(props) {
 
   useEffect(() => {
     dispatch(loadCommentDB(postId));
-  });
+  }, [dispatch]);
+
+  const data = useSelector((store) => store);
+  console.log(data);
 
   return (
     <>
