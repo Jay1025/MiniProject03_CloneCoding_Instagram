@@ -78,6 +78,7 @@ export default function PostView(props) {
           </Link>
         </HeaderLeft>
         <PostMenu>
+          {/* ...모달 부분 */}
           <MenuArea>
             <BsThreeDots size="20" />
           </MenuArea>

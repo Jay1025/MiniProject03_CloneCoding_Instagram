@@ -88,7 +88,7 @@ const Mypage = () => {
         >
           {/* 프로필 사진 변경 모달창 띄우기 */}
           <Grid width="260px" height="150px">
-            {myProfileId === parseInt(user_id) ? (
+            {myProfileId === parseInt(user_id) && profileImg !== null ? (
               <Image
                 shape="myIcon"
                 src={`http://13.125.132.120/${profileImg}`}
@@ -98,6 +98,8 @@ const Mypage = () => {
               />
             ) : (
               <Image
+                shape="myIcon"
+                src="https://fdn.gsmarena.com/imgroot/news/18/03/instagram-timeline-changes/-728/gsmarena_001.jpg"
                 _onClick={() => {
                   setProfilechange(true);
                 }}
