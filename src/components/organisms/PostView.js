@@ -26,6 +26,7 @@ export default function PostView(props) {
   const createAt = post.createdAt.split("T")[1].split(":")[0];
   const postId = post.postId;
   const imgUrl = post.imgUrl.split(",");
+
   const dispatch = useDispatch();
   const [hasComment, setHasComment] = useState("");
   const [like, setLike] = useState(false);
@@ -199,7 +200,11 @@ export default function PostView(props) {
         )}
         {commentModal && (
           <>
-            <CommentDetail visible={commentModal} postId={postId} />
+            <CommentDetail
+              visible={commentModal}
+              postId={postId}
+              imgUrl={imgUrl}
+            />
             <ClosePosting
               onClick={() => {
                 setCommentModal(false);

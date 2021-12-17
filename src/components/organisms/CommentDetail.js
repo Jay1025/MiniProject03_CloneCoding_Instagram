@@ -17,17 +17,19 @@ export default function Comment(props) {
   const [like, setLike] = useState(false);
 
   const postId = props.postId;
+  const imgUrl = props.imgUrl;
 
   const dispatch = useDispatch();
 
   console.log(postId);
+  console.log(imgUrl);
 
   useEffect(() => {
     dispatch(loadCommentDB(postId));
   }, [dispatch]);
 
-  const data = useSelector((store) => store);
-  console.log(data);
+  const comments = useSelector((store) => store.comment.list);
+  console.log(comments);
 
   return (
     <>
