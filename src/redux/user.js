@@ -41,16 +41,19 @@ export const loginDB =
   async (dispatch, getState, { history }) => {
     try {
       const response = await apis.login(id, pwd);
-      console.log(response);
-      console.log(response.data);
+      //서버로부터 받아온 데이터
       let username = response.data.username;
       let fullname = response.data.fullname;
+      let userId = response.data.userId;
+      //쿠키, 로컬 스토리지에 저장
       setCookie("token", response.data.token, 7);
       localStorage.setItem("username", response.data.username);
       localStorage.setItem("fullname", response.data.fullname);
-      dispatch(setLogin(username, fullname));
-      alert(`${username}님 환영합니다`);
+      localStorage.setItem("userId", response.data.userId);
+      //리듀서에 저장
+      dispatch(setLogin(username, fullname, userId));
 
+      alert(`${username}님 환영합니다`);
       history.replace("/");
     } catch (err) {
       window.alert("없는 회원정보 입니다! 회원가입을 해주세요!");
@@ -88,6 +91,7 @@ export default handleActions(
       produce(state, (draft) => {
         draft.username = action.payload.user;
         draft.fullname = action.payload.fullname;
+        draft.userId = action.payload.userId;
         draft.is_login = true;
       }),
     [LOG_OUT]: (state, action) =>

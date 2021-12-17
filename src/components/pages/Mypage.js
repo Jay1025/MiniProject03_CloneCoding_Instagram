@@ -16,33 +16,28 @@ import Footer from "../organisms/Footer";
 const Mypage = () => {
   const user_name = localStorage.getItem("username");
   const user_fullname = localStorage.getItem("fullname");
+  const user_id = localStorage.getItem("userId");
 
   //-------Modal-------
-  const [profileChange, setProfileChange] = useState(false);
+  const [profilechange, setProfilechange] = useState();
 
-  const closeModal = () => {
-    setProfileChange(false);
+  const CloseModal = () => {
+    setProfilechange(false);
   };
 
   //프로필 이미지 파일 변경
-  const [uploadMyFile, setUploadMyFile] = useState(null);
-  const [uploadMyURL, setUploadMyURL] = useState();
+  // const [uploadMyFile, setUploadMyFile] = useState();
 
   const addUploadFile = async (e) => {
     e.preventDefault();
-    setUploadMyFile(e.target.files[0]);
-    console.log(e.target.files[0]);
+    // setUploadMyFile(e.target.files[0]);
+    // console.log(e.target.files[0]);
 
-    // const ImgUrl = URL.createObjectURL(e.target.files[0]);
-    // console.log(ImgUrl);
-    // setUploadMyURL(ImgUrl);
-    addProfile();
-  };
+    //   addProfile();
+    // };
 
-  const addProfile = async () => {
-    console.log(uploadMyFile);
+    // const addProfile = async () => {
     const accessToken = document.cookie.split("=")[1];
-    console.log("1");
     const token = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -51,17 +46,17 @@ const Mypage = () => {
     };
     console.log(token);
     let formdata = new FormData();
-
-    formdata.append("imgUrl", uploadMyFile);
-    console.log(formdata);
+    formdata.append("profileUrl", e.target.files[0]);
+    // console.log(uploadMyFile);
 
     return axios
-      .post(`http://13.125.132.120/users/1`, formdata, token)
+      .post(`http://13.125.132.120/users/${user_id}`, formdata, token)
       .then((response) => {
         console.log(response);
         alert("정상적으로 프로필사진이 변경되었습니다.");
-        setProfileChange(false);
+        setProfilechange(false);
       })
+
       .catch((e) => alert(e));
   };
 
@@ -80,12 +75,12 @@ const Mypage = () => {
               shape="myIcon"
               src="https://fdn.gsmarena.com/imgroot/news/18/03/instagram-timeline-changes/-728/gsmarena_001.jpg"
               _onClick={() => {
-                setProfileChange(true);
+                setProfilechange(true);
               }}
             />
-            <div profileChange={profileChange} closeModal={closeModal}></div>
-            {profileChange ? (
-              <Background onClick={closeModal}>
+            <div profilechange={profilechange} closeModal={CloseModal}></div>
+            {profilechange ? (
+              <Background onClick={CloseModal}>
                 <ModalContainer onClick={(e) => e.stopPropagation()}>
                   {/* 프로필 이미지 변경 버튼 */}
                   <Text profileModal>프로필 사진 바꾸기</Text>
@@ -105,7 +100,7 @@ const Mypage = () => {
                   <Text modalChoices color="#ed4956">
                     현재 사진 삭제
                   </Text>
-                  <Text _onClick={closeModal} padding="15px 0" cursor="pointer">
+                  <Text _onClick={CloseModal} padding="15px 0" cursor="pointer">
                     취소
                   </Text>
                 </ModalContainer>
