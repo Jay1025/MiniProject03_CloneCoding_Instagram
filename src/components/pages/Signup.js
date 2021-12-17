@@ -158,7 +158,7 @@ const Login = () => {
             {/* pwd */}
             <Grid is_flex>
               <Input
-                main_input
+                password
                 placeholder="비밀번호 (3~10글자 영문,숫자)"
                 _onChange={onChangePwd}
               ></Input>
@@ -167,7 +167,7 @@ const Login = () => {
             {/* pwd check */}
             <Grid is_flex>
               <Input
-                main_input
+                password
                 placeholder="비밀번호 확인"
                 _onChange={onChangePwdCheck}
               ></Input>

@@ -32,10 +32,8 @@ const Mypage = () => {
   // }
 
   const addUploadFile = async (e) => {
-    console.log(1);
     e.preventDefault();
     setUploadMyFile(e.target.files);
-    console.log(e.target.files);
     const ImageUrl = URL.createObjectURL(e.target.files);
     console.log(ImageUrl);
     setUploadMyURL(ImageUrl);
