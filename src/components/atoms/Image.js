@@ -44,7 +44,9 @@ const Image = (props) => {
       </AspectOutter>
     );
   }
-  return <React.Fragment></React.Fragment>;
+  return <React.Fragment>
+    <MyProfile {...styles} onClick={_onClick} />
+  </React.Fragment>;
 };
 
 Image.defaultProps = {

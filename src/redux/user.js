@@ -79,6 +79,8 @@ const logoutDB = () => {
   return function (dispatch, getState, { history }) {
     deleteCookie("token");
     localStorage.removeItem("username");
+    localStorage.removeItem("fullname");
+    localStorage.removeItem("userId");
     dispatch(logout());
     history.replace("/");
   };
