@@ -137,6 +137,7 @@ export default function Comment(props) {
                   </div>
                   {comments &&
                     comments.map((comment, key) => {
+                      console.log(comment);
                       return (
                         <Comments>
                           <PostTitle>{comment.username}</PostTitle>
@@ -153,7 +154,7 @@ export default function Comment(props) {
                               <ModifiedAt>{comment.createdAt}</ModifiedAt>
                             </Link>
 
-                            <Like>좋아요 5개</Like>
+                            <Like>좋아요 1개</Like>
 
                             <ReComment>답글 달기</ReComment>
                           </CommentFooter>

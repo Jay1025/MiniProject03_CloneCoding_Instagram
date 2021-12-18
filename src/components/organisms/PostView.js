@@ -28,8 +28,9 @@ export default function PostView(props) {
 
   const dispatch = useDispatch();
   const [hasComment, setHasComment] = useState("");
-  const [like, setLike] = useState(false);
-  const [clickedComment, setClickedComment] = useState(false);
+  const liked = props.liked;
+  const [like, setLike] = useState(props.liked);
+  const [clickedComment, setClickedComment] = useState(0);
 
   const [contentMore, setContentMore] = useState(false);
   const [commentShow, setCommentShow] = useState(false);
@@ -52,12 +53,13 @@ export default function PostView(props) {
   const addLike = () => {
     // setLike(true);
     setLike(true);
+    setClickedComment(1);
     addLikeDB(postId);
-    console.log("dd");
   };
 
   const delLike = () => {
     setLike(false);
+    setClickedComment(-1);
     addLikeDB(postId);
   };
 
@@ -153,8 +155,8 @@ export default function PostView(props) {
           </Link>
         </FooterMenu>
         <LikeArea>
-          {post.numOfLikes + Number(like) > 0 && (
-            <Like>좋아요 {post.numOfLikes + Number(like)}개</Like>
+          {post.numOfLikes + clickedComment > 0 && (
+            <Like>좋아요 {post.numOfLikes + clickedComment}개</Like>
           )}
         </LikeArea>
         <PostContent>

@@ -62,10 +62,9 @@ export default handleActions(
     },
     [COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(action.payload.store);
-        console.log(draft.list);
-        draft.list.push((action.payload.store.numOfComments += 1));
         draft.list.push(action.payload.comment);
+        draft.list.push((action.payload.store.numOfComments += 1));
+        console.log(draft.list);
       }),
   },
   initialState

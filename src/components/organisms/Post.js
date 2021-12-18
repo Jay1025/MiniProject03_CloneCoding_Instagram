@@ -6,7 +6,9 @@ import PostView from "./PostView";
 
 export default function Post() {
   const data = useSelector((state) => state.post.list);
+  const likedList = useSelector((state) => state.post.likedPostList);
   console.log(data);
+  console.log(likedList);
   return (
     <>
       {data &&
@@ -20,6 +22,14 @@ export default function Post() {
           const username = post.username;
           const content = post.content;
 
+          let liked = false;
+          for (let i = 0; i < likedList.length; i++) {
+            if (likedList[i] === postId) {
+              liked = true;
+            }
+          }
+          console.log(liked);
+
           return (
             <PostView
               postId={postId}
@@ -31,6 +41,7 @@ export default function Post() {
               username={username}
               content={content}
               key={key}
+              liked={liked}
             />
           );
         })}
