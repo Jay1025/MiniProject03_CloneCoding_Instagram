@@ -24,15 +24,14 @@ const initialState = {
 //---- 회원가입 DB ----
 export const signUpDB =
   (id, fullname, username, pwd) =>
-  async ({ history }) => {
-    try {
-      await apis.signup(id, fullname, username, pwd);
-      alert("회원가입이 완료되었습니다. 로그인 해주세요.");
-      //이상하게 이동이 안됨...
-      history.replace("/");
-    } catch (err) {
-      console.log(`오류 발생!${err}`);
-    }
+  (dispatch, getState, { history }) => {
+    apis
+      .signup(id, fullname, username, pwd)
+      .then((res) => {
+        alert("회원가입이 완료되었습니다. 로그인 해주세요.", "", "success");
+        history.push("/");
+      })
+      .catch((e) => console.log(e));
   };
 
 //---- 로그인 DB ----

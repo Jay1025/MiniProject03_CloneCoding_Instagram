@@ -1,5 +1,5 @@
 import { apis } from "../components/shared/apis";
-import { createAction, handleActions } from "redux-actions";
+import { handleActions } from "redux-actions";
 
 // initialState
 const initialState = {
@@ -7,25 +7,21 @@ const initialState = {
 };
 
 // action
-const LOAD = "like/LOAD";
+// const LOAD = "like/LOAD";
 const ADD = "like/LOAD";
 const DEL = "like/DEL";
 
 // action create
-const loadLike = createAction(LOAD, (like) => ({ like }));
-const addLike = createAction(ADD, (like) => ({ like }));
-const delLike = createAction(DEL, (like) => ({ like }));
+// const loadLike = createAction(LOAD, (like) => ({ like }));
+// const addLike = createAction(ADD, (like) => ({ like }));
+// const delLike = createAction(DEL, (like) => ({ like }));
 
 // thunk
 export const addLikeDB = (postId) => {
-  // console.log(getState);
   apis.changeLike(postId).then((res) => {
     console.log(res);
-    //   dispatch(addLike());
   });
 };
-
-// .catch((e) => console.log(e));
 
 export const delLikeDB = () => {};
 

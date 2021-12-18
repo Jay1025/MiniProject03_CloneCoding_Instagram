@@ -7,13 +7,10 @@ import PostView from "./PostView";
 export default function Post() {
   const data = useSelector((state) => state.post.list);
   const likedList = useSelector((state) => state.post.likedPostList);
-  console.log(data);
-  console.log(likedList);
   return (
     <>
       {data &&
         data.map((post, key) => {
-          console.log(post);
           const createdAt = post.createdAt;
           const postId = post.id;
           const imgUrl = post.imgUrl;
@@ -30,7 +27,6 @@ export default function Post() {
               liked = true;
             }
           }
-          console.log(liked);
 
           return (
             <PostView

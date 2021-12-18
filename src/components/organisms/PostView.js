@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Modal from "./Posting";
+import alert from "sweetalert";
 
 import { BsThreeDots } from "react-icons/bs";
 import { AiOutlineHeart, AiFillHeart, AiOutlineClose } from "react-icons/ai";
@@ -13,7 +14,7 @@ import { CgSmile } from "react-icons/cg";
 
 import CommentDetail from "./CommentDetail";
 import { addCommentDB } from "../../redux/comment";
-import { addLikeDB, delLikeDB } from "../../redux/like";
+import { addLikeDB } from "../../redux/like";
 import { deletePostDB } from "../../redux/post";
 
 //swiper
@@ -27,13 +28,11 @@ export default function PostView(props) {
   const createdAt = post.createdAt.split("T")[1].split(":")[0];
   const postId = post.postId;
   const imgUrl = post.imgUrl.split(",");
-  console.log(props.profileUrl);
 
   const dispatch = useDispatch();
   const [hasComment, setHasComment] = useState("");
   const liked = props.liked;
   const [like, setLike] = useState(props.liked);
-  const [clickedComment, setClickedComment] = useState(0);
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
 
@@ -42,22 +41,18 @@ export default function PostView(props) {
   const [commentModal, setCommentModal] = useState(false);
   const [moreInfo, setMoreInfo] = useState(false);
 
-  //   const data = useSelector((state) => state.post.list);
-  //   console.log(data);
-
   const changeComment = (e) => {
     setHasComment(e.target.value);
   };
 
   const addComment = (postId) => {
-    setClickedComment(true);
-    dispatch(addCommentDB(postId, hasComment));
     let comment = document.querySelector("#comment");
-    comment.value = null;
+    comment.value = "";
+    console.log(comment);
+    dispatch(addCommentDB(postId, hasComment));
   };
 
   const addLike = () => {
-    // setLike(true);
     setLike(true);
     setAddLiked(1);
     setDelLiked(0);
@@ -72,8 +67,21 @@ export default function PostView(props) {
   };
 
   const deletePost = () => {
-    dispatch(deletePostDB(postId));
-    setMoreInfo(false);
+    alert({
+      title: "지우시게요??",
+      text: "복구할수 없어요!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deletePostDB(postId));
+        setMoreInfo(false);
+        alert("삭제 완료!", "", "success");
+      } else {
+        alert("다시생각하세요");
+      }
+    });
   };
 
   SwiperCore.use([Navigation, Pagination]);
@@ -90,7 +98,7 @@ export default function PostView(props) {
             <PostTitleImgArea>
               <PostTitleImg
                 src={`http://13.125.132.120/${props.profileUrl}`}
-                alt="누군가의이미지"
+                alt="프로필등록을 해주세요!"
               />
             </PostTitleImgArea>
           </Link>
@@ -107,12 +115,14 @@ export default function PostView(props) {
       </PostHeader>
       <Modal visible={moreInfo} width="400px" borderRadius="10px">
         <ModalArea style={{ color: "red", fontWeight: "900" }}>신고</ModalArea>
-        <ModalArea
-          style={{ color: "red", fontWeight: "900" }}
-          onClick={deletePost}
-        >
-          삭제
-        </ModalArea>
+        {post.username === localStorage.getItem("username") && (
+          <ModalArea
+            style={{ color: "red", fontWeight: "900" }}
+            onClick={deletePost}
+          >
+            삭제
+          </ModalArea>
+        )}
         <ModalArea style={{ color: "red", fontWeight: "900" }}>
           팔로우
         </ModalArea>
@@ -241,7 +251,6 @@ export default function PostView(props) {
           <>
             <Content>
               {post.content.split("\n").map((content, index) => {
-                console.log(content);
                 return <div key={index}>{content}</div>;
               })}
             </Content>
@@ -317,8 +326,7 @@ export default function PostView(props) {
 }
 
 PostView.defaultProps = {
-  profileUrl:
-    "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png",
+  profileUrl: "Images/1639807690230.png",
 };
 
 const Wrap = styled.div`

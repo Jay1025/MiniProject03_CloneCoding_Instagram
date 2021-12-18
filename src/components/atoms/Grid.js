@@ -80,6 +80,5 @@ const GridBox = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-  /* border: 1px solid black; */
 `;
 export default Grid;

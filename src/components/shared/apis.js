@@ -51,12 +51,12 @@ export const apis = {
     api.post(`/posts/${postId}/comments`, { content }),
   // updateComment: api.put("", {}),
   deleteComment: (postId, commentId) =>
-    api.del(`/posts/${postId}/comments/${commentId}`, {}),
+    api.delete(`/posts/${postId}/comments/${commentId}`, {}),
 
   //좋아요
   changeLike: (postId) => api.post(`/posts/${postId}/likes`, { postId }),
 
-  deleteLike: (postId) => api.del("/posts/likes", { postId }),
+  deleteLike: (postId) => api.delete("/posts/likes", { postId }),
 };
 
 export const apisMultipart = {

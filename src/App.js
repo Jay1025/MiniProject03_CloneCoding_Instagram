@@ -1,7 +1,7 @@
 import "./App.css";
 import GlobalStyles from "./components/shared/globalStyles";
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Switch, Route } from "react-router-dom";
 
 import Main from "./components/pages/Main";
@@ -22,10 +22,7 @@ function App() {
       dispatch(userActions.loginCheckDB());
       dispatch(loadPostDB()).then(console.log("포스트로딩완료"));
     }
-  }, [dispatch, is_local]);
-
-  const data = useSelector((store) => store);
-  console.log(data);
+  }, []);
 
   return (
     <>
@@ -37,7 +34,6 @@ function App() {
         <Route path="/mypage" component={Mypage} />
         <Route path="/" exact component={Main} />
       </Switch>
-      {/* <Navigation /> */}
     </>
   );
 }

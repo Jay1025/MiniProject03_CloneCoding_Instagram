@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import Modal from "./Posting";
 
 import { useSelector, useDispatch } from "react-redux";
-import { loadCommentDB, addCommentDB } from "../../redux/comment";
+import {
+  loadCommentDB,
+  addCommentDB,
+  deleteCommentDB,
+} from "../../redux/comment";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { addLikeDB, delLikeDB } from "../../redux/like";
+import { addLikeDB } from "../../redux/like";
 
-import { AiOutlineClose, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { IoMdPaperPlane } from "react-icons/io";
 import { IoChatbubbleOutline } from "react-icons/io5";
@@ -27,18 +31,19 @@ export default function Comment(props) {
     dispatch(loadPostDB());
   }, []);
 
-  const [visible, setVisible] = useState(props.visible);
+  const visible = useState(props.visible);
   const [like, setLike] = useState(props.like);
   const liked = props.like;
   const [hasComment, setHasComment] = useState("");
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
+  const [commentInfoModal, setCommentInfoModal] = useState(false);
+
   const postId = props.postId;
   const imgUrl = props.imgUrl;
   const postUsername = props.postUsername;
   const postProfileUrl = props.postProfileUrl;
   const postContent = props.postContent;
-  const postCreatedAt = props.postCreatedAt;
 
   const liked1 = useSelector((store) => store.post.list);
 
@@ -50,7 +55,6 @@ export default function Comment(props) {
   }
 
   const comments = useSelector((store) => store.comment.list);
-  console.log(comments);
   const changeComment = (e) => {
     setHasComment(e.target.value);
   };
@@ -74,7 +78,7 @@ export default function Comment(props) {
   };
 
   const deleteComment = (commentId1) => {
-    console.log(commentId1);
+    dispatch(deleteCommentDB(postId, commentId1));
   };
 
   SwiperCore.use([Navigation, Pagination]);
@@ -197,7 +201,11 @@ export default function Comment(props) {
                             )}
                           </PostTitleImgArea>
                           <ThreeDotsArea id="dots">
-                            <BsThreeDots />
+                            <BsThreeDots
+                              onClick={() => {
+                                setCommentInfoModal(true);
+                              }}
+                            />
                           </ThreeDotsArea>
 
                           <AiOutlineHeart
@@ -208,6 +216,45 @@ export default function Comment(props) {
                               right: "10px",
                             }}
                           />
+                          {commentInfoModal && (
+                            <Modal
+                              visible={commentInfoModal}
+                              width="400px"
+                              borderRadius="10px"
+                            >
+                              <ModalWrap
+                                style={{ color: "red", fontWeight: "900" }}
+                              >
+                                신고
+                              </ModalWrap>
+                              {comment.username ===
+                                localStorage.getItem("username") && (
+                                <ModalWrap
+                                  style={{ color: "red", fontWeight: "900" }}
+                                  onClick={() => {
+                                    deleteComment(commentId1);
+                                    setCommentInfoModal(false);
+                                  }}
+                                >
+                                  삭제
+                                </ModalWrap>
+                              )}
+                              <ModalWrap
+                                style={{ color: "red", fontWeight: "900" }}
+                              >
+                                팔로우
+                              </ModalWrap>
+                              <ModalWrap>공유 대상...</ModalWrap>
+                              <ModalWrap>링크 복사</ModalWrap>
+                              <ModalWrap>퍼가기</ModalWrap>
+                              <ModalWrap
+                                onClick={() => setCommentInfoModal(false)}
+                                style={{ border: "none" }}
+                              >
+                                취소
+                              </ModalWrap>
+                            </Modal>
+                          )}
                         </Comments>
                       );
                     })}
@@ -466,4 +513,15 @@ const Liked = styled.div`
   margin: 5px 10px 10px;
   font-weight: 900;
   pointer-events: none;
+`;
+
+const ModalWrap = styled.div`
+  height: 48px;
+  border-bottom: 1px solid #999;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
 `;

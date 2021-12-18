@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import alert from "sweetalert";
 
@@ -96,14 +96,11 @@ function Navi({ location }) {
       fd.append("imgUrl", uploadFiles[i]);
     }
     fd.append("content", content);
-    console.log(fd);
 
     return axios
       .post("http://13.125.132.120/posts/", fd, config)
       .then((res) => {
-        console.log(res);
         const data = res.data;
-        console.log(data);
         alert("등록 성공");
         setPostModal(false);
         setUploadURL([]);
@@ -349,12 +346,12 @@ function Navi({ location }) {
             >
               <Swiper {...swiperParams}>
                 {uploadURL.length !== 0 &&
-                  uploadURL.map((file, key) => {
+                  uploadURL.map((file, index) => {
                     return (
                       <>
                         <SwiperSlide
                           style={{ margin: "auto", position: "relative" }}
-                          key={key}
+                          key={index}
                         >
                           <div
                             style={{
@@ -364,7 +361,6 @@ function Navi({ location }) {
                               justifyContent: "center",
                               alignItems: "center",
                             }}
-                            key={key}
                           >
                             <img
                               src={file}
@@ -374,7 +370,6 @@ function Navi({ location }) {
                                 maxHeight: "480px",
                                 display: "block",
                               }}
-                              key={key}
                             />
                           </div>
                         </SwiperSlide>
@@ -387,7 +382,7 @@ function Navi({ location }) {
               <RightTop>
                 <UserInfo>
                   <img
-                    src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                    src="https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png"
                     alt="alts"
                     style={{
                       width: "28px",
@@ -463,8 +458,6 @@ const ImgArea = styled.div`
   cursor: pointer;
   display: block;
 `;
-
-const Img = styled.image``;
 
 const InputArea = styled.div`
   display: flex;
