@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import Modal from "./Posting";
 
 import { useSelector, useDispatch } from "react-redux";
-import { loadCommentDB, addCommentDB } from "../../redux/comment";
+import {
+  loadCommentDB,
+  addCommentDB,
+  deleteCommentDB,
+} from "../../redux/comment";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { addLikeDB, delLikeDB } from "../../redux/like";
@@ -74,7 +78,9 @@ export default function Comment(props) {
   };
 
   const deleteComment = (commentId1) => {
-    console.log(commentId1);
+    console.log(postId, commentId1);
+    dispatch(deleteCommentDB(postId, commentId1));
+    console.log("삭제완료");
   };
 
   SwiperCore.use([Navigation, Pagination]);
@@ -196,7 +202,12 @@ export default function Comment(props) {
                               />
                             )}
                           </PostTitleImgArea>
-                          <ThreeDotsArea id="dots">
+                          <ThreeDotsArea
+                            id="dots"
+                            onClick={() => {
+                              deleteComment(commentId1);
+                            }}
+                          >
                             <BsThreeDots />
                           </ThreeDotsArea>
 

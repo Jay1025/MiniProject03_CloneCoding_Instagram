@@ -27,7 +27,6 @@ export default function PostView(props) {
   const createdAt = post.createdAt.split("T")[1].split(":")[0];
   const postId = post.postId;
   const imgUrl = post.imgUrl.split(",");
-  console.log(props.profileUrl);
 
   const dispatch = useDispatch();
   const [hasComment, setHasComment] = useState("");

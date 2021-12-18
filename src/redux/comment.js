@@ -12,6 +12,7 @@ const initialState = {
 // action
 const LOAD = "comment/LOAD";
 const COMMENT = "comment/COMMENT";
+const DELETE = "comment/DELETE";
 
 // action create
 const addComment = createAction(COMMENT, (comment, store) => ({
@@ -19,6 +20,7 @@ const addComment = createAction(COMMENT, (comment, store) => ({
   store,
 }));
 const loadComment = createAction(LOAD, (comment) => ({ comment }));
+const deleteComment = createAction(DELETE, (commentId) => ({ commentId }));
 
 // thunk middleWare
 export const addCommentDB =
@@ -51,6 +53,19 @@ export const loadCommentDB =
     });
   };
 
+export const deleteCommentDB =
+  (postId, commentId) =>
+  (dispatch, getState, { history }) => {
+    console.log(postId, commentId);
+    apis.deleteComment(postId, commentId).then((res) => {
+      console.log(res);
+      alert("댓글삭제");
+      dispatch(loadCommentDB(postId));
+      //   console.log(getState());
+      deleteComment(commentId);
+    });
+  };
+
 // reducer
 export default handleActions(
   {
@@ -66,6 +81,14 @@ export default handleActions(
         draft.list.push((action.payload.store.numOfComments += 1));
         console.log(draft.list);
       }),
+    [DELETE]: (state, action) => {
+      console.log(111);
+      console.log(state, action);
+      return {
+        ...state,
+        list: state.list.filter((list) => list.id !== action.payload.commentId),
+      };
+    },
   },
   initialState
 );
