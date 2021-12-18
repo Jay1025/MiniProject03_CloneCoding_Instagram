@@ -33,6 +33,7 @@ export const addPostDB = (data) => {
   return function (dispatch, getState, { history }) {
     console.log(data);
     dispatch(pushPost(data));
+    dispatch(loadPostDB());
   };
 };
 

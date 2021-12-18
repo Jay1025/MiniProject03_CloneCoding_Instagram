@@ -7,8 +7,6 @@ import PostView from "./PostView";
 export default function Post() {
   const data = useSelector((state) => state.post.list);
   const likedList = useSelector((state) => state.post.likedPostList);
-  console.log(data);
-  console.log(likedList);
   return (
     <>
       {data &&
@@ -30,7 +28,6 @@ export default function Post() {
               liked = true;
             }
           }
-          console.log(liked);
 
           return (
             <PostView

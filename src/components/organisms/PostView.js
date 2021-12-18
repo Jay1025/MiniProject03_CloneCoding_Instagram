@@ -56,7 +56,6 @@ export default function PostView(props) {
   };
 
   const addLike = () => {
-    // setLike(true);
     setLike(true);
     setAddLiked(1);
     setDelLiked(0);

@@ -80,7 +80,6 @@ export default function Comment(props) {
   const deleteComment = (commentId1) => {
     console.log(postId, commentId1);
     dispatch(deleteCommentDB(postId, commentId1));
-    console.log("삭제완료");
   };
 
   SwiperCore.use([Navigation, Pagination]);
