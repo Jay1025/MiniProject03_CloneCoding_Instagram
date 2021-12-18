@@ -13,6 +13,7 @@ export default function Post() {
     <>
       {data &&
         data.map((post, key) => {
+          console.log(post);
           const createdAt = post.createdAt;
           const postId = post.id;
           const imgUrl = post.imgUrl;
@@ -21,6 +22,7 @@ export default function Post() {
           const userId = post.userId;
           const username = post.username;
           const content = post.content;
+          const profileUrl = post.prorileUrl;
 
           let liked = false;
           for (let i = 0; i < likedList.length; i++) {
@@ -42,6 +44,7 @@ export default function Post() {
               content={content}
               key={key}
               liked={liked}
+              profileUrl={profileUrl}
             />
           );
         })}

@@ -27,6 +27,7 @@ export default function PostView(props) {
   const createdAt = post.createdAt.split("T")[1].split(":")[0];
   const postId = post.postId;
   const imgUrl = post.imgUrl.split(",");
+  console.log(props.profileUrl);
 
   const dispatch = useDispatch();
   const [hasComment, setHasComment] = useState("");
@@ -87,7 +88,10 @@ export default function PostView(props) {
         <HeaderLeft>
           <Link to="/">
             <PostTitleImgArea>
-              <PostTitleImg src={post.profileUrl} alt="누군가의이미지" />
+              <PostTitleImg
+                src={`http://13.125.132.120/${props.profileUrl}`}
+                alt="누군가의이미지"
+              />
             </PostTitleImgArea>
           </Link>
           <Link to="/">

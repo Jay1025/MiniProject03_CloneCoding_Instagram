@@ -443,7 +443,7 @@ const Commenting = styled.div`
 `;
 
 const Liked = styled.div`
-  margin: 5px 10px;
-  fontweight: 900;
-  pointerevents: none;
+  margin: 5px 10px 10px;
+  font-weight: 900;
+  pointer-events: none;
 `;
