@@ -24,7 +24,7 @@ const Image = (props) => {
     radius: radius,
     className: className,
   };
-
+  
   if (shape === "myIcon") {
     return <MyProfile {...styles} onClick={_onClick} />;
   }

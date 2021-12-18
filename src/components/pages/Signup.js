@@ -94,6 +94,10 @@ const Login = () => {
       window.alert("이메일, 패스워드를 정확하게  입력해주세요");
       return;
     }
+    if (fullname.trim() === "" || username.trim() === "") {
+      window.alert("모든 정보를 입력해 주세요.");
+      return;
+    }
     dispatch(userActions.signUpDB(email, fullname, username, pwd));
   };
 
