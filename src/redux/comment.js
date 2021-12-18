@@ -2,6 +2,7 @@ import { apis } from "../components/shared/apis";
 import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 import alert from "sweetalert";
+import { loadPostDB } from "./post";
 
 // initialState
 const initialState = {
@@ -27,6 +28,7 @@ export const addCommentDB =
     apis
       .addComment(postId, content)
       .then((res) => {
+        // dispatch(loadPostDB()).then(console.log("코멘트추가, 로딩완료"));
         let index;
         for (let i = 0; i < state.length; i++) {
           if (state[i].id === postId) {

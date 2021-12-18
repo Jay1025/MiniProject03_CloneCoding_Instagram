@@ -36,7 +36,7 @@ export default function Comment(props) {
   const postProfileUrl = props.postProfileUrl;
   const postContent = props.postContent;
   const postCreatedAt = props.postCreatedAt;
-  const postNumOfLikes = props.postNumOfLikes;
+  let postNumOfLikes = props.postNumOfLikes;
 
   const comments = useSelector((store) => store.comment.list);
 

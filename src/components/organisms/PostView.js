@@ -45,6 +45,8 @@ export default function PostView(props) {
   const addComment = (postId) => {
     setClickedComment(true);
     dispatch(addCommentDB(postId, hasComment));
+    let comment = document.querySelector("#comment");
+    comment.value = null;
   };
 
   const addLike = () => {
@@ -253,7 +255,11 @@ export default function PostView(props) {
         </Link>
         <WriteComment>
           <CgSmile size="28" style={{ margin: "0 16px", cursor: "pointer" }} />
-          <Message placeholder="댓글 달기..." onChange={changeComment} />
+          <Message
+            placeholder="댓글 달기..."
+            onChange={changeComment}
+            id="comment"
+          />
           {hasComment !== "" ? (
             <Commenting onClick={() => addComment(postId)}>게시</Commenting>
           ) : (
