@@ -11,22 +11,26 @@ import Footer from "../organisms/Footer";
 
 const Login = () => {
   const dispatch = useDispatch();
-  // const [RandomPic, setRadomPic] = useState();
+  const [RandomPic, setRadomPic] = useState();
 
-  // const imgArray = [
-  //   "https://www.instagram.com/static/images/homepage/screenshot2.jpg/6f03eb85463c.jpg",
-  //   "https://www.instagram.com/static/images/homepage/screenshot3.jpg/f0c687aa6ec2.jpg",
-  //   "https://www.instagram.com/static/images/homepage/screenshot4.jpg/842fe5699220.jpg",
-  //   "https://www.instagram.com/static/images/homepage/screenshot5.jpg/0a2d3016f375.jpg",
-  //   "https://www.instagram.com/static/images/homepage/screenshot1.jpg/d6bf0c928b5a.jpg",
-  // ];
+  const imgArray = [
+    "https://www.instagram.com/static/images/homepage/screenshot2.jpg/6f03eb85463c.jpg",
+    "https://www.instagram.com/static/images/homepage/screenshot3.jpg/f0c687aa6ec2.jpg",
+    "https://www.instagram.com/static/images/homepage/screenshot4.jpg/842fe5699220.jpg",
+    "https://www.instagram.com/static/images/homepage/screenshot5.jpg/0a2d3016f375.jpg",
+    "https://www.instagram.com/static/images/homepage/screenshot1.jpg/d6bf0c928b5a.jpg",
+  ];
 
-  // function showImage() {
-  //   const imgNum = Math.round(Math.random() * 4);
-  //   setRadomPic(imgArray[imgNum]);
-  //   setTimeout(showImage, 5000);
-  // }
-  // window.onload = showImage();
+  React.useEffect(() => {
+    window.onload = showImage(RandomPic);
+  }, []);
+
+  function showImage() {
+    const imgNum = Math.round(Math.random() * 4);
+    setRadomPic(imgArray[imgNum]);
+    setTimeout(showImage, 5000);
+  }
+  
 
   //---- 아이디 비밀번호 ----
   const [email, setEmail] = React.useState("");
@@ -74,8 +78,7 @@ const Login = () => {
           />
           <Image
             shape="rectangle"
-            // src={RandomPic}
-            src="https://www.instagram.com/static/images/homepage/screenshot2.jpg/6f03eb85463c.jpg"
+            src={RandomPic}
             width="242px"
             height="430px"
             margin="-520px 0 0 150px"
