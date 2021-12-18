@@ -11,6 +11,7 @@ import Footer from "../organisms/Footer";
 
 const Login = () => {
   const dispatch = useDispatch();
+  
   const [RandomPic, setRadomPic] = useState();
 
   const imgArray = [
@@ -30,7 +31,6 @@ const Login = () => {
     setRadomPic(imgArray[imgNum]);
     setTimeout(showImage, 5000);
   }
-  
 
   //---- 아이디 비밀번호 ----
   const [email, setEmail] = React.useState("");
