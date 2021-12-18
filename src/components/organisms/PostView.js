@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Modal from "./Posting";
+import alert from "sweetalert";
 
 import { BsThreeDots } from "react-icons/bs";
 import { AiOutlineHeart, AiFillHeart, AiOutlineClose } from "react-icons/ai";
@@ -65,8 +66,21 @@ export default function PostView(props) {
   };
 
   const deletePost = () => {
-    dispatch(deletePostDB(postId));
-    setMoreInfo(false);
+    alert({
+      title: "지우시게요??",
+      text: "복구할수 없어요!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        dispatch(deletePostDB(postId));
+        setMoreInfo(false);
+        alert("삭제 완료!", "", "success");
+      } else {
+        alert("다시생각하세요");
+      }
+    });
   };
 
   SwiperCore.use([Navigation, Pagination]);
@@ -83,7 +97,7 @@ export default function PostView(props) {
             <PostTitleImgArea>
               <PostTitleImg
                 src={`http://13.125.132.120/${props.profileUrl}`}
-                alt="누군가의이미지"
+                alt="프로필등록을 해주세요!"
               />
             </PostTitleImgArea>
           </Link>
@@ -100,12 +114,14 @@ export default function PostView(props) {
       </PostHeader>
       <Modal visible={moreInfo} width="400px" borderRadius="10px">
         <ModalArea style={{ color: "red", fontWeight: "900" }}>신고</ModalArea>
-        <ModalArea
-          style={{ color: "red", fontWeight: "900" }}
-          onClick={deletePost}
-        >
-          삭제
-        </ModalArea>
+        {post.username === localStorage.getItem("username") && (
+          <ModalArea
+            style={{ color: "red", fontWeight: "900" }}
+            onClick={deletePost}
+          >
+            삭제
+          </ModalArea>
+        )}
         <ModalArea style={{ color: "red", fontWeight: "900" }}>
           팔로우
         </ModalArea>
@@ -309,8 +325,7 @@ export default function PostView(props) {
 }
 
 PostView.defaultProps = {
-  profileUrl:
-    "https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png",
+  profileUrl: "Images/1639807690230.png",
 };
 
 const Wrap = styled.div`

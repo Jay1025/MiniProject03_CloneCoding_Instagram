@@ -29,8 +29,7 @@ export default function Comment(props) {
   useEffect(() => {
     dispatch(loadCommentDB(postId));
     dispatch(loadPostDB());
-    // eslint-disable-next-line no-use-before-define
-  }, [dispatch, postId]);
+  }, []);
 
   const visible = useState(props.visible);
   const [like, setLike] = useState(props.like);
@@ -38,6 +37,8 @@ export default function Comment(props) {
   const [hasComment, setHasComment] = useState("");
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
+  const [commentInfoModal, setCommentInfoModal] = useState(false);
+
   const postId = props.postId;
   const imgUrl = props.imgUrl;
   const postUsername = props.postUsername;
@@ -54,7 +55,6 @@ export default function Comment(props) {
   }
 
   const comments = useSelector((store) => store.comment.list);
-  console.log(comments);
   const changeComment = (e) => {
     setHasComment(e.target.value);
   };
@@ -78,7 +78,6 @@ export default function Comment(props) {
   };
 
   const deleteComment = (commentId1) => {
-    console.log(postId, commentId1);
     dispatch(deleteCommentDB(postId, commentId1));
   };
 
@@ -201,13 +200,12 @@ export default function Comment(props) {
                               />
                             )}
                           </PostTitleImgArea>
-                          <ThreeDotsArea
-                            id="dots"
-                            onClick={() => {
-                              deleteComment(commentId1);
-                            }}
-                          >
-                            <BsThreeDots />
+                          <ThreeDotsArea id="dots">
+                            <BsThreeDots
+                              onClick={() => {
+                                setCommentInfoModal(true);
+                              }}
+                            />
                           </ThreeDotsArea>
 
                           <AiOutlineHeart
@@ -218,6 +216,45 @@ export default function Comment(props) {
                               right: "10px",
                             }}
                           />
+                          {commentInfoModal && (
+                            <Modal
+                              visible={commentInfoModal}
+                              width="400px"
+                              borderRadius="10px"
+                            >
+                              <ModalWrap
+                                style={{ color: "red", fontWeight: "900" }}
+                              >
+                                신고
+                              </ModalWrap>
+                              {comment.username ===
+                                localStorage.getItem("username") && (
+                                <ModalWrap
+                                  style={{ color: "red", fontWeight: "900" }}
+                                  onClick={() => {
+                                    deleteComment(commentId1);
+                                    setCommentInfoModal(false);
+                                  }}
+                                >
+                                  삭제
+                                </ModalWrap>
+                              )}
+                              <ModalWrap
+                                style={{ color: "red", fontWeight: "900" }}
+                              >
+                                팔로우
+                              </ModalWrap>
+                              <ModalWrap>공유 대상...</ModalWrap>
+                              <ModalWrap>링크 복사</ModalWrap>
+                              <ModalWrap>퍼가기</ModalWrap>
+                              <ModalWrap
+                                onClick={() => setCommentInfoModal(false)}
+                                style={{ border: "none" }}
+                              >
+                                취소
+                              </ModalWrap>
+                            </Modal>
+                          )}
                         </Comments>
                       );
                     })}
@@ -476,4 +513,15 @@ const Liked = styled.div`
   margin: 5px 10px 10px;
   font-weight: 900;
   pointer-events: none;
+`;
+
+const ModalWrap = styled.div`
+  height: 48px;
+  border-bottom: 1px solid #999;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
 `;

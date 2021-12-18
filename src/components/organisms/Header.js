@@ -8,77 +8,88 @@ export default function Header() {
         <ImgArea>
           <ImgBox>
             <Img
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://avatars.githubusercontent.com/u/89363456?v=4"
               alt="wha?"
             />
           </ImgBox>
-          <Text>흐으음</Text>
+          <Text>전익현</Text>
         </ImgArea>
       </Link>
       <Link to="/">
         <ImgArea>
           <ImgBox>
             <Img
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://avatars.githubusercontent.com/u/87404676?v=4"
               alt="wha?"
             />
           </ImgBox>
-          <Text>흐으음</Text>
+          <Text>김승준</Text>
         </ImgArea>
       </Link>
       <Link to="/">
         <ImgArea>
           <ImgBox>
             <Img
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://avatars.githubusercontent.com/u/91178712?v=4"
               alt="wha?"
             />
           </ImgBox>
-          <Text>흐으음</Text>
+          <Text>박재우</Text>
         </ImgArea>
       </Link>
       <Link to="/">
         <ImgArea>
           <ImgBox>
             <Img
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://avatars.githubusercontent.com/u/92702096?v=4"
               alt="wha?"
             />
           </ImgBox>
-          <Text>흐으음</Text>
+          <Text>김형래</Text>
         </ImgArea>
       </Link>
       <Link to="/">
         <ImgArea>
           <ImgBox>
             <Img
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2F9JGex%2Fbtq7CTVARWp%2Ff1pZigSCKq5nCkCh9QYD70%2Fimg.png"
               alt="wha?"
             />
           </ImgBox>
-          <Text>흐으음</Text>
+          <Text>팀스파르타</Text>
         </ImgArea>
       </Link>
       <Link to="/">
         <ImgArea>
           <ImgBox>
             <Img
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://toppng.com/uploads/preview/ew-instagram-logo-transparent-related-keywords-logo-instagram-vector-2017-115629178687gobkrzwak.png"
               alt="wha?"
             />
           </ImgBox>
-          <Text>흐으음</Text>
+          <Text>인스타그램</Text>
         </ImgArea>
       </Link>
       <Link to="/">
         <ImgArea>
           <ImgBox>
             <Img
-              src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Facebook_Logo_%282019%29.png/1200px-Facebook_Logo_%282019%29.png"
               alt="wha?"
             />
           </ImgBox>
-          <Text>흐으음</Text>
+          <Text>페이스북</Text>
+        </ImgArea>
+      </Link>
+      <Link to="/">
+        <ImgArea>
+          <ImgBox>
+            <Img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTirNT-sEwJT_oZePhvsh2DuGe9kRe8m-qZdQ&usqp=CAU"
+              alt="wha?"
+            />
+          </ImgBox>
+          <Text>트위터</Text>
         </ImgArea>
       </Link>
     </Wrap>
@@ -95,7 +106,7 @@ const Wrap = styled.div`
   /* justify-content: center; */
   border: 1px solid #ddd;
   border-radius: 3px;
-  overflow: none;
+  overflow: scroll;
 
   @media screen and (max-width: 920px) {
     margin: auto;
@@ -106,15 +117,15 @@ const Wrap = styled.div`
 `;
 
 const ImgArea = styled.div`
-  width: 60px;
+  width: 75px;
   height: 84px;
   margin: 0 10px;
   text-align: center;
 `;
 
 const ImgBox = styled.div`
-  height: 63px;
-  width: 63px;
+  height: 62px;
+  width: 62px;
   border: 2px solid transparent;
   border-radius: 100%;
   background-image: linear-gradient(#fff, #fff),
@@ -125,6 +136,7 @@ const ImgBox = styled.div`
   align-items: center;
   justify-content: center;
   display: flex;
+  margin-left: 5px;
 `;
 
 const Img = styled.img`
@@ -134,4 +146,6 @@ const Img = styled.img`
   border-radius: 100%;
 `;
 
-const Text = styled.div``;
+const Text = styled.div`
+  /* width: 100%; */
+`;

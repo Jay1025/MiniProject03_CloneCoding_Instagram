@@ -22,7 +22,7 @@ function App() {
       dispatch(userActions.loginCheckDB());
       dispatch(loadPostDB()).then(console.log("포스트로딩완료"));
     }
-  }, [dispatch, is_local]);
+  }, []);
 
   return (
     <>

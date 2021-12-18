@@ -41,7 +41,6 @@ export const deletePostDB =
   (postId) =>
   (dispatch, getState, { history }) => {
     apis.deletePost(postId).then((res) => {
-      alert("삭제 완료!", "", "success");
       dispatch(deletePost(postId));
     });
   };

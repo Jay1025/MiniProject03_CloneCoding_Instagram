@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import alert from "sweetalert";
 
@@ -48,6 +48,9 @@ function Navi({ location }) {
   const [postBtnColor, setPostBtnColor] = useState(false);
   const [profileClick, setProfileClick] = useState(false);
 
+  const mystate = useSelector((state) => state);
+
+  console.log(mystate);
   SwiperCore.use([Navigation, Pagination]);
 
   const swiperParams = {
@@ -382,7 +385,7 @@ function Navi({ location }) {
               <RightTop>
                 <UserInfo>
                   <img
-                    src="https://icon-library.com/images/50x50-icon/50x50-icon-18.jpg"
+                    src="https://www.pngall.com/wp-content/uploads/5/Instagram-Logo-PNG-Image.png"
                     alt="alts"
                     style={{
                       width: "28px",
