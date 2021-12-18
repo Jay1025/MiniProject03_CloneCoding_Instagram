@@ -139,7 +139,7 @@ export default function RightPosition() {
             <Link to="/">언어-</Link>
           </li>
         </ul>
-        <div>© 2021 DEC - TEAM9</div>
+        <div>© 2021 DEC - TEAM7</div>
       </Footers>
     </Wrap>
   );

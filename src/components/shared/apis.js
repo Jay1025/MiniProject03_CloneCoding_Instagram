@@ -41,16 +41,17 @@ export const apis = {
 
   //포스팅
   getPost: () => api.get("/posts"),
+  deletePost: (postId) => api.delete(`/posts/${postId}`, {}),
   // writePost: api.post("", {}),
   // updatePost: api.put("", {}),
-  // // deletePost: api.del("", {}),
 
   // //댓글
   getComment: (postId) => api.get(`/posts/${postId}/comments`, {}),
   addComment: (postId, content) =>
     api.post(`/posts/${postId}/comments`, { content }),
   // updateComment: api.put("", {}),
-  // // deleteComment: api.del("", {}),
+  deleteComment: (postId, commentId) =>
+    api.del(`/posts/${postId}/comments/${commentId}`, {}),
 
   //좋아요
   changeLike: (postId) => api.post(`/posts/${postId}/likes`, { postId }),

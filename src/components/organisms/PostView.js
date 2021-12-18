@@ -14,6 +14,7 @@ import { CgSmile } from "react-icons/cg";
 import CommentDetail from "./CommentDetail";
 import { addCommentDB } from "../../redux/comment";
 import { addLikeDB, delLikeDB } from "../../redux/like";
+import { deletePostDB } from "../../redux/post";
 
 //swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -69,6 +70,11 @@ export default function PostView(props) {
     addLikeDB(postId);
   };
 
+  const deletePost = () => {
+    dispatch(deletePostDB(postId));
+    setMoreInfo(false);
+  };
+
   SwiperCore.use([Navigation, Pagination]);
 
   const swiperParams = {
@@ -97,6 +103,12 @@ export default function PostView(props) {
       </PostHeader>
       <Modal visible={moreInfo} width="400px" borderRadius="10px">
         <ModalArea style={{ color: "red", fontWeight: "900" }}>신고</ModalArea>
+        <ModalArea
+          style={{ color: "red", fontWeight: "900" }}
+          onClick={deletePost}
+        >
+          삭제
+        </ModalArea>
         <ModalArea style={{ color: "red", fontWeight: "900" }}>
           팔로우
         </ModalArea>

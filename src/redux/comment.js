@@ -28,7 +28,7 @@ export const addCommentDB =
     apis
       .addComment(postId, content)
       .then((res) => {
-        // dispatch(loadPostDB()).then(console.log("코멘트추가, 로딩완료"));
+        dispatch(loadPostDB()).then(console.log("코멘트추가, 로딩완료"));
         let index;
         for (let i = 0; i < state.length; i++) {
           if (state[i].id === postId) {
