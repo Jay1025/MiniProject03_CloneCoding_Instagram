@@ -41,7 +41,7 @@ export default function Comment(props) {
   const postCreatedAt = props.postCreatedAt;
 
   const liked1 = useSelector((store) => store.post.list);
-  console.log(liked1);
+
   let likeValue;
   for (let i = 0; i < liked1.length; i++) {
     if (liked1[i].id === postId) {
@@ -49,9 +49,8 @@ export default function Comment(props) {
     }
   }
 
-  console.log(likeValue);
   const comments = useSelector((store) => store.comment.list);
-
+  console.log(comments);
   const changeComment = (e) => {
     setHasComment(e.target.value);
   };
@@ -73,6 +72,11 @@ export default function Comment(props) {
     setDelLiked(-1);
     addLikeDB(postId);
   };
+
+  const deleteComment = (commentId1) => {
+    console.log(commentId1);
+  };
+
   SwiperCore.use([Navigation, Pagination]);
 
   const swiperParams = {
@@ -152,8 +156,9 @@ export default function Comment(props) {
                   </div>
                   {comments &&
                     comments.map((comment, key) => {
+                      const commentId1 = comment.id;
                       return (
-                        <Comments key={key}>
+                        <Comments key={key} id={key}>
                           <PostTitle>{comment.username}</PostTitle>
                           <Commentna>
                             {comment.content &&
@@ -165,7 +170,7 @@ export default function Comment(props) {
                           </Commentna>
                           <CommentFooter>
                             <Link to="/">
-                              <ModifiedAt>{comment.createdAt}</ModifiedAt>
+                              <ModifiedAt>방금전</ModifiedAt>
                             </Link>
 
                             <Like>좋아요 0개</Like>
@@ -191,6 +196,9 @@ export default function Comment(props) {
                               />
                             )}
                           </PostTitleImgArea>
+                          <ThreeDotsArea id="dots">
+                            <BsThreeDots />
+                          </ThreeDotsArea>
 
                           <AiOutlineHeart
                             size="13"
@@ -367,9 +375,21 @@ const ModifiedAt = styled.div`
   padding: 20px 0 40px;
 `;
 
+const ThreeDotsArea = styled.span`
+  position: absolute;
+  top: 0;
+  right: 30px;
+  color: #fff;
+  cursor: pointer;
+`;
+
 const Comments = styled.div`
   position: relative !important;
   padding-left: 50px;
+
+  &:hover #dots {
+    color: #000;
+  }
 `;
 
 const Commentna = styled.div`
