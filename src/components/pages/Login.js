@@ -11,6 +11,7 @@ import Footer from "../organisms/Footer";
 
 const Login = () => {
   const dispatch = useDispatch();
+  
   const [RandomPic, setRadomPic] = useState();
 
   const imgArray = [

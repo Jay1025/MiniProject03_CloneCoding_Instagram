@@ -24,7 +24,7 @@ const Image = (props) => {
     radius: radius,
     className: className,
   };
-  
+
   if (shape === "myIcon") {
     return <MyProfile {...styles} onClick={_onClick} />;
   }
@@ -44,9 +44,11 @@ const Image = (props) => {
       </AspectOutter>
     );
   }
-  return <React.Fragment>
-    <MyProfile {...styles} onClick={_onClick} />
-  </React.Fragment>;
+  return (
+    <React.Fragment>
+      <MyProfile {...styles} onClick={_onClick} />
+    </React.Fragment>
+  );
 };
 
 Image.defaultProps = {
