@@ -28,7 +28,8 @@ export default function Comment(props) {
   }, []);
 
   const [visible, setVisible] = useState(props.visible);
-  const [like, setLike] = useState(props.liked);
+  const [like, setLike] = useState(props.like);
+  const liked = props.like;
   const [hasComment, setHasComment] = useState("");
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
@@ -47,8 +48,7 @@ export default function Comment(props) {
       likeValue = liked1[i].numOfLikes;
     }
   }
-  let liked;
-  // let liked;
+
   console.log(likeValue);
   const comments = useSelector((store) => store.comment.list);
 
@@ -61,7 +61,6 @@ export default function Comment(props) {
   };
 
   const addLike = () => {
-    // setLike(true);
     setLike(true);
     setAddLiked(1);
     setDelLiked(0);
@@ -137,7 +136,7 @@ export default function Comment(props) {
                       postContent.split("\n").map((content, index) => {
                         return <div key={index}>{content}</div>;
                       })}
-                    <ModifiedAt>{postCreatedAt}</ModifiedAt>
+                    <ModifiedAt>방금전</ModifiedAt>
                     <PostTitleImgArea
                       style={{
                         position: "absolute",
@@ -169,7 +168,7 @@ export default function Comment(props) {
                               <ModifiedAt>{comment.createdAt}</ModifiedAt>
                             </Link>
 
-                            <Like>좋아요 {likeValue}개</Like>
+                            <Like>좋아요 0개</Like>
 
                             <ReComment>답글 달기</ReComment>
                           </CommentFooter>
@@ -213,7 +212,7 @@ export default function Comment(props) {
                   <AiFillHeart
                     size="28"
                     style={{ margin: "8px", cursor: "pointer" }}
-                    onClick={() => delLike()}
+                    onClick={delLike}
                     color="red"
                   />
                 )) || (

@@ -253,6 +253,7 @@ export default function PostView(props) {
               postCreatedAt={post.createdAt}
               postNumOfLikes={post.numOfLikes}
               liked={liked}
+              like={like}
             />
             <ClosePosting
               onClick={() => {
