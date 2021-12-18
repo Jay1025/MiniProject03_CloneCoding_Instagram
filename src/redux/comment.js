@@ -39,7 +39,9 @@ export const addCommentDB =
         alert("댓글달기 성공!");
         dispatch(addComment(res.data, state[index]));
         dispatch(loadPostDB()).then(console.log("갯수추가 완료"));
-        dispatch(loadCommentDB(postId)).then(console.log("댓글로딩완료"));
+        dispatch(loadCommentDB(postId))
+          .then(console.log("댓글로딩완료"))
+          .catch((e) => console.log(e));
       })
       .catch((e) => console.log(e));
   };

@@ -48,9 +48,6 @@ function Navi({ location }) {
   const [postBtnColor, setPostBtnColor] = useState(false);
   const [profileClick, setProfileClick] = useState(false);
 
-  const mystate = useSelector((state) => state);
-
-  console.log(mystate);
   SwiperCore.use([Navigation, Pagination]);
 
   const swiperParams = {

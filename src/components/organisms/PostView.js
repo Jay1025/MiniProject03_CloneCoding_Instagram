@@ -46,9 +46,10 @@ export default function PostView(props) {
   };
 
   const addComment = (postId) => {
-    dispatch(addCommentDB(postId, hasComment));
     let comment = document.querySelector("#comment");
-    comment.value = null;
+    comment.value = "";
+    console.log(comment);
+    dispatch(addCommentDB(postId, hasComment));
   };
 
   const addLike = () => {
