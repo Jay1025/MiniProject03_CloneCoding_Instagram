@@ -13,18 +13,27 @@ const LOAD = "comment/LOAD";
 const COMMENT = "comment/COMMENT";
 
 // action create
-const addComment = createAction(COMMENT, (comment) => ({ comment }));
+const addComment = createAction(COMMENT, (comment, store) => ({
+  comment,
+  store,
+}));
 const loadComment = createAction(LOAD, (comment) => ({ comment }));
 
 // thunk middleWare
 export const addCommentDB =
   (postId, content) =>
   (dispatch, getState, { history }) => {
+    const state = getState().post.list;
     apis
       .addComment(postId, content)
       .then((res) => {
-        console.log(res.data);
-        dispatch(addComment(res.data));
+        let index;
+        for (let i = 0; i < state.length; i++) {
+          if (state[i].id === postId) {
+            index = i;
+          }
+        }
+        dispatch(addComment(res.data, state[index]));
         alert("댓글 등록!", " ", "success");
       })
       .catch((e) => console.log(e));
@@ -51,7 +60,9 @@ export default handleActions(
     },
     [COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        console.log(state);
+        console.log(action.payload.store);
+        console.log(draft.list);
+        draft.list.push((action.payload.store.numOfComments += 1));
         draft.list.push(action.payload.comment);
       }),
   },

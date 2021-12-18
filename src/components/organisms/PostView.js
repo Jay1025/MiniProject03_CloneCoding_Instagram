@@ -12,7 +12,7 @@ import { CgSmile } from "react-icons/cg";
 
 import CommentDetail from "./CommentDetail";
 import { addCommentDB } from "../../redux/comment";
-import { addLikeDB } from "../../redux/like";
+import { addLikeDB, delLikeDB } from "../../redux/like";
 
 //swiper
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,6 +29,7 @@ export default function PostView(props) {
   const dispatch = useDispatch();
   const [hasComment, setHasComment] = useState("");
   const [like, setLike] = useState(false);
+  const [clickedComment, setClickedComment] = useState(false);
 
   const [contentMore, setContentMore] = useState(false);
   const [commentShow, setCommentShow] = useState(false);
@@ -42,20 +43,20 @@ export default function PostView(props) {
   };
 
   const addComment = (postId) => {
-    console.log(postId, hasComment);
+    setClickedComment(true);
     dispatch(addCommentDB(postId, hasComment));
   };
 
   const addLike = () => {
-    console.log(postId);
     // setLike(true);
-    alert("좋아요");
-    dispatch(addLikeDB(postId));
+    setLike(true);
+    addLikeDB(postId);
+    console.log("dd");
   };
 
   const delLike = () => {
     setLike(false);
-    alert("취소");
+    addLikeDB(postId);
   };
 
   SwiperCore.use([Navigation, Pagination]);
@@ -117,11 +118,11 @@ export default function PostView(props) {
 
       <PostFooter>
         <FooterMenu>
-          {(post.numofLikes && (
+          {(like && (
             <AiFillHeart
               size="28"
               style={{ margin: "8px" }}
-              onClick={() => delLike(postId)}
+              onClick={delLike}
               color="red"
             />
           )) || (
@@ -150,7 +151,9 @@ export default function PostView(props) {
           </Link>
         </FooterMenu>
         <LikeArea>
-          <Like>좋아요 {post.numOfLikes}개</Like>
+          {post.numOfLikes + Number(like) > 0 && (
+            <Like>좋아요 {post.numOfLikes + Number(like)}개</Like>
+          )}
         </LikeArea>
         <PostContent>
           <Link to="/">
@@ -221,6 +224,7 @@ export default function PostView(props) {
               postUserImg={post.profileUrl}
               postContent={post.content}
               postCreatedAt={post.createdAt}
+              postNumOfLikes={post.numOfLikes}
             />
             <ClosePosting
               onClick={() => {

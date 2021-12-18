@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { loadCommentDB, addCommentDB } from "../../redux/comment";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { addLikeDB, delLikeDB } from "../../redux/like";
 
 import { AiOutlineClose, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
@@ -35,22 +36,28 @@ export default function Comment(props) {
   const postProfileUrl = props.postProfileUrl;
   const postContent = props.postContent;
   const postCreatedAt = props.postCreatedAt;
-
-  console.log(postId);
+  const postNumOfLikes = props.postNumOfLikes;
 
   const comments = useSelector((store) => store.comment.list);
-  console.log(comments);
-  console.log(postUsername);
 
   const changeComment = (e) => {
     setHasComment(e.target.value);
   };
 
   const addComment = (postId) => {
-    console.log(postId, hasComment);
     dispatch(addCommentDB(postId, hasComment));
   };
 
+  const addLike = () => {
+    // setLike(true);
+    setLike(true);
+    addLikeDB(postId);
+  };
+
+  const delLike = () => {
+    setLike(false);
+    addLikeDB(postId);
+  };
   SwiperCore.use([Navigation, Pagination]);
 
   const swiperParams = {
@@ -130,7 +137,6 @@ export default function Comment(props) {
                   </div>
                   {comments &&
                     comments.map((comment, key) => {
-                      console.log(comment);
                       return (
                         <Comments>
                           <PostTitle>{comment.username}</PostTitle>
@@ -146,13 +152,15 @@ export default function Comment(props) {
                             <Link to="/">
                               <ModifiedAt>{comment.createdAt}</ModifiedAt>
                             </Link>
-                            <Like>좋아요 {comment.userId}개</Like>
+
+                            <Like>좋아요 5개</Like>
+
                             <ReComment>답글 달기</ReComment>
                           </CommentFooter>
                           <PostTitleImgArea
                             style={{
                               position: "absolute",
-                              top: "-10px",
+                              top: "-20px",
                               left: "-10px",
                             }}
                           >
@@ -168,28 +176,15 @@ export default function Comment(props) {
                               />
                             )}
                           </PostTitleImgArea>
-                          {(like && (
-                            <AiFillHeart
-                              size="13"
-                              style={{
-                                position: "absolute",
-                                top: "0",
-                                right: "10px",
-                              }}
-                              onClick={() => setLike(false)}
-                              color="red"
-                            />
-                          )) || (
-                            <AiOutlineHeart
-                              size="13"
-                              style={{
-                                position: "absolute",
-                                top: "0",
-                                right: "10px",
-                              }}
-                              onClick={() => setLike(true)}
-                            />
-                          )}
+
+                          <AiOutlineHeart
+                            size="13"
+                            style={{
+                              position: "absolute",
+                              top: "0",
+                              right: "10px",
+                            }}
+                          />
                         </Comments>
                       );
                     })}
@@ -201,15 +196,15 @@ export default function Comment(props) {
                 {(like && (
                   <AiFillHeart
                     size="28"
-                    style={{ margin: "8px" }}
-                    onClick={() => setLike(false)}
+                    style={{ margin: "8px", cursor: "pointer" }}
+                    onClick={() => delLike()}
                     color="red"
                   />
                 )) || (
                   <AiOutlineHeart
                     size="28"
-                    style={{ margin: "8px" }}
-                    onClick={() => setLike(true)}
+                    style={{ margin: "8px", cursor: "pointer" }}
+                    onClick={addLike}
                   />
                 )}
 
@@ -225,6 +220,15 @@ export default function Comment(props) {
                     style={{ position: "absolute", top: "10px", right: "8px" }}
                   />
                 </Link>
+                <div
+                  style={{
+                    margin: "5px 10px",
+                    fontWeight: "900",
+                    pointerEvents: "none",
+                  }}
+                >
+                  좋아요 {postNumOfLikes}개
+                </div>
                 <WriteComment>
                   <CgSmile
                     size="28"
@@ -277,6 +281,7 @@ const LeftArea = styled.div`
 
 const Img = styled.img`
   width: 100%;
+  max-height: 612px;
 `;
 
 const RightArea = styled.div`
@@ -379,7 +384,7 @@ const ReComment = styled.div`
 
 const Scroll = styled.div`
   width: 330px;
-  margin-top: 25px;
+  padding-top: 20px;
   max-height: 400px;
   overflow: scroll;
 
@@ -404,6 +409,7 @@ const WriteComment = styled.div`
   height: 53px;
   display: flex;
   align-items: center;
+  border-top: 1px solid #eee;
 `;
 
 const Message = styled.textarea`

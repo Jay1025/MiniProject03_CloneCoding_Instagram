@@ -1,5 +1,5 @@
 import { handleActions, createAction } from "redux-actions";
-import { apisMultipart, apis } from "../components/shared/apis";
+import { apis } from "../components/shared/apis";
 import produce from "immer";
 
 // initialState

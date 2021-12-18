@@ -6,7 +6,7 @@ import alert from "sweetalert";
 
 // react-icons
 import { NavLink, withRouter, useHistory } from "react-router-dom";
-import { GrHomeRounded, GrSettingsOption } from "react-icons/gr";
+import { GrSettingsOption } from "react-icons/gr";
 import {
   IoMdPaperPlane,
   IoIosArrowRoundBack,
@@ -34,13 +34,12 @@ import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import SwiperCore, { Navigation, Pagination } from "swiper";
 
-import { addPostDB, addPost, pushPost } from "../../redux/post";
+import { addPostDB } from "../../redux/post";
 import { userCreators as userActions } from "../../redux/user";
 
 function Navi({ location }) {
   const history = useHistory();
   const dispatch = useDispatch();
-  const [swiper, setSwiper] = useState(null);
   const [PostModal, setPostModal] = useState(false);
   const [uploadFiles, setUploadFiles] = useState(null);
   const [uploadURL, setUploadURL] = useState([]);
@@ -49,14 +48,11 @@ function Navi({ location }) {
   const [postBtnColor, setPostBtnColor] = useState(false);
   const [profileClick, setProfileClick] = useState(false);
 
-  const username = localStorage.getItem("username");
-
   SwiperCore.use([Navigation, Pagination]);
 
   const swiperParams = {
     navigation: true,
     pagination: true,
-    onSwiper: setSwiper,
   };
 
   const handleContent = (e) => {
@@ -95,7 +91,6 @@ function Navi({ location }) {
       },
     };
     let fd = new FormData();
-    // fd.append("imgUrl", uploadFiles);
 
     for (let i = 0; i < uploadFiles.length; i++) {
       fd.append("imgUrl", uploadFiles[i]);
@@ -349,7 +344,7 @@ function Navi({ location }) {
                 borderRight: "1px solid #ccc",
               }}
             >
-              <Swiper {...swiperParams} ref={setSwiper}>
+              <Swiper {...swiperParams}>
                 {uploadURL.length !== 0 &&
                   uploadURL.map((file, key) => {
                     return (
