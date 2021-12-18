@@ -46,8 +46,6 @@ const Mypage = () => {
     return axios
       .post(`http://13.125.132.120/users/${user_id}`, formdata, token)
       .then((response) => {
-        const data = response.data;
-        console.log(data);
         alert("정상적으로 프로필사진이 변경되었습니다.");
         setProfilechange(false);
         loadProfile();

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import Modal from "./Posting";
 
 import { BsThreeDots } from "react-icons/bs";
@@ -13,7 +13,7 @@ import { CgSmile } from "react-icons/cg";
 
 import CommentDetail from "./CommentDetail";
 import { addCommentDB } from "../../redux/comment";
-import { addLikeDB, delLikeDB } from "../../redux/like";
+import { addLikeDB } from "../../redux/like";
 import { deletePostDB } from "../../redux/post";
 
 //swiper
@@ -32,7 +32,6 @@ export default function PostView(props) {
   const [hasComment, setHasComment] = useState("");
   const liked = props.liked;
   const [like, setLike] = useState(props.liked);
-  const [clickedComment, setClickedComment] = useState(0);
   const [delLiked, setDelLiked] = useState(0);
   const [addLiked, setAddLiked] = useState(0);
 
@@ -41,15 +40,11 @@ export default function PostView(props) {
   const [commentModal, setCommentModal] = useState(false);
   const [moreInfo, setMoreInfo] = useState(false);
 
-  //   const data = useSelector((state) => state.post.list);
-  //   console.log(data);
-
   const changeComment = (e) => {
     setHasComment(e.target.value);
   };
 
   const addComment = (postId) => {
-    setClickedComment(true);
     dispatch(addCommentDB(postId, hasComment));
     let comment = document.querySelector("#comment");
     comment.value = null;
@@ -239,7 +234,6 @@ export default function PostView(props) {
           <>
             <Content>
               {post.content.split("\n").map((content, index) => {
-                console.log(content);
                 return <div key={index}>{content}</div>;
               })}
             </Content>

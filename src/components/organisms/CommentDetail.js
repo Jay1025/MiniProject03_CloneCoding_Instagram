@@ -9,9 +9,9 @@ import {
 } from "../../redux/comment";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { addLikeDB, delLikeDB } from "../../redux/like";
+import { addLikeDB } from "../../redux/like";
 
-import { AiOutlineClose, AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsThreeDots } from "react-icons/bs";
 import { IoMdPaperPlane } from "react-icons/io";
 import { IoChatbubbleOutline } from "react-icons/io5";
@@ -29,9 +29,10 @@ export default function Comment(props) {
   useEffect(() => {
     dispatch(loadCommentDB(postId));
     dispatch(loadPostDB());
-  }, []);
+    // eslint-disable-next-line no-use-before-define
+  }, [dispatch, postId]);
 
-  const [visible, setVisible] = useState(props.visible);
+  const visible = useState(props.visible);
   const [like, setLike] = useState(props.like);
   const liked = props.like;
   const [hasComment, setHasComment] = useState("");
@@ -42,7 +43,6 @@ export default function Comment(props) {
   const postUsername = props.postUsername;
   const postProfileUrl = props.postProfileUrl;
   const postContent = props.postContent;
-  const postCreatedAt = props.postCreatedAt;
 
   const liked1 = useSelector((store) => store.post.list);
 

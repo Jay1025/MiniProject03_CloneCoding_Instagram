@@ -46,9 +46,7 @@ export const addCommentDB =
 export const loadCommentDB =
   (postId) =>
   (dispatch, getState, { history }) => {
-    console.log("댓글로딩중");
     apis.getComment(postId).then((res) => {
-      console.log("댓글로딩완료");
       dispatch(loadComment(res.data));
     });
   };
@@ -56,12 +54,9 @@ export const loadCommentDB =
 export const deleteCommentDB =
   (postId, commentId) =>
   (dispatch, getState, { history }) => {
-    console.log(postId, commentId);
     apis.deleteComment(postId, commentId).then((res) => {
-      console.log(res);
       alert("댓글삭제");
       dispatch(loadCommentDB(postId));
-      //   console.log(getState());
       deleteComment(commentId);
     });
   };
@@ -79,11 +74,8 @@ export default handleActions(
       produce(state, (draft) => {
         draft.list.push(action.payload.comment);
         draft.list.push((action.payload.store.numOfComments += 1));
-        console.log(draft.list);
       }),
     [DELETE]: (state, action) => {
-      console.log(111);
-      console.log(state, action);
       return {
         ...state,
         list: state.list.filter((list) => list.id !== action.payload.commentId),

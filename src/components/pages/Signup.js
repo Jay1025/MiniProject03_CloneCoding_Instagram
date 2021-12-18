@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { history } from "../../redux/ConfigStore";
 import { userCreators as userActions } from "../../redux/user";
 

@@ -28,9 +28,8 @@ const Login = () => {
   function showImage() {
     const imgNum = Math.round(Math.random() * 4);
     setRadomPic(imgArray[imgNum]);
-    setTimeout(showImage, 5000);
+    setTimeout(showImage, 2000);
   }
-  
 
   //---- 아이디 비밀번호 ----
   const [email, setEmail] = React.useState("");
@@ -40,7 +39,7 @@ const Login = () => {
   const [Message, setMessage] = React.useState("");
 
   //---- 유효성 검사 ----
-  const [isState, setIsState] = React.useState(false);
+  // const [isState, setIsState] = React.useState(false);
 
   const emailRegex =
     /([\w-.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
@@ -59,9 +58,9 @@ const Login = () => {
   const loginClick = (e) => {
     if (!emailRegex.test(email) || pwd.length < 3 || pwd.length > 10) {
       setMessage(`이메일 혹은 비밀번호를 다시 확인해 주십시오.`);
-      setIsState(false);
+      // setIsState(false);
     } else {
-      setIsState(true);
+      // setIsState(true);
       dispatch(userActions.loginDB(email, pwd));
     }
   };

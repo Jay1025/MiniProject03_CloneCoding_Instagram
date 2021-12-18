@@ -21,17 +21,10 @@ export const loadPost = createAction(LOAD, (postList, liked) => ({
 }));
 export const pushPost = createAction(POST, (postData) => ({ postData }));
 export const deletePost = createAction(DELETE, (postId) => ({ postId }));
+
 // thunk
-
-// export const loadPostDB = () => {
-//   async (dispatch, getState, {history}) => {
-//     const { data } = await apis.getPost
-//   }
-// }
-
 export const addPostDB = (data) => {
   return function (dispatch, getState, { history }) {
-    console.log(data);
     dispatch(pushPost(data));
     dispatch(loadPostDB());
   };
@@ -41,7 +34,6 @@ export const loadPostDB =
   () =>
   async (dispatch, getState, { history }) => {
     const data = await apis.getPost();
-    console.log(data.data.posts);
     dispatch(loadPost(data.data.posts, data.data.likedPostList));
   };
 

@@ -11,7 +11,6 @@ export default function Post() {
     <>
       {data &&
         data.map((post, key) => {
-          console.log(post);
           const createdAt = post.createdAt;
           const postId = post.id;
           const imgUrl = post.imgUrl;

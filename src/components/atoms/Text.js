@@ -28,7 +28,6 @@ const Text = (props) => {
     className: className,
     align: align,
     link: link,
-    span: span,
     padding: padding,
     cursor: cursor,
   };

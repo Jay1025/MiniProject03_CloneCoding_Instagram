@@ -216,9 +216,9 @@ const Footers = styled.div`
   color: #bbb;
 `;
 
-const Footer = styled.div`
-    &::after {
-        content:'\00B7';
-        margin: 0.25em 0.25em;
-    }
-`;
+// const Footer = styled.div`
+//     &::after {
+//         content:'\00B7';
+//         margin: 0.25em 0.25em;
+//     }
+// `;
