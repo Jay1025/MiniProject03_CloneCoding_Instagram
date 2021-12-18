@@ -18,26 +18,38 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import SwiperCore, { Navigation, Pagination } from "swiper";
+import { loadPostDB } from "../../redux/post";
 
 export default function Comment(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadCommentDB(postId));
+    dispatch(loadPostDB());
   }, []);
 
   const [visible, setVisible] = useState(props.visible);
-  const [like, setLike] = useState(false);
+  const [like, setLike] = useState(props.liked);
   const [hasComment, setHasComment] = useState("");
-
+  const [delLiked, setDelLiked] = useState(0);
+  const [addLiked, setAddLiked] = useState(0);
   const postId = props.postId;
   const imgUrl = props.imgUrl;
-  // const img = imgUrl.split(",");
   const postUsername = props.postUsername;
   const postProfileUrl = props.postProfileUrl;
   const postContent = props.postContent;
   const postCreatedAt = props.postCreatedAt;
-  let postNumOfLikes = props.postNumOfLikes;
 
+  const liked1 = useSelector((store) => store.post.list);
+  console.log(liked1);
+  let likeValue;
+  for (let i = 0; i < liked1.length; i++) {
+    if (liked1[i].id === postId) {
+      likeValue = liked1[i].numOfLikes;
+    }
+  }
+  let liked;
+  // let liked;
+  console.log(likeValue);
   const comments = useSelector((store) => store.comment.list);
 
   const changeComment = (e) => {
@@ -51,11 +63,15 @@ export default function Comment(props) {
   const addLike = () => {
     // setLike(true);
     setLike(true);
+    setAddLiked(1);
+    setDelLiked(0);
     addLikeDB(postId);
   };
 
   const delLike = () => {
     setLike(false);
+    setAddLiked(0);
+    setDelLiked(-1);
     addLikeDB(postId);
   };
   SwiperCore.use([Navigation, Pagination]);
@@ -137,9 +153,8 @@ export default function Comment(props) {
                   </div>
                   {comments &&
                     comments.map((comment, key) => {
-                      console.log(comment);
                       return (
-                        <Comments>
+                        <Comments key={key}>
                           <PostTitle>{comment.username}</PostTitle>
                           <Commentna>
                             {comment.content &&
@@ -154,7 +169,7 @@ export default function Comment(props) {
                               <ModifiedAt>{comment.createdAt}</ModifiedAt>
                             </Link>
 
-                            <Like>좋아요 1개</Like>
+                            <Like>좋아요 {likeValue}개</Like>
 
                             <ReComment>답글 달기</ReComment>
                           </CommentFooter>
@@ -221,15 +236,10 @@ export default function Comment(props) {
                     style={{ position: "absolute", top: "10px", right: "8px" }}
                   />
                 </Link>
-                <div
-                  style={{
-                    margin: "5px 10px",
-                    fontWeight: "900",
-                    pointerEvents: "none",
-                  }}
-                >
-                  좋아요 {postNumOfLikes}개
-                </div>
+
+                {liked && <Liked>좋아요 {likeValue + delLiked}개</Liked>}
+                {liked || <Liked>좋아요 {likeValue + addLiked}개</Liked>}
+
                 <WriteComment>
                   <CgSmile
                     size="28"
@@ -431,4 +441,10 @@ const Commenting = styled.div`
   width: 40px;
   color: rgba(var(--d69, 0, 149, 246), 1);
   cursor: pointer;
+`;
+
+const Liked = styled.div`
+  margin: 5px 10px;
+  fontweight: 900;
+  pointerevents: none;
 `;

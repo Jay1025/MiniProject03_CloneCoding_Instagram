@@ -19,8 +19,6 @@ const delLike = createAction(DEL, (like) => ({ like }));
 // thunk
 export const addLikeDB = (postId) => {
   // console.log(getState);
-  console.log("thunk");
-  console.log(postId);
   apis.changeLike(postId).then((res) => {
     console.log(res);
     //   dispatch(addLike());

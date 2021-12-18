@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import Modal from "./Posting";
 
 import { BsThreeDots } from "react-icons/bs";
 import { AiOutlineHeart, AiFillHeart, AiOutlineClose } from "react-icons/ai";
@@ -31,10 +32,13 @@ export default function PostView(props) {
   const liked = props.liked;
   const [like, setLike] = useState(props.liked);
   const [clickedComment, setClickedComment] = useState(0);
+  const [delLiked, setDelLiked] = useState(0);
+  const [addLiked, setAddLiked] = useState(0);
 
   const [contentMore, setContentMore] = useState(false);
   const [commentShow, setCommentShow] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
+  const [moreInfo, setMoreInfo] = useState(false);
 
   //   const data = useSelector((state) => state.post.list);
   //   console.log(data);
@@ -53,13 +57,15 @@ export default function PostView(props) {
   const addLike = () => {
     // setLike(true);
     setLike(true);
-    setClickedComment(1);
+    setAddLiked(1);
+    setDelLiked(0);
     addLikeDB(postId);
   };
 
   const delLike = () => {
     setLike(false);
-    setClickedComment(-1);
+    setAddLiked(0);
+    setDelLiked(-1);
     addLikeDB(postId);
   };
 
@@ -85,10 +91,28 @@ export default function PostView(props) {
         <PostMenu>
           {/* ...모달 부분 */}
           <MenuArea>
-            <BsThreeDots size="20" />
+            <BsThreeDots size="20" onClick={() => setMoreInfo(true)} />
           </MenuArea>
         </PostMenu>
       </PostHeader>
+      <Modal visible={moreInfo} width="400px" borderRadius="10px">
+        <ModalArea style={{ color: "red", fontWeight: "900" }}>신고</ModalArea>
+        <ModalArea style={{ color: "red", fontWeight: "900" }}>
+          팔로우
+        </ModalArea>
+        <ModalArea onClick={() => setCommentModal(true)}>
+          게시물로 이동
+        </ModalArea>
+        <ModalArea>공유 대상...</ModalArea>
+        <ModalArea>링크 복사</ModalArea>
+        <ModalArea>퍼가기</ModalArea>
+        <ModalArea
+          onClick={() => setMoreInfo(false)}
+          style={{ border: "none" }}
+        >
+          취소
+        </ModalArea>
+      </Modal>
       {imgUrl.length > 1 ? (
         <Swiper {...swiperParams}>
           <PostCenter>
@@ -155,9 +179,8 @@ export default function PostView(props) {
           </Link>
         </FooterMenu>
         <LikeArea>
-          {post.numOfLikes + clickedComment > 0 && (
-            <Like>좋아요 {post.numOfLikes + clickedComment}개</Like>
-          )}
+          {liked && <Like>좋아요 {post.numOfLikes + delLiked}개</Like>}
+          {liked || <Like>좋아요 {post.numOfLikes + addLiked}개</Like>}
         </LikeArea>
         <PostContent>
           <Link to="/">
@@ -229,6 +252,7 @@ export default function PostView(props) {
               postContent={post.content}
               postCreatedAt={post.createdAt}
               postNumOfLikes={post.numOfLikes}
+              liked={liked}
             />
             <ClosePosting
               onClick={() => {
@@ -451,4 +475,15 @@ const ClosePosting = styled.div`
   right: 30px;
   cursor: pointer;
   z-index: 9999;
+`;
+
+const ModalArea = styled.div`
+  height: 48px;
+  border-bottom: 1px solid #999;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 14px;
 `;
