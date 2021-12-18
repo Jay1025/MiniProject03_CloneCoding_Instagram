@@ -106,6 +106,8 @@ function Navi({ location }) {
         console.log(data);
         alert("등록 성공");
         setPostModal(false);
+        setUploadURL([]);
+        setContent("");
         setPostBtnColor(false);
         dispatch(addPostDB(data));
       });
@@ -309,6 +311,7 @@ function Navi({ location }) {
             onClick={(e) => {
               closeUpload(e);
               setPostBtnColor(false);
+              // setUploadURL([]);
             }}
           >
             <AiOutlineClose size="35" color="#fff" />

@@ -108,7 +108,7 @@ export default function PostView(props) {
         <>
           {imgUrl.map((img, key) => {
             return (
-              <PostCenter>
+              <PostCenter key={key}>
                 <PostMainImg src={img} alt="img" />
               </PostCenter>
             );
